@@ -51,6 +51,19 @@ CREATE TABLE `medicos` (
 
 -- --------------------------------------------------------
 
+-- Estructura de tabla para la tabla `especialidad`
+--
+
+--Esto es para poder filtrar por especialidad cuando el usuario quiera sacar un turno, va a tener la opción de filtrar por especialidad.
+
+CREATE TABLE `especialidad` (
+  `id` int(11) NOT NULL,
+  `especialidad` varchar(255) NOT NULL
+  `id_medico` int(11) NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
 --
 -- Estructura de tabla para la tabla `medicos_disponibilidad`
 --

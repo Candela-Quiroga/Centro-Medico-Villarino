@@ -45,8 +45,7 @@ CREATE TABLE `clientes` (
 CREATE TABLE `medicos` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `especialidad` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------

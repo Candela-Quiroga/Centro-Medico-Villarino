@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <%include(../commons/head)%>
+    <body class="container">
+        <h1>Mis usuarios</h1>
+        <table>
+            <thread>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Categoria</th>
+                </tr>
+            </thread>
+            <tbody>
+                <%usuarios.forEach((user) => { %>
+                    <tr>
+                        <td><%user.ID %></td>
+                        <td><%user.Nombre %></td>
+                        <td><%user.Apellido %></td>
+                        <td><%user.Email %></td>
+                        <td><%user.Categoria %></td>
+                    </tr>
+                <% }) %>   
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <%include(../commons/head)%>
+    <%- include('../commons/header')%>
     <body class="container">
         <h1>Mis usuarios</h1>
         <table>
-            <thread>
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
                     <th>Categoria</th>
+                    <th>Opciones</th>
                 </tr>
-            </thread>
+            </thead>
             <tbody>
-                <%usuarios.forEach((user) => { %>
+                <% usuarios.forEach((user) => { %>
                     <tr>
-                        <td><%user.ID %></td>
-                        <td><%user.Nombre %></td>
-                        <td><%user.Apellido %></td>
-                        <td><%user.Email %></td>
-                        <td><%user.Categoria %></td>
+                        <td><%- user.ID %></td>
+                        <td><%- user.Nombre %></td>
+                        <td><%- user.Apellido %></td>
+                        <td><%- user.Email %></td>
+                        <td><%- user.Categoria %></td>
+                        <td>
+                            <a href="/usuario/<%- user.id%>">Editar Usuario</a>
+                        </td>
                     </tr>
                 <% }) %>   
             </tbody>

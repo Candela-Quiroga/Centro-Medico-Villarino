@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <%- include('../commons/header')%>
+    <%- include('../commons/head')%> <!--El guion medio permite que siempre que estamos incluyendo el archivo, traiga el html completo-->
     <body class="container">
-        <h1>Mis usuarios</h1>
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>id</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
@@ -17,13 +16,13 @@
             <tbody>
                 <% usuarios.forEach((user) => { %>
                     <tr>
-                        <td><%- user.ID %></td>
-                        <td><%- user.Nombre %></td>
-                        <td><%- user.Apellido %></td>
-                        <td><%- user.Email %></td>
-                        <td><%- user.Categoria %></td>
+                        <td><%- user.id %></td>
+                        <td><%- user.nombre %></td>
+                        <td><%- user.apellido %></td>
+                        <td><%- user.email %></td>
+                        <td><%- user.categoria %></td>
                         <td>
-                            <a href="/usuario/<%- user.id%>">Editar Usuario</a>
+                            <a href="/usuario/<%- user.id%>">Editar Usuario</a> <!--OPCION, llevamos al usuario a un nuevo url(Nueva ruta)-->
                         </td>
                     </tr>
                 <% }) %>   

@@ -6,7 +6,7 @@ const conx = mysql.createConnection({ //permite crear una nueva conexión de mys
     host: 'localhost' , //donde está alojada la base de datos
     user: 'root', //usuario de la base
     password: '',// contraseña de la base
-    database: 'centro_medico' // es la base de datos
+    database: 'centromedico' // es la base de datos
 }); 
 
 module.exports = conx;

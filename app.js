@@ -6,7 +6,7 @@ const rutasSaludar = require('./routes/usuario'); //Para acceder a las rutas
 
 //middleware
 app.use(express.urlencoded({
-    extended: false, //es obligatorio para q funcione
+    extended: true, //es obligatorio para q funcione
 }));//esto permite es decir q todas las codificaciones que pasen a traves de los metodos pot y put vengan también como un json. Todos los elementos q pasen van a llegar como json
 app.use(express.json()); //siempre el usuario va a devolver json cuando algo pase. Esto permite que cuando queramos devolverle info al usuario siempre lo transforme a tipo json y el usuario lo reciba de mejor manera
 

@@ -14,9 +14,50 @@
                 <input id="usuario_email" value="<%- usuario.email %>">
 
                 <label>Categoria</label>
-                <input id="usuario_categoria" value="<%- usuario.categoria %>">
 
+                <select id="usuario_categoria"> <!--Estamos obteniendo las categorias en un condicional-->
+                    <% categorias.forEach((category) => { %>
+                        <option <%=(category.id == usuario.id_categoria) ? 'selected' : '' %> value= "<%= category.id %>"><%= category.nombre %></option>
+                    <% }) %>
+                </select>            
+
+                <button class="guardar"> Guardar Usuario</button>
             </div>
         </div>
+
+        <script>
+            
+            const botonGuardar = document.querySelector(".guardar");
+
+            const usuarioNombre = document.querySelector("#usuario_nombre");
+            const usuarioApellido = document.querySelector("#usuario_apellido");
+            const usuarioEmail = document.querySelector("#usuario_email");
+            const usuarioCategoria = document.querySelector("#usuario_categoria");
+
+            botonGuardar.addEventListener("click", async () => {
+                
+                const datos = {
+                    nombre: usuarioNombre.value,
+                    apellido: usuarioApellido.value,
+                    email: usuarioEmail.value,
+                    categoria: usuarioCategoria.value,
+                    id: <%= usuario.id %>
+                }
+                
+                const result = await fetch('/usuario', {
+                method: 'post',
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json' //si no lo hacemos de esta forma, todos los datos que queramos recibir, van a estar mal.
+                }
+                });
+
+                const data = result.json();
+                console.log(data);
+
+            });
+
+        </script>
+
     </body>
 </html>

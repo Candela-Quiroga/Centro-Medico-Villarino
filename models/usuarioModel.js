@@ -25,5 +25,20 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
             callback(results[0]);
         })
     }
+
+    async guardar(datos,callback){
+        if (datos.id == 0){
+            //creamos
+            let sql = "INSERT INTO usuarios (nombre, apellido, email, id_categoria) ";
+            //sql += "VALUES (?, ?, ?, ?) ";
+            conx.query(sql, [datos.nombre, datos.apellido, datos.email, datos.id_categoria]);
+
+        } else {
+            //actualizamos
+            let sql = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, id_categoria = ? WHERE id = ?";
+            conx.query(sql, [datos.nombre, datos.apellido, datos.email, datos.id_categoria]);
+        }
+    }
+
 }; //usuario model es el encargado de hacer todas las consultas a la bd de todos los usuarios. 
 module.exports = UsuarioModel; //es para exportar el modulo.

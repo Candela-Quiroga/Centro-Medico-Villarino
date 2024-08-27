@@ -37,11 +37,11 @@
 
         <script>
             async function eliminarUsuario(id) {
-              const resultado = fetch(`/usuario/${id}`, { //VAN COMILLAS DE COSTADO
+              const resultado = fetch(`/usuario/${id}`, { 
                 method: 'delete',
               });
               
-              const data = await result.json();
+              const data = await resultado.json();
 
               if (data.success == true) {
                 location.reload();

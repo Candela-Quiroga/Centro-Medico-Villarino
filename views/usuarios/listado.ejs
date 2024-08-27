@@ -27,7 +27,7 @@
                             <td><%- user.categoria %></td>
                             <td>
                                 <a href="/usuario/<%- user.id%>">Editar Usuario</a> <!--OPCION, llevamos al usuario a un nuevo url(Nueva ruta)-->
-                                <button onclick="eliminarUsuario(<%=user.id%>)">Eliminar Usuario</button>
+                                <button onclick="eliminarUsuario(<%= user.id %>)">Eliminar Usuario</button>
                             </td>
                         </tr>
                     <% }) %>   

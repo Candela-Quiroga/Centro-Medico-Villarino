@@ -14,32 +14,41 @@ class UsuarioController {
         });
     }
 
-    async editarUsuario(req, res) { 
+    async editarUsuario(req, res) {  //dice q vamos a obtener el usuario ocn el id correspondiente
         const id = req.params.id; //una vez que está el usuario, hay que llamar al modelo. El nombre de este comodín se llama id, por eso usamos req.params.id
         usuarioModel.obtenerUsuario(id, (user) => {
             
             categoriaModel.listar((categories) => { //aca llamamos la categoria
-                if(user === false){
-                    //el usuario no existe. ESTO DESPUES SE MODIFICA
-                } else {
-                    //significa que el usuario existe
-                    res.render('usuarios/editarUsuario', {
-                        //hacemos un objeto que diga:
-                        usuario: user,
-                        categorias: categories
-                    })
-                }
+                if(user === false){ //si el usuario es falso, trabajamos con un usuario base (para poder seguir utilizando el script de actualizar pero con los datos vacios, entonces la prox q se quiera crear un usuario, se hace de una base vacia)
+                    //el usuario no existe. 
+                    user = usuarioModel.obtenerUsuarioBase(); //permite devolverle un objeto basico al usuario
+                } 
+                res.render('usuarios/editarUsuario', {
+                    //hacemos un objeto que diga:
+                    usuario: user,
+                    categorias: categories
+                })
             });
 
         })
     }
 
-    async guardarUsuario(req,res){
+    async guardarUsuario(req,res) {
         const datos = req.body;
-        usuarioModel.guardar(datos);
-        res.send({
-            "success": true,
-        })
+        usuarioModel.guardar(datos, () => {
+            res.send({
+                "success": true, //me permite saber cuando terminó la ejecución de la base de datos. 
+            });
+        }); //si no trabajamos con el callback no sabemos cuando terminó
+    }
+
+    async eliminarUsuario (req, res) {
+        const id = req.params.id;
+        usuarioModel.eliminar(id, () => {
+            res.send({
+                "success": true,
+            })
+        });
     }
 
 }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../commons/head')%>
+    <body>
+        <div class="container">
+            <div>
+                <label>Nombre</label>
+                <input id="usuario_nombre" value="<%- usuario?.nombre %>">
+
+                <label>Apellido</label>
+                <input id="usuario_apellido" value="<%- usuario?.apellido %>">
+
+                <label>Email</label>
+                <input id="usuario_email" value="<%- usuario?.email %>">
+
+                <label>Categoria</label>
+
+                <select id="usuario_categoria"> <!--Estamos obteniendo las categorias en un condicional-->
+                    <% categorias.forEach((category) => { %>
+                        <option <%=(category.id == usuario.id_categoriaPermiso) ? 'selected' : '' %> value= "<%= category.id %>"><%= category.nombre %></option>
+                    <% }) %>
+                </select>            
+
+                <button class="guardar">Guardar Usuario</button>
+            </div>
+        </div>
+
+        <script>
+            
+            const botonGuardar = document.querySelector(".guardar");
+
+            const usuarioNombre = document.querySelector("#usuario_nombre");
+            const usuarioApellido = document.querySelector("#usuario_apellido");
+            const usuarioEmail = document.querySelector("#usuario_email");
+            const usuarioCategoria = document.querySelector("#usuario_categoria");
+
+            botonGuardar.addEventListener("click", async () => {
+                
+                const datos = {
+                    nombre: usuarioNombre.value,
+                    apellido: usuarioApellido.value,
+                    email: usuarioEmail.value,
+                    id_categoria: usuarioCategoria.value,
+                    id: <%= usuario.id %>
+                }
+                
+                const result = await fetch(`/usuario`, {
+                method: 'post',
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json' //si no lo hacemos de esta forma, todos los datos que queramos recibir, van a estar mal.
+                }
+                });
+
+                const data = await result.json();
+                if (data.success == true) { 
+                    location.href = "/usuarios";  //si toda la acutalización es correcta, volve al inicio
+                } else { //si la actualización fue incorrecta
+                    alert ("Hubo un problema actualizando los valores"); //envia una alerta
+                }
+
+            });
+
+        </script>
+
+    </body>
+</html>

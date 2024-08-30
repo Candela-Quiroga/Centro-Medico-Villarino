@@ -30,7 +30,7 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
             if(results.length === 0) callback(false); //si el usuario no existe tenemos false y si no
             callback(results[0]); //devolvemos el user correspondiente
         })
-    }
+    } //TAMBIÉN LA VAMOS A USAR PARA EL LOGIN
 
     async guardar(datos,callback){ 
         if (datos.id == 0){ //si el id q mandé, inserto

@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router(); //permite crear diferentes tipos de rutas para después exportarlas
 const UsuarioController = require('../controllers/usuarioController'); 
 const usuarioController = new UsuarioController();
@@ -8,6 +9,8 @@ router.get('/usuarios', usuarioController.listarUsuarios); //va a decir, "voy a 
 router.get('/usuario/:id', usuarioController.editarUsuario); //con los dos puntos le decimos que es el comodin y despues de estos, le damos el nombre
 
 router.post('/usuario', usuarioController.guardarUsuario);
+
+router.post('../login')
 
 router.delete('/usuario/:id', usuarioController.eliminarUsuario);
 

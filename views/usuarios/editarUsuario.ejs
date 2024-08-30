@@ -17,7 +17,7 @@
 
                 <select id="usuario_categoria"> <!--Estamos obteniendo las categorias en un condicional-->
                     <% categorias.forEach((category) => { %>
-                        <option <%=(category.id == usuario.id_categoriaPermiso) ? 'selected' : '' %> value= "<%= category.id %>"><%= category.nombre %></option>
+                        <option <%=(category.id == usuario.id_categoria) ? 'selected' : '' %> value= "<%= category.id %>"><%= category.nombre %></option>
                     <% }) %>
                 </select>            
 

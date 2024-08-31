@@ -11,33 +11,245 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+    <!--Iconos de Font Awesome-->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+
+    <!--Incluimos librería Swiper de JS para carruseles-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
 </head>
 <body>
     
     <!-- Menú de navegación -->
-    <header>
-        <div class="header-logo"></div>
+    <header class="sombra">
+        <div class="logo"></div>
 
-        <ul class="menu-navegacion">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="./nosotros.ejs">Nosotros</a></li>
-            <li><a href="#">Profesionales</a></li>
-            <li><a href="#">Coberturas</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Profesionales</a></li>
+                <li><a href="#">Coberturas</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
 
-        <div class="menu-pedir-turno"><a href="#">Pedir Turno</a></div>
+
+        <a href="#" class="menu-pedir-turno boton">Pedir Turno</a>
         
     </header>
 
     <!-- Carrusel de Bienvenida con datos del Centro Médico -->
-    <!-- <section class="carrusel-bienvenida">
-        <article>
-            <div>
-                <h2>Bienvenidos al Centro <br> Médico Villarino</h2>
+    
+    <!--La idea es que SOLO en la primera imagen del carrusel aparezca un texto de bienvenida, y que a partir de la segunda imagen del carrusel en adelante desaparezca ese texto. Lo hago usando Swiper -->
+
+    <section class="bienvenida">
+
+        <div class="swiper carrusel-bienvenida">
+            <!-- Contenedor de las imágenes -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+    
+                <!--Primera imagen con el texto superpuesto-->
+                <div class="swiper-slide slide-texto">
+    
+                    
+                    <!--contenedor del texto que aparece sobre la primer imagen-->
+                    <div class="carrusel-bienvenida-texto">
+                        <h2>Bienvenidos al Centro <br> Médico Villarino</h2>
+                        <p>Encontranos en Lamadrid 29, Chivilcoy (Bs. As.)</p>
+    
+                        <div class="horario-atencion">
+                            <i class="fa-regular fa-clock-nine"></i><!--icono reloj-->
+                            <p>Horario: Lunes a Viernes de 9 a 12hs. / 16 a 20hs.</p>
+                        </div>
+                        <a href="#" class="boton">Quienes Somos</a>
+                    </div>
+
+                    <img src="./img/Imagen frente del Centro.png" alt="Imagen 1">
+    
+                </div>
+    
+                <!--Segunda imagen del swiper-->
+                <div class="swiper-slide">
+                    <img src="./img/carrusel-bienvenida-2.jpg" alt="">
+                </div>
+    
+                <!--Tercera imagen del swiper-->
+                <div class="swiper-slide">
+                    <img src="./img/carrusel-bienvenida-3.jpg" alt="">
+                </div>
             </div>
-        </article>
-    </section> -->
+    
+            <!-- Paginación -->
+            <div class="swiper-pagination"></div>
+    
+            <!-- Controles de navegación -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+    
+        </div>
+    </section>
+
+
+    <!--SECCIÓN NOSOTROS ----------------------------------------------------->
+
+    <section class="seccion-nosotros">
+
+        <div class="nosotros-foto"></div>
+
+        <div class="nosotros-textos">
+            <h3>Quienes Somos</h3>
+            <p>Somos un Centro Médico que se encuentra en la <br> ciudad de Chivilcoy, desde el año 2009. Tenemos <br> uavnlksnblkbnlnblnsnls.</p>
+            <a class="boton sombra" href="">Más Información</a>
+        </div>
+
+    </section>
+
+
+    <!--SECCIÓN SERVICIOS ----------------------------------->
+
+    <section class="servicios">
+
+        <h3>Servicios</h3>
+
+        <div class="servicios-container">
+                
+            <article>
+                <div class="serv-1 sombra"><i class="fa-regular fa-stethoscope"></i></div>
+                <h5>Medicina Clínica</h5>
+            </article>
+
+            <article>
+                <div class="serv-2 sombra"><i class="fa-regular fa-eye"></i></div>
+                <h5>Oftalmología</h5>
+            </article>
+
+            <article>
+                <div class="serv-3 sombra"><i class="fa-regular fa-head-side-brain"></i></div>
+                <h5>Neurocirugía</h5>
+            </article>
+
+            <article>
+                <div class="serv-4 sombra"><i class="fa-solid fa-venus"></i></div>
+                <h5>Ginecología</h5>
+            </article>
+
+            <article>
+                <div class="serv-1 sombra"><i class="fa-regular fa-heart-circle-bolt"></i></div>
+                <h5>Cardiología</h5>
+            </article>
+
+            <article>
+                <div class="serv-2 sombra"><i class="fa-regular fa-wave-pulse"></i></div>
+                <h5>Electrocardiograma</h5>
+            </article>
+
+            <article>
+                <div class="serv-3 sombra"><i class="fa-regular fa-syringe"></i></div>
+                <h5>Cirugía General</h5>
+            </article>
+
+            <article>
+                <div class="serv-4 sombra"><i class="fa-regular fa-user-doctor-hair-long"></i></div>
+                <h5>Nutrición</h5>
+            </article>
+        </div>
+
+    </section>
+
+
+    <!--SECCIÓN PROFESIONALES-->
+
+<section class="seccion-profesionales">
+    <swiper-container class="mySwiper" pagination="true" effect="coverflow" grab-cursor="true" centered-slides="true"
+    slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
+    coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
+        <swiper-slide>
+            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+            <h5>Nombre Médico</h5>
+            <p>Especialidad</p>
+            <a href="">Pedir Turno</a>
+        </swiper-slide>
+        <swiper-slide>
+            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+            <h5>Nombre Médico</h5>
+            <p>Especialidad</p>
+            <a href="">Pedir Turno</a>
+        </swiper-slide>
+        <swiper-slide>
+            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+            <h5>Nombre Médico</h5>
+            <p>Especialidad</p>
+            <a href="">Pedir Turno</a>
+        </swiper-slide>
+        <swiper-slide>
+            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+            <h5>Nombre Médico</h5>
+            <p>Especialidad</p>
+            <a href="">Pedir Turno</a>
+        </swiper-slide>
+        <swiper-slide>
+            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+            <h5>Nombre Médico</h5>
+            <p>Especialidad</p>
+            <a href="">Pedir Turno</a>
+        </swiper-slide>
+        <swiper-slide>
+            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+            <h5>Nombre Médico</h5>
+            <p>Especialidad</p>
+            <a href="">Pedir Turno</a>
+        </swiper-slide>
+        <swiper-slide>
+            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+            <h5>Nombre Médico</h5>
+            <p>Especialidad</p>
+            <a href="">Pedir Turno</a>
+        </swiper-slide>
+    </swiper-container>
+
+    <!-- Paginación -->
+    <div class="swiper-pagination"></div>
+
+</section>
+    
+
+
+    <!--Incluimos librería de JS llamada Swiper, para carruseles-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!--Activamos librería Swiper-->
+    <script>
+        var swiper = new Swiper('.swiper', {
+            // Activo la navegación
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            // Activo la paginación
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            // Hago un evento para ocultar el texto al pasar a la siguiente imagen
+            on: {
+                slideChange: function () { //evento que se dispara cuando cambiamos de diapo
+                    const slides = document.querySelectorAll('.swiper-slide'); //seleccionamos todos los elementos con la clase swiper-slide
+                    slides.forEach(slide => { //itera sobre cada una de las slides
+                        const textoSuperpuesto = slide.querySelector('.texto-superpuesto'); //busca el elemento de texto superpuesto dentro de la diapositiva
+                        if (textoSuperpuesto) { //si encuentra un texto superpuesto dentro de la diapositiva, hace lo que sigue
+                            if (slide.classList.contains('swiper-slide-active')) { //primero verifica si esta diapositiva es la activa (visible actualmente)
+                                textoSuperpuesto.style.display = 'block'; //si es la activa, muestra el texto superpuesto
+                            } else {
+                                textoSuperpuesto.style.display = 'none'; //si no es la activa, oculta el texto superpuesto
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>

@@ -1,18 +1,35 @@
-
-
 /* TIPOGRAFÍA "Montserrat" detalles a tener en cuenta 
     <weight>: Use a value from 100 to 900
 */
 
+/* VARIABLES */
+
+:root {
+    --AZUL_OSCURO: #0a3768;
+    --AZUL_CLARO: #165bba;
+    --VERDE_AGUA: #38b5a9;
+    --DEGRADADO: linear-gradient(90deg, var(--VERDE_AGUA), var(--AZUL_CLARO));
+}
+
+/* ¿Cómo usar estas variables? Dejo un ejemplo: 
+
+h1 {
+    color: var(--AZUL_OSCURO);
+}
+*/
 
 
-/*VARIABLES DE COLORES*/
+/*PROPIEDADES GENERALES*/
 
+.boton{
+    padding: 10px 23px;
+    border-radius: 25px 0 25px 0;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 550;
+}
 
-
-/*Header - menu de navegación*/
-
-body, html{
+body, html {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -20,69 +37,310 @@ body, html{
     font-family: 'Montserrat', sans-serif;
 }
 
-header{
+h3{
+    font-size: 40px;
+    color: var(--AZUL_OSCURO);
+    margin-bottom: 0;
+}
+
+.sombra{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+/* Header - menu de navegación */
+
+
+header {
     height: 60px;
     display: flex;
     justify-content: space-between;
-    align-items: start;
-    padding: 23px 30px 10px 30px;
+    align-items: center;
+    padding: 15px 20px;
     margin: 0;
     position: sticky;
+    top: 0;
+    left: 0;
     z-index: 1000;
+    background: white;
 }
 
-.header-logo{
-    line-height: 80px;
+header .logo {
     width: 20%;
-    height: 85px;
+    height: 60px;
     background-image: url('../img/logo-header.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-.menu-navegacion{
-    width: 50%;
+header nav {
+    width: 55%;
     display: flex;
     justify-content: center;
 }
 
-.menu-navegacion li{
+header nav ul{
+    display: flex;
     list-style: none;
-    margin: 0 10px;
+    padding: 0;
+    gap: 15px;
 }
 
-.menu-navegacion li a{
+
+header nav ul li a {
+    width: 3%;
+    position: relative;
     text-decoration: none;
     font-size: 17px;
     font-weight: 500;
-    color: #02366F;
+    color: var(--AZUL_OSCURO);
     cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.3s ease-in-out; /* Para suavizar la transición del color */
 }
 
-.menu-navegacion li a:hover{
-    color: #38b5a9;
-    transition: .3s;
+header nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--AZUL_CLARO);
+    transition: width 0.3s ease-in-out; /* Suaviza la animación del subrayado */
 }
 
-.menu-pedir-turno{
+header nav ul li a:hover::after {
+    width: 100%; /* Expande el subrayado de izquierda a derecha */
+}
+
+header nav ul li a:hover {
+    color: var(--AZUL_CLARO);
+}
+
+
+.menu-pedir-turno {
+    color: white;
     margin-right: 50px;
     width: 110px;
-    text-decoration: none;
-    padding: 10px 23px;
-    font-size: 18px;
-    font-weight: 500;
-    background: linear-gradient(to right, #38b5a9, #1B4A9B); /*degradado del header*/
-    border-radius: 25px 0 25px 0 ;
+    background: var(--AZUL_CLARO); /* degradado del header */
+    transition: all .9s;
 }
 
-.menu-pedir-turno:hover{
-    background: linear-gradient(to right, #1B4A9B, #13294e); /*degradado del header*/
-    transition: .3s;
+header .menu-pedir-turno:hover {
+    background: var(--VERDE_AGUA); /* degradado del header */
 }
 
-.menu-pedir-turno a{
+header.menu-pedir-turno a {
     color: white;
     text-decoration: none;
 }
 
 
+
+/* INICIO - CARRUSEL DE BIENVENIDA ----- */
+
+.bienvenida {
+    height: 700px;
+    background: var(--DEGRADADO); /* Color de fondo para que se note la forma */
+    position: relative;
+    border-radius: 0 0 100% 100% / 0 0 100px 100px;
+}
+
+.carrusel-bienvenida {
+    height: 100%;
+}
+
+.carrusel-bienvenida .swiper-wrapper {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.carrusel-bienvenida .swiper-wrapper .swiper-slide img{
+    height: auto;
+    object-fit: cover;
+    width: 100%;
+}
+
+
+/* propiedades para la primer slide */
+.carrusel-bienvenida .swiper-wrapper .slide-texto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.carrusel-bienvenida .swiper-wrapper .slide-texto .carrusel-bienvenida-texto {
+    width: 50%;
+    height: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    height: 100%;
+}
+
+.carrusel-bienvenida .swiper-wrapper .slide-texto img {
+    width: 30%;
+    max-width: 500px;
+}
+
+
+/* para mostrar el texto solo en la primera imagen al cargar */
+.swiper-slide-active .carrusel-bienvenida-texto {
+    display: block;
+}
+
+.carrusel-bienvenida .carrusel-bienvenida-texto h2 {
+    font-size: 40px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.carrusel-bienvenida .carrusel-bienvenida-texto .horario-atencion { /*para que el ícono del reloj quede al lado del texto de horarios*/
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.carrusel-bienvenida .carrusel-bienvenida-texto .horario-atencion p{
+    margin: 0;
+}
+
+.carrusel-bienvenida .carrusel-bienvenida-texto a{
+    background: white;
+    color: var(--AZUL_OSCURO);
+    width: 150px;
+    margin-top: 5%;
+    transition: all .5s;
+}
+
+.carrusel-bienvenida .carrusel-bienvenida-texto a:hover{
+    background-color: var(--AZUL_OSCURO);
+    color: white;
+}
+
+
+/*cambio el color de las flechas de paginación del swiper*/
+.swiper-button-next, .swiper-button-prev{
+    color: white  !important;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+    margin: 0 20px;
+}
+
+.swiper-button-next:hover, .swiper-button-prev:hover{
+    color: var(--AZUL_OSCURO)  !important;
+}
+
+
+/*INICIO - SECCIÓN NOSOTROS ---------------*/
+
+.seccion-nosotros{
+    margin-top: 150px;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.seccion-nosotros .nosotros-foto{
+    background-image: url('../img/nosotros-fotos.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 500px;
+}
+
+.seccion-nosotros-textos{
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+}
+
+.seccion-nosotros .nosotros-textos a{
+    background: var(--DEGRADADO);
+    color: white;
+    width: 160px;
+    margin-top: 35px;
+    transition: all .5s;
+}
+
+.seccion-nosotros .nosotros-textos a:hover{
+    background: var(--AZUL_OSCURO);
+}
+
+
+/*SECCIÓN SERVICIOS ----------------------------------------------*/
+
+.servicios{
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.servicios .servicios-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.servicios .servicios-container article{
+    flex: 1 1 calc(25% - 20px); /* Cada artículo ocupa el 25% del ancho menos el espacio del gap */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.servicios .servicios-container article h5{
+    font-size: 20px;
+    margin-bottom: 40px;
+    color: var(--AZUL_OSCURO);
+}
+
+.servicios .servicios-container article div{
+    border-radius: 25px 0;
+    width: 130px;
+    height: 100px;
+    align-content: center;
+}
+
+.servicios .servicios-container article div i{
+    font-size: 40px;
+    color: white;
+}
+
+.servicios .servicios-container article .serv-1{
+    background: #64e9dc;
+}
+.servicios .servicios-container article .serv-2{
+    background: var(--VERDE_AGUA);
+}
+.servicios .servicios-container article .serv-3{
+    background: var(--AZUL_CLARO);
+}
+.servicios .servicios-container article .serv-4{
+    background: var(--AZUL_OSCURO);
+}
+
+
+
+
+/*INICIO - SECCIÓN PROFESIONALES*/
+
+
+.swiper-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+}

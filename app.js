@@ -1,14 +1,22 @@
 const express = require('express'); //variable donde se llama a la libreria
+const session = require('express-session');
 const app = express(); //variable donde guardamos, donde se va a trabajar
 const port = 3000; // esta variable es el puerto donde va a correr la aplicación
 
 const rutasUsuarios = require('./routes/usuario'); //Para acceder a las rutas (archivos en la carpeta)
-const rutasPanel = require('./routes/panel');
+const rutasPanel = require('./routes/panel'); //para middleware
 
 //middleware
+app.use(session({
+    "secret": 'hola', //se va a configurar una cookie en el navegador para q no se metan en el programa
+    "cookie": {
+        secure:true
+    }
+}));
+
 app.use(express.urlencoded({
     extended: true, //es obligatorio para q funcione
-}));//esto permite es decir q todas las codificaciones que pasen a traves de los metodos pot y put vengan también como un json. Todos los elementos q pasen van a llegar como json
+}));//esto permite es decir q todas las codificaciones que pasen a traves de los metodos post y put vengan también como un json. Todos los elementos q pasen van a llegar como json
 app.use(express.json()); //siempre el usuario va a devolver json cuando algo pase. Esto permite que cuando queramos devolverle info al usuario siempre lo transforme a tipo json y el usuario lo reciba de mejor manera
 
 //templates

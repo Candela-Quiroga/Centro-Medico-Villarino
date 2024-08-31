@@ -5,10 +5,45 @@ const categoriaModel = new CategoriaModel();
 
 class UsuarioController {
 
+    //MIDDLEWARE
+    mostrarFormulario (req, res) { //cuando quiero devolver templates, utilizo res.render. Las plantillas son para mostrarle una pagina web al usuario
+        console.log(req.session);
+        res.render('panel/login', {
+        });
+    }
+
+    async validarFormulario (req, res){
+
+        //para recibir datos puedo utilizar: 
+        //req.query cuando recibo los datos por url (Normalmente get). 
+        //req.params cuando recibo los datos por comodin : . 
+        //req.body cuando recibo los datos por body (Normalmente post y put).
+        
+        const email = req.body.email; //esto es xq recibo el email x el body 
+        const password = req.body.password; 
+
+        const usuario = await usuarioModel.validarUsuario(email, password);
+
+        if(usuario.length > 0){
+            //datos hay
+            req.session.idUsuario = usuario.id;
+            req.session.idProyecto = usuario.id_proyecto;
+            res.json({
+                "idUsuario": usuario.id,
+                "error": 0 //el modelo tiene q devolver siempre del valor q tiene que dar
+            });
+        }else{
+            //no hay datos
+            res.json({
+                "error": 1,
+            });
+        }
+    }
+
     async listarUsuarios (req,res) {
         usuarioModel.listar((users) => {
             console.log("Usuarios:", users); // Verifica qué datos se están obteniendo
-            res.render("usuarios/listado", {
+            res.render("panel/listado", {
                 usuarios: users
             }); //esta función se va a encargar de hacer la lógica
         });
@@ -22,7 +57,7 @@ class UsuarioController {
                     //el usuario no existe. 
                     user = usuarioModel.obtenerUsuarioBase(); //permite devolverle un objeto basico al usuario
                 } 
-                res.render('usuarios/editarUsuario', {
+                res.render('panel/editarUsuario', {
                     //hacemos un objeto que diga:
                     usuario: user,
                     categorias: categories
@@ -46,14 +81,6 @@ class UsuarioController {
             res.send({
                 "success": true,
             })
-        });
-    }
-
-    //MIDDLEWARE
-    mostrarFormulario(req, res){
-        console.log(req.session);
-
-        res.render('panel/login', {
         });
     }
 

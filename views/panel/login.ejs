@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
 </head>
 <body>
     <h1>Pantalla Login</h1>
 
-    <label>Usuarios</label>
+    <label>Usuario</label>
     <input type="text" id="usuario_email">
 
     <label>Password</label>
@@ -13,7 +16,7 @@
 
     <button class="enviar">Enviar datos</button>
 
-    <scrip type="text/javascript">
+    <script type="text/javascript">
         const inputEmail = document.querySelector("#usuario_email");
         const inputPassword = document.queryselector("#usuario_password");
         const buttonEnviar = document.querySelector(".enviar");
@@ -22,11 +25,11 @@
             const resultado = await fetch("/login", {
                 method: "POST",
                 header: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json", //permite saber q tipo de dato voy a enviar/recibir. Si no controlo esto, voy a tener errores. El encargado de decir q tipo de dato voy a enviar/recibir content-type 
                 },
-                body: JSON.stringify({
-                    email: inputEmail.value,
-                    password: inputPassword.value
+                body: JSON.stringify({ //para enviar json tengo que convertir un elemento javascript a json. Tengo q recibir el objeto q queremos convertir
+                    email: inputEmail.value, //input email es un objeto. Al ser objeto tienen diferentes propiedades dentro. Poniendo el .value me aseguro q me devuelva ese valor
+                    password: inputPassword.value // input password tambien es un objeto
                 }),
             });
 
@@ -38,6 +41,6 @@
                 alert ("login correcto");
             }
         });
-    </scrip>
+    </script>
 </body>
 </html>

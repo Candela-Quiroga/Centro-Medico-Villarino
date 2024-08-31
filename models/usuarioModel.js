@@ -2,6 +2,7 @@ const conx = require('../database/db'); //conexión a la bd. Aca importamos la b
 
 class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos métodos y propiedades. Los métodos van a trabajar con la bd, por ende, a partir de esas configuraciones vamos a poner los datos que vamos a obtener.
     
+    //esta función sirve para crear un nuevo usuario
     obtenerUsuarioBase() {
         return { //acá simulo un usuario q no existe pero tiene la misma estructura de uno q si, me ayuda al de crear, xq si le pasamos un id 0 va a crear en la parte de guardar
             id: 0,
@@ -12,8 +13,8 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
         }
     }
     
-    async listar(callback) { //este método es un método asincronico. Lo que permite trabajar con async y await. ES PARA VER TODOS LOS USUARIOS
-        let sql = "SELECT * FROM usuarios"; //para obtener todos los usuarios
+    async listar(callback) { //este método es un método asincrónico. Lo que permite trabajar con async y await. ES PARA VER TODOS LOS USUARIOS
+        let sql = "SELECT * FROM usuarios"; //consulta para obtener todos los usuarios
         conx.query(sql, [], async (err,results) => { //esto va a permitir utilizar las diferentes consultas q queramos ejecutar en la bd. Los parámetros que vamos a enviarle a la función, y tiene que pasarse por un array que los contengan
             //acá va a estar la lógica para trabajar con los resultados que queremos de la bd
             if (err) {
@@ -56,6 +57,24 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
             callback(results);
         })
     }
+
+    //FUNCIÓN PARA EL LOGIN
+    validarUsuario(email, password) {
+        return new Promise( (resolve, reject) => {
+            let sql = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
+            conx.query(sql, [email, password], (err, results) => {
+                try {
+                    if (results.length == 0){
+                        resolve(null);
+                    }
+                    resolve(results[0]);
+                } catch(error){
+                    reject(error);
+                }
+            });
+        });
+    }
+    //FIN FUNCIÓN PARA LOGIN
 
 }; //usuario model es el encargado de hacer todas las consultas a la bd de todos los usuarios. 
 module.exports = UsuarioModel; //es para exportar el modulo.

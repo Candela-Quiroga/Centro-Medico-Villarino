@@ -1,7 +1,21 @@
-//no queremos que tenga ningun modelo, solo queremos q llame a una pantalla
+const conx = require('../database/db');
 
-class mostrarListado (req, res) {
-    res.render('panel/listado'); //acá nos tiene que llevar la ruta
+class PanelController {
+    mostrarListado(req, res) {
+        const sql = "SELECT * FROM usuarios"; 
+
+        conx.query(sql, [], (err, results) => {
+
+            if (err) {
+                console.error("Error al obtener usuarios:", err);
+                return res.status(500).send("Error al obtener usuarios");
+            }
+
+            console.log("Usuarios obtenidos:", results);
+
+            res.render('panel/listado', { usuarios: results });
+        });
+    }
 }
 
 module.exports = PanelController;

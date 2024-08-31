@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const controllerPanel = require("../controllers/usuarioController");
-const panelController = new controllerPanel();
+const PanelController = require("../controllers/panelController");
+const panelController = new PanelController();
 
 router.get('/panel/listado', panelController.mostrarListado);
 

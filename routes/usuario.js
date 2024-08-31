@@ -1,6 +1,6 @@
 const express = require('express');
 
-const router = express.Router(); //permite crear diferentes tipos de rutas para después exportarlas
+const router = express.Router(); //permite crear diferentes tipos de rutas para después exportarlas. AL poder exportarlas, en el app.js vamos a tener
 const UsuarioController = require('../controllers/usuarioController'); 
 const usuarioController = new UsuarioController();
 
@@ -14,4 +14,4 @@ router.post('../login')
 
 router.delete('/usuario/:id', usuarioController.eliminarUsuario);
 
-module.exports = router; //estamos diciendo "vamos a exportar el modulo router". Este modulo es el de la linea 2 y tiene las 3 rutas recien generadas.
+module.exports = router; //estamos diciendo "vamos a exportar el modulo router". Este modulo es el de la linea 2 y tiene las rutas generadas.

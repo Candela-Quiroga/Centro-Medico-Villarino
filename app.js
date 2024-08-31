@@ -2,7 +2,8 @@ const express = require('express'); //variable donde se llama a la libreria
 const app = express(); //variable donde guardamos, donde se va a trabajar
 const port = 3000; // esta variable es el puerto donde va a correr la aplicación
 
-const rutasSaludar = require('./routes/usuario'); //Para acceder a las rutas
+const rutasUsuarios = require('./routes/usuario'); //Para acceder a las rutas (archivos en la carpeta)
+const rutasPanel = require('./routes/panel');
 
 //middleware
 app.use(express.urlencoded({
@@ -15,7 +16,8 @@ app.use('/public', express.static('public'));
 app.set('view engine', 'ejs'); //con esto le decimos que todos los elementos que tenemos los trabajamos sobre engine ejs, entonces permite tener las view y todos los modelos que queramos.
 
 //rutas
-app.use('/', rutasSaludar);
+app.use('/', rutasUsuarios);
+app.use('/', rutasPanel); 
 
 app.listen(port, () => { //escucha el puerto
     console.log(`El servidor corre en el puerto ${port}`);

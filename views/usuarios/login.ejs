@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
 </head>
 <body>
-    <h1>Prueba</h1>
-    <from action="/login" method="POST">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
-  </form>
-    </from>
+    <h1>Pantalla Login</h1>
+
+    <label>Usuarios</label>
+    <input type="text" id="usuario_email">
+
+    <label>Password</label>
+    <input type="password" id="usuario_password">
+
+    <button class="enviar">Enviar datos</button>
+
+    <scrip type="text/javascript">
+        const inputEmail = document.querySelector("#usuario_email");
+        const inputPassword = document.queryselector("#usuario_password");
+        const buttonEnviar = document.querySelector(".enviar");
+
+        buttonEnviar.addEventListener("click", async () => {
+            const resultado = await fetch("/login", {
+                method: "POST",
+                header: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: inputEmail.value,
+                    password: inputPassword.value
+                }),
+            });
+
+            const data = await resultado.json();
+
+            if (data.error == 1) {
+                alert ("usuario o contraseña incorrecto");
+            } else {
+                alert ("login correcto");
+            }
+        });
+    </scrip>
 </body>
 </html>

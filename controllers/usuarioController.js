@@ -17,7 +17,6 @@ class UsuarioController {
     async editarUsuario(req, res) {  //dice q vamos a obtener el usuario ocn el id correspondiente
         const id = req.params.id; //una vez que está el usuario, hay que llamar al modelo. El nombre de este comodín se llama id, por eso usamos req.params.id
         usuarioModel.obtenerUsuario(id, (user) => {
-            
             categoriaModel.listar((categories) => { //aca llamamos la categoria
                 if(user === false){ //si el usuario es falso, trabajamos con un usuario base (para poder seguir utilizando el script de actualizar pero con los datos vacios, entonces la prox q se quiera crear un usuario, se hace de una base vacia)
                     //el usuario no existe. 
@@ -29,7 +28,6 @@ class UsuarioController {
                     categorias: categories
                 })
             });
-
         })
     }
 
@@ -48,6 +46,14 @@ class UsuarioController {
             res.send({
                 "success": true,
             })
+        });
+    }
+
+    //MIDDLEWARE
+    mostrarFormulario(req, res){
+        console.log(req.session);
+
+        res.render('panel/login', {
         });
     }
 

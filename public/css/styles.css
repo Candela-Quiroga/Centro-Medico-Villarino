@@ -1,5 +1,3 @@
-
-
 /* TIPOGRAFÍA "Montserrat" detalles a tener en cuenta 
     <weight>: Use a value from 100 to 900
 */
@@ -239,7 +237,11 @@ header.menu-pedir-turno a {
 
 /*INICIO - SECCIÓN NOSOTROS ---------------*/
 
+<<<<<<< HEAD
 .nosotros{
+=======
+.seccion-nosotros{
+>>>>>>> 3e81f02c0358d938b7bbbd87f86f6f32e597684a
     margin-top: 150px;
     margin-bottom: 60px;
     display: flex;
@@ -248,7 +250,11 @@ header.menu-pedir-turno a {
     width: 90%;
 }
 
+<<<<<<< HEAD
 .nosotros .nosotros-foto{
+=======
+.seccion-nosotros .nosotros-foto{
+>>>>>>> 3e81f02c0358d938b7bbbd87f86f6f32e597684a
     background-image: url('../img/nosotros-fotos.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -256,13 +262,21 @@ header.menu-pedir-turno a {
     height: 500px;
 }
 
+<<<<<<< HEAD
 .nosotros-textos{
+=======
+.seccion-nosotros-textos{
+>>>>>>> 3e81f02c0358d938b7bbbd87f86f6f32e597684a
     display: flex;
     justify-content: left;
     flex-direction: column;
 }
 
+<<<<<<< HEAD
 .nosotros .nosotros-textos a{
+=======
+.seccion-nosotros .nosotros-textos a{
+>>>>>>> 3e81f02c0358d938b7bbbd87f86f6f32e597684a
     background: var(--DEGRADADO);
     color: white;
     width: 160px;
@@ -270,7 +284,11 @@ header.menu-pedir-turno a {
     transition: all .5s;
 }
 
+<<<<<<< HEAD
 .nosotros .nosotros-textos a:hover{
+=======
+.seccion-nosotros .nosotros-textos a:hover{
+>>>>>>> 3e81f02c0358d938b7bbbd87f86f6f32e597684a
     background: var(--AZUL_OSCURO);
 }
 
@@ -327,3 +345,25 @@ header.menu-pedir-turno a {
 .servicios .servicios-container article .serv-4{
     background: var(--AZUL_OSCURO);
 }
+<<<<<<< HEAD
+=======
+
+
+
+
+/*INICIO - SECCIÓN PROFESIONALES*/
+
+
+.swiper-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+}
+>>>>>>> 3e81f02c0358d938b7bbbd87f86f6f32e597684a

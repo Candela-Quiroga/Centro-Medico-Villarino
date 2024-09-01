@@ -10,4 +10,4 @@ router.post('/medico', medicoController.createMedico);
 router.put('/medico/:id', medicoController.updateMedico);
 router.delete('/medico/:id', medicoController.deleteMedico);
 
-module.exports = medicoRoute //es para exportar el modulo.
+module.exports = medicosRoute //es para exportar el modulo.

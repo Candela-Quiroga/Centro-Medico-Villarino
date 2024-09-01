@@ -54,7 +54,8 @@ CREATE TABLE `disponibilidad_medicos` (
   `dia_semana` varchar(255) NOT NULL,
   `hora_inicio` time NOT NULL,
   `hora_fin` time NOT NULL,
-  `minutos_turno` time NOT NULL
+  `minutos_turno` time NOT NULL,
+  FOREIGN KEY (id_medico) REFERENCES medicos(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -91,7 +92,9 @@ CREATE TABLE `medicos` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_especialidad` int(11) NOT NULL,
-  `telefono` varchar(255) NOT NULL
+  `telefono` varchar(255) NOT NULL,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+  FOREIGN KEY (id_especialidad) REFERENCES especialidades(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,7 +106,9 @@ CREATE TABLE `medicos` (
 CREATE TABLE `medicos_obrassociales` (
   `id` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
-  `id_obraSocial` int(11) NOT NULL
+  `id_obraSocial` int(11) NOT NULL,
+  FOREIGN KEY (id_medico) REFERENCES medicos(id),
+  FOREIGN KEY (id_obraSocial) REFERENCES obras_Sociales(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -145,7 +150,8 @@ CREATE TABLE `pacientes` (
   `email` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
   `id_obrasocial` int(11) NOT NULL,
-  `nro_afiliado` int(255) NOT NULL
+  `nro_afiliado` int(255) NOT NULL,
+  FOREIGN KEY (id_obraSocial) REFERENCES obras_Sociales(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -159,7 +165,9 @@ CREATE TABLE `turnos` (
   `id_medico` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
   `fecha_hora` datetime NOT NULL,
-  `motivo` varchar(255) NOT NULL
+  `motivo` varchar(255) NOT NULL,
+  FOREIGN KEY (id_medico) REFERENCES medicos(id),
+  FOREIGN KEY (id_paciente) REFERENCES pacientes(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -173,7 +181,8 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `id_categoriaPermiso` int(11) NOT NULL
+  `id_categoriaPermiso` int(11) NOT NULL,
+  FOREIGN KEY (id_categoriaPermiso) REFERENCES categoria_permiso(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -318,49 +327,11 @@ ALTER TABLE `turnos`
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `disponibilidad_medicos`
---
-ALTER TABLE `disponibilidad_medicos`
-  ADD CONSTRAINT `disponibilidad_medicos_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `medicos`
---
-ALTER TABLE `medicos`
-  ADD CONSTRAINT `medicos_ibfk_1` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidades` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `medicos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `medicos_obrassociales`
---
-ALTER TABLE `medicos_obrassociales`
-  ADD CONSTRAINT `medicos_obrassociales_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `medicos_obrassociales_ibfk_2` FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_sociales` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `pacientes`
---
-ALTER TABLE `pacientes`
-  ADD CONSTRAINT `pacientes_ibfk_1` FOREIGN KEY (`id_obrasocial`) REFERENCES `obras_sociales` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `turnos`
---
-ALTER TABLE `turnos`
-  ADD CONSTRAINT `turnos_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `turnos_ibfk_2` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_categoriaPermiso`) REFERENCES `categoria_permiso` (`id`) ON UPDATE CASCADE;
-COMMIT;
+-- CONSULTA PARA OBTENER EL NOMBRE DEL MÉDICO EN LA TABLA MÉDICOS SIN REPETIR LOS DATOS
+SELECT u.nombre, m.telefono, m.id_especialidad
+FROM medicos m
+JOIN usuarios u ON m.id_usuario = u.id
+WHERE m.id = 1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

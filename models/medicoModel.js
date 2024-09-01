@@ -32,6 +32,4 @@ const Medico = {
 };
 
 module.exports = Medico;
-
-
 module.exports = medicoModel; //es para exportar el modulo.

@@ -55,4 +55,4 @@ exports.deleteMedico = (req, res) => {
 };
 
 
-medicoController; //es para exportar el modulo.
+module.exports = medicoController; //es para exportar el modulo.

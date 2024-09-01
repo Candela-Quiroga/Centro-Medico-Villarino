@@ -28,8 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categoria_permiso` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -45,28 +46,13 @@ INSERT INTO `categoria_permiso` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `disponibilidad_medicos`
---
-
-CREATE TABLE `disponibilidad_medicos` (
-  `id` int(11) NOT NULL,
-  `id_medico` int(11) NOT NULL,
-  `dia_semana` varchar(255) NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL,
-  `minutos_turno` time NOT NULL,
-  FOREIGN KEY (id_medico) REFERENCES medicos(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `especialidades`
 --
 
 CREATE TABLE `especialidades` (
-  `id` int(11) NOT NULL,
-  `nombre_especialidad` varchar(255) NOT NULL
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_especialidad` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -85,41 +71,14 @@ INSERT INTO `especialidades` (`id`, `nombre_especialidad`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medicos`
---
-
-CREATE TABLE `medicos` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_especialidad` int(11) NOT NULL,
-  `telefono` varchar(255) NOT NULL,
-  FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-  FOREIGN KEY (id_especialidad) REFERENCES especialidades(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `medicos_obrassociales`
---
-
-CREATE TABLE `medicos_obrassociales` (
-  `id` int(11) NOT NULL,
-  `id_medico` int(11) NOT NULL,
-  `id_obraSocial` int(11) NOT NULL,
-  FOREIGN KEY (id_medico) REFERENCES medicos(id),
-  FOREIGN KEY (id_obraSocial) REFERENCES obras_Sociales(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `obras_sociales`
 --
 
 CREATE TABLE `obras_sociales` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -141,48 +100,17 @@ INSERT INTO `obras_sociales` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pacientes`
---
-
-CREATE TABLE `pacientes` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `telefono` varchar(255) NOT NULL,
-  `id_obrasocial` int(11) NOT NULL,
-  `nro_afiliado` int(255) NOT NULL,
-  FOREIGN KEY (id_obraSocial) REFERENCES obras_Sociales(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `turnos`
---
-
-CREATE TABLE `turnos` (
-  `id` int(11) NOT NULL,
-  `id_medico` int(11) NOT NULL,
-  `id_paciente` int(11) NOT NULL,
-  `fecha_hora` datetime NOT NULL,
-  `motivo` varchar(255) NOT NULL,
-  FOREIGN KEY (id_medico) REFERENCES medicos(id),
-  FOREIGN KEY (id_paciente) REFERENCES pacientes(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `id_categoriaPermiso` int(11) NOT NULL,
-  FOREIGN KEY (id_categoriaPermiso) REFERENCES categoria_permiso(id)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_categoriaPermiso`) REFERENCES `categoria_permiso`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -201,64 +129,115 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 (12, 'Camila Mazzaro', 'mazzarocamila@gmail.com', '', 3),
 (13, 'Agustin Carrasco', 'carrascoagustin@gmail.com', '', 3);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medicos`
+--
+
+CREATE TABLE `medicos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_especialidad` int(11) NOT NULL,
+  `telefono` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_usuario`) REFERENCES `usuarios`(`id`),
+  FOREIGN KEY (`id_especialidad`) REFERENCES `especialidades`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pacientes`
+--
+
+CREATE TABLE `pacientes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `telefono` varchar(255) NOT NULL,
+  `id_obraSocial` int(11) NOT NULL,
+  `nro_afiliado` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_sociales`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `turnos`
+--
+
+CREATE TABLE `turnos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_medico` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `fecha_hora` datetime NOT NULL,
+  `motivo` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`),
+  FOREIGN KEY (`id_paciente`) REFERENCES `pacientes`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medicos_obrassociales`
+--
+
+CREATE TABLE `medicos_obrassociales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_medico` int(11) NOT NULL,
+  `id_obraSocial` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`),
+  FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_sociales`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `disponibilidad_medicos`
+--
+
+CREATE TABLE `disponibilidad_medicos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_medico` int(11) NOT NULL,
+  `dia_semana` varchar(255) NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `hora_fin` time NOT NULL,
+  `minutos_turno` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `categoria_permiso`
---
-ALTER TABLE `categoria_permiso`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `disponibilidad_medicos`
 --
 ALTER TABLE `disponibilidad_medicos`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `id_medico` (`id_medico`);
-
---
--- Indexes for table `especialidades`
---
-ALTER TABLE `especialidades`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `medicos`
---
-ALTER TABLE `medicos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_especialidad` (`id_especialidad`);
 
 --
 -- Indexes for table `medicos_obrassociales`
 --
 ALTER TABLE `medicos_obrassociales`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `id_medico` (`id_medico`),
   ADD KEY `id_obraSocial` (`id_obraSocial`);
-
---
--- Indexes for table `obras_sociales`
---
-ALTER TABLE `obras_sociales`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indexes for table `pacientes`
 --
 ALTER TABLE `pacientes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_obrasocial` (`id_obrasocial`);
+  ADD KEY `id_obraSocial` (`id_obraSocial`);
 
 --
 -- Indexes for table `turnos`
 --
 ALTER TABLE `turnos`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `id_medico` (`id_medico`),
   ADD KEY `id_paciente` (`id_paciente`);
 
@@ -266,7 +245,6 @@ ALTER TABLE `turnos`
 -- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `id_categoriaPermiso` (`id_categoriaPermiso`);
 
 --
@@ -327,11 +305,7 @@ ALTER TABLE `turnos`
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
--- CONSULTA PARA OBTENER EL NOMBRE DEL MÉDICO EN LA TABLA MÉDICOS SIN REPETIR LOS DATOS
-SELECT u.nombre, m.telefono, m.id_especialidad
-FROM medicos m
-JOIN usuarios u ON m.id_usuario = u.id
-WHERE m.id = 1;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -7,9 +7,6 @@
                 <label>Nombre</label>
                 <input id="usuario_nombre" value="<%- usuario?.nombre %>">
 
-                <label>Apellido</label>
-                <input id="usuario_apellido" value="<%- usuario?.apellido %>">
-
                 <label>Email</label>
                 <input id="usuario_email" value="<%- usuario?.email %>">
 
@@ -38,7 +35,6 @@
                 
                 const datos = {
                     nombre: usuarioNombre.value,
-                    apellido: usuarioApellido.value,
                     email: usuarioEmail.value,
                     id_categoria: usuarioCategoria.value,
                     id: <%= usuario.id %>,

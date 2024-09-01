@@ -4,6 +4,7 @@ const app = express(); //variable donde guardamos, donde se va a trabajar
 const port = 3000; // esta variable es el puerto donde va a correr la aplicación
 
 const rutasUsuarios = require('./routes/usuario'); //Para acceder a las rutas (archivos en la carpeta)
+const rutasLogin = require('/routes/usuario');
 const rutasPanel = require('./routes/panel'); //para middleware
 
 //middleware
@@ -25,6 +26,7 @@ app.set('view engine', 'ejs'); //con esto le decimos que todos los elementos que
 
 //rutas
 app.use('/', rutasUsuarios);
+app.use('/', rutasLogin);
 app.use('/', rutasPanel); 
 
 app.listen(port, () => { //escucha el puerto

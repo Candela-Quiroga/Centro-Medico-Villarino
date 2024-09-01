@@ -7,7 +7,6 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
         return { //acá simulo un usuario q no existe pero tiene la misma estructura de uno q si, me ayuda al de crear, xq si le pasamos un id 0 va a crear en la parte de guardar
             id: 0,
             nombre: '',
-            apellido: '',
             email: '',
             id_categoria: 0
         }
@@ -38,14 +37,14 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
             //creamos
             let sql = "INSERT INTO usuarios (nombre, apellido, email, id_categoria) ";
             sql += "VALUES (?, ?, ?, ?) ";
-            conx.query(sql, [datos.nombre, datos.apellido, datos.email, datos.id_categoria], async (err, results) => {
+            conx.query(sql, [datos.nombre, datos.email, datos.id_categoria], async (err, results) => {
                 callback(results);
             });
 
         } else { //si es distinto a cero, actualizo
             //actualizamos
             let sql = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, id_categoria = ? WHERE id = ?";
-            conx.query(sql, [datos.nombre, datos.apellido, datos.email, datos.id_categoria], async (err, results) => {
+            conx.query(sql, [datos.nombre, datos.email, datos.id_categoria], async (err, results) => {
                 callback(results);
             });
         }

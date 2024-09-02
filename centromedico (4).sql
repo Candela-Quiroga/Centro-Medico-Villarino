@@ -250,9 +250,10 @@ ALTER TABLE `especialidades`
 --
 -- Indices de la tabla `medicos`
 --
-ALTER TABLE `medicos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`),
+
+ALTER TABLE medicos
+MODIFY COLUMN id_usuario INT NOT NULL AUTO_INCREMENT,
+  ADD PRIMARY KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_especialidad` (`id_especialidad`);
 
 --

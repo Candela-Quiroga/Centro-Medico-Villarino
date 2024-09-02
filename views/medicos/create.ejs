@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+</head>
+<body>
+    <h1>Agregar Médico</h1>
+
+    <form action="/guardar" method="POST"> <!-- Creo el formulario para guardar el nuevo registro -->
+        <div>
+            <label>Nombre y Apellido</label>
+            <input type="text" id="medico" name="medico"> <!-- Input para cargar el nombre y apellido -->
+        </div>
+        <div>
+            <label>Telefono</label>
+            <input type="text" name="telefono"> <!-- Input para cargar el teléfono -->
+        </div>
+        <div>
+        </div>
+        <div>
+            <label>Especialidad</label>
+            <select id="especialidad" name="especialidad"> <!-- Input para seleccionar la especialidad del doc -->
+                <option value="1">Oftalmología</option>
+                <option value="2">Neurocirugía</option>
+                <option value="3">Cardiología</option>
+                <option value="4">Ginecología</option>
+                <option value="5">Cirugía Gral</option>
+                <option value="6">Clínica médica</option>
+                <option value="7">Nutrición</option>
+            </select>
+        </div>
+        <button type="submit">Guardar</button> <!-- Boton para guardarlo en la db -->
+        <a href="/medicos/listar">Cancelar</a> <!-- Boton para cancelar y volver a la parte de listado con la info actualizada -->
+    </form>
+</body>
+</html>

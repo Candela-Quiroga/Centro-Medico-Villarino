@@ -4,8 +4,9 @@ const app = express(); //variable donde guardamos, donde se va a trabajar
 const port = 3000; // esta variable es el puerto donde va a correr la aplicación
 
 const rutasUsuarios = require('./routes/usuario'); //Para acceder a las rutas (archivos en la carpeta)
-const rutasLogin = require('/routes/usuario');
+const rutasLogin = require('./routes/usuario');
 const rutasPanel = require('./routes/panel'); //para middleware
+const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para los turnos
 
 //middleware
 app.use(session({
@@ -28,6 +29,7 @@ app.set('view engine', 'ejs'); //con esto le decimos que todos los elementos que
 app.use('/', rutasUsuarios);
 app.use('/', rutasLogin);
 app.use('/', rutasPanel); 
+app.use('/', rutasTurnos);
 
 app.listen(port, () => { //escucha el puerto
     console.log(`El servidor corre en el puerto ${port}`);

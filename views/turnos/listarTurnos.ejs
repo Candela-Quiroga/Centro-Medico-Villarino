@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Turnos</title>
+
+    <!-- enlace para utilizar bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- enlace para usar los iconos de boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- estilos adicionales -->
+    <style>
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+
+<body> <!-- hecho con plantilla de bootstrap -->
+    
+    <div class="container mt-5">
+        <h2 class="mb-4">Gestión de Turnos</h2>
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre del Médico</th>
+                    <th>Especialidad</th>
+                    <th>Obras Sociales</th>
+                    <th>Nombre del Paciente</th>
+                    <th>Fecha y Hora</th>
+                    <th>Motivo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% results.forEach(turno => { %>
+                    <tr>
+                        <td><%= turno.medico_nombre %></td>
+                        <td><%= turno.especialidad %></td>
+                        <td><%= turno.obra_social %></td>
+                        <td><%= turno.paciente_nombre %></td>
+                        <td><%= turno.fecha_hora %></td>
+                        <td><%= turno.motivo %></td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="/turnos/<%= turno.turno_id %>/editar" class="btn btn-warning btn-sm">
+                                    <i class='bx bx-edit'></i> Editar
+                                </a>
+                                <form action="/turnos/<%= turno.turno_id %>?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class='bx bx-trash'></i> Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Scripts de Bootstrap JS (Opcional para funcionalidad de JS de Bootstrap) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

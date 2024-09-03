@@ -13,27 +13,23 @@ class UsuarioController {
     }
 
     async validarFormulario (req, res){
-
         //para recibir datos puedo utilizar: 
         //req.query cuando recibo los datos por url (Normalmente get). 
         //req.params cuando recibo los datos por comodin : . 
         //req.body cuando recibo los datos por body (Normalmente post y put).
-        
         const email = req.body.email; //esto es xq recibo el email x el body 
         const password = req.body.password; 
-
         const usuario = await usuarioModel.validarUsuario(email, password);
 
-        if(usuario.length > 0){
-            //datos hay
-            req.session.idUsuario = usuario.id;
-            req.session.idProyecto = usuario.id_proyecto;
+        if(usuario){
+            //usuario valido
+            req.session.idUsuario = usuario.id; //guarda el id del usuario en la sesión
             res.json({
                 "idUsuario": usuario.id,
                 "error": 0 //el modelo tiene q devolver siempre del valor q tiene que dar
             });
         }else{
-            //no hay datos
+            //no hay usuario
             res.json({
                 "error": 1,
             });

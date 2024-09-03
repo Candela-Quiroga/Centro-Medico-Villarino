@@ -18,13 +18,13 @@
 
     <script type="text/javascript">
         const inputEmail = document.querySelector("#usuario_email");
-        const inputPassword = document.queryselector("#usuario_password");
+        const inputPassword = document.querySelector("#usuario_password");
         const buttonEnviar = document.querySelector(".enviar");
 
         buttonEnviar.addEventListener("click", async () => {
             const resultado = await fetch("/login", {
                 method: "POST",
-                header: {
+                headers: {
                     "Content-Type": "application/json", //permite saber q tipo de dato voy a enviar/recibir. Si no controlo esto, voy a tener errores. El encargado de decir q tipo de dato voy a enviar/recibir content-type 
                 },
                 body: JSON.stringify({ //para enviar json tengo que convertir un elemento javascript a json. Tengo q recibir el objeto q queremos convertir
@@ -39,6 +39,7 @@
                 alert ("usuario o contraseña incorrecto");
             } else {
                 alert ("login correcto");
+                //window.location.href = "/panel/listado"; PARA REDIRIGIR A UNA PÁGINA DESPUÉS DE QUE SE LOGRÓ INGRESAR
             }
         });
     </script>

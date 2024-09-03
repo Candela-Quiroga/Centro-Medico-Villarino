@@ -11,7 +11,7 @@ router.post('/usuario', usuarioController.guardarUsuario);
 router.delete('/usuario/:id', usuarioController.eliminarUsuario);
 
 //rutas para ingreso
-router.get('./login', usuarioController.mostrarFormulario); 
+router.get('/login', usuarioController.mostrarFormulario); 
 router.post('/login', usuarioController.validarFormulario);
 
 module.exports = router; //estamos diciendo "vamos a exportar el modulo router". Este modulo es el de la linea 2 y tiene las rutas generadas.

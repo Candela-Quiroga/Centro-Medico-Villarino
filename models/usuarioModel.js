@@ -62,14 +62,15 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
         return new Promise( (resolve, reject) => {
             let sql = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
             conx.query(sql, [email, password], (err, results) => {
-                try {
-                    if (results.length == 0){
-                        resolve(null);
+                if (err){
+                    reject(err); //si hay un error, se rechaza
+                }else{
+                    if (results.length === 0){
+                        resolve(null); //si no se encuentra usuario, devuelve null
+                    }else{
+                        resolve(results[0]);//si se encuentra, devolvemos el primero q se encontró
                     }
-                    resolve(results[0]);
-                } catch(error){
-                    reject(error);
-                }
+                } 
             });
         });
     }

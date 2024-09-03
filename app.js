@@ -11,8 +11,10 @@ const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para lo
 //middleware
 app.use(session({
     "secret": 'hola', //se va a configurar una cookie en el navegador para q no se metan en el programa
+    "resave": false,
+    "saveUninitialized": true,
     "cookie": {
-        secure:true
+        secure:false
     }
 }));
 

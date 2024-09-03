@@ -75,6 +75,8 @@ CREATE TABLE `medicos` (
   `id_usuario` int(11) NOT NULL,
   `id_especialidad` int(11) NOT NULL,
   `telefono` varchar(255) NOT NULL,
+  `foto` varchar(255),
+  `descripcion` varchar(255),
   PRIMARY KEY(`id`),
   FOREIGN KEY (`id_usuario`) REFERENCES `usuarios`(`id`),
   FOREIGN KEY (`id_especialidad`) REFERENCES `especialidades`(`id`)

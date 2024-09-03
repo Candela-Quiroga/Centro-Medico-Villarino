@@ -13,7 +13,7 @@ app.use(session({
     "secret": 'hola', //se va a configurar una cookie en el navegador para q no se metan en el programa
     "cookie": {
         secure:true
-    }
+    }
 }));
 
 app.use(express.urlencoded({
@@ -22,7 +22,7 @@ app.use(express.urlencoded({
 app.use(express.json()); //siempre el usuario va a devolver json cuando algo pase. Esto permite que cuando queramos devolverle info al usuario siempre lo transforme a tipo json y el usuario lo reciba de mejor manera
 
 // 'extended: true' permite que el cuerpo del formulario contenga objetos anidados
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.urlencoded({ extended: true })); LO COMENTO XQ NO ANDA EL CODIGO
 
 //templates
 app.use('/public', express.static('public'));
@@ -33,11 +33,10 @@ app.use('/', rutasUsuarios);
 app.use('/', rutasLogin);
 app.use('/', rutasPanel); 
 app.use('/', rutasTurnos);
+
 // Importo las rutas de Medicos
-app.use('/', require('./routes/medicoRoutes'));
+app.use('/', require('./routes/medicosRoute'));
 
 app.listen(port, () => { //escucha el puerto
     console.log(`El servidor corre en el puerto ${port}`);
 });
-
-//comentario de prueba

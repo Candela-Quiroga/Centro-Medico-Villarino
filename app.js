@@ -24,7 +24,7 @@ app.use(express.urlencoded({
 app.use(express.json()); //siempre el usuario va a devolver json cuando algo pase. Esto permite que cuando queramos devolverle info al usuario siempre lo transforme a tipo json y el usuario lo reciba de mejor manera
 
 // 'extended: true' permite que el cuerpo del formulario contenga objetos anidados
-//app.use(bodyParser.urlencoded({ extended: true })); LO COMENTO XQ NO ANDA EL CODIGO
+//app.use(bodyParser.urlencoded({ extended: true })); LO COMENTO XQ es lo mismo q la linea 21
 
 //templates
 app.use('/public', express.static('public'));

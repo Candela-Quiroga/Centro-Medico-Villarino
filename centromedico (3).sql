@@ -89,7 +89,7 @@ CREATE TABLE `medicos_obrassociales` (
   `id_medico` int(11) NOT NULL,
   `id_obraSocial` int(11) NOT NULL,
   PRIMARY KEY(`id`),
-  FOREIGN KEY (`d_medico`) REFERENCES `medicos`(`id`),
+  FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`),
   FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_Sociales`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -123,7 +123,7 @@ CREATE TABLE `pacientes` (
   `email` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
   `id_obrasocial` int(11) NOT NULL,
-  `nro_afiliado` int(255) NOT NULL,
+  `nro_afiliado` varchar(255) NOT NULL,
   PRIMARY KEY(`id`),
   FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_Sociales`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

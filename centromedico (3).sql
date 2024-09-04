@@ -20,15 +20,11 @@ SET time_zone = "+00:00";
 -- Database: `centromedico`
 --
 
--- Table structure for table `categoria_permiso`
-
 CREATE TABLE `categoria_permiso` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table `categoria_permiso`
 
 INSERT INTO `categoria_permiso` (`id`, `nombre`) VALUES
 (1, 'Administrador'),
@@ -36,28 +32,21 @@ INSERT INTO `categoria_permiso` (`id`, `nombre`) VALUES
 (3, 'Secretaria'),
 (4, 'Paciente');
 
--- Table structure for table `disponibilidad_medicos`
-
-CREATE TABLE `disponibilidad_medicos` (
+CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_medico` int(11) NOT NULL,
-  `dia_semana` varchar(255) NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL,
-  `minutos_turno` time NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `id_categoriaPermiso` int(11) NOT NULL,
   PRIMARY KEY(`id`),
-  FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`)
+  FOREIGN KEY (`id_categoriaPermiso`) REFERENCES `categoria_permiso`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Table structure for table `especialidades`
 
 CREATE TABLE `especialidades` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_especialidad` varchar(255) NOT NULL,
   PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table `especialidades`
 
 INSERT INTO `especialidades` (`id`, `nombre_especialidad`) VALUES
 (1, 'oftalmología'),
@@ -67,8 +56,6 @@ INSERT INTO `especialidades` (`id`, `nombre_especialidad`) VALUES
 (5, 'Cirugía general'),
 (6, 'Clínica médica'),
 (7, 'Nutrición');
-
--- Table structure for table `medicos`
 
 CREATE TABLE `medicos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -82,26 +69,22 @@ CREATE TABLE `medicos` (
   FOREIGN KEY (`id_especialidad`) REFERENCES `especialidades`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Table structure for table `medicos_obrassociales`
-
-CREATE TABLE `medicos_obrassociales` (
+CREATE TABLE `disponibilidad_medicos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_medico` int(11) NOT NULL,
-  `id_obraSocial` int(11) NOT NULL,
+  `dia_semana` varchar(255) NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `hora_fin` time NOT NULL,
+  `minutos_turno` time NOT NULL,
   PRIMARY KEY(`id`),
-  FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`),
-  FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_Sociales`(`id`)
+  FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Table structure for table `obras_sociales`
 
 CREATE TABLE `obras_sociales` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table `obras_sociales`
 
 INSERT INTO `obras_sociales` (`id`, `nombre`) VALUES
 (4, 'Avalian'),
@@ -115,7 +98,14 @@ INSERT INTO `obras_sociales` (`id`, `nombre`) VALUES
 (9, 'Sancor Salud'),
 (3, 'SWISS Medical');
 
--- Table structure for table `pacientes`
+CREATE TABLE `medicos_obrassociales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_medico` int(11) NOT NULL,
+  `id_obraSocial` int(11) NOT NULL,
+  PRIMARY KEY(`id`),
+  FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`),
+  FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_Sociales`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `pacientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -128,8 +118,6 @@ CREATE TABLE `pacientes` (
   FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_Sociales`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Table structure for table `turnos`
-
 CREATE TABLE `turnos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_medico` int(11) NOT NULL,
@@ -139,18 +127,6 @@ CREATE TABLE `turnos` (
   PRIMARY KEY(`id`),
   FOREIGN KEY (`id_medico`) REFERENCES `medicos`(`id`),
   FOREIGN KEY (`id_paciente`) REFERENCES `pacientes`(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Table structure for table `usuarios`
-
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `id_categoriaPermiso` int(11) NOT NULL,
-  PRIMARY KEY(`id`),
-  FOREIGN KEY (`id_categoriaPermiso`) REFERENCES `categoria_permiso`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermiso`) VALUES

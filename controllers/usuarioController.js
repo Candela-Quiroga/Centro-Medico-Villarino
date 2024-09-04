@@ -52,7 +52,9 @@ class UsuarioController {
                 if(user === false){ //si el usuario es falso, trabajamos con un usuario base (para poder seguir utilizando el script de actualizar pero con los datos vacios, entonces la prox q se quiera crear un usuario, se hace de una base vacia)
                     //el usuario no existe. 
                     user = usuarioModel.obtenerUsuarioBase(); //permite devolverle un objeto basico al usuario
-                } 
+                }
+                console.log(user);
+                console.log(categories);
                 res.render('panel/editarUsuario', {
                     //hacemos un objeto que diga:
                     usuario: user,

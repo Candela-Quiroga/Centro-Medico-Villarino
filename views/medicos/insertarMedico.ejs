@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar Médico</title>
+</head>
+<body>
+    <h1>Insertar Nuevo Médico</h1>
+    <form action="/medico/guardar" method="POST">
+        <!-- Quitar el campo de id -->
+        <label for="id_usuario">Usuario:</label>
+        <select name="id_usuario" id="id_usuario" required>
+            <% usuarios.forEach(function(usuario) { %>
+                <option value="<%= usuario.id %>"><%= usuario.nombre %></option>
+            <% }); %>
+        </select><br>
+
+        <label for="id_especialidad">Especialidad:</label>
+        <select name="id_especialidad" id="id_especialidad" required>
+            <% especialidades.forEach(function(especialidad) { %>
+                <option value="<%= especialidad.id %>"><%= especialidad.nombre_especialidad %></option>
+            <% }); %>
+        </select><br>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" name="telefono" id="telefono" required><br>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" id="descripcion" required></textarea><br>
+
+        <button type="submit">Guardar</button>
+        <a href="/medicos">Cancelar</a>
+    </form>
+</body>
+</html>

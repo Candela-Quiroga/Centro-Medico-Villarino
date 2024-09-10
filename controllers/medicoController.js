@@ -1,47 +1,109 @@
-const conx = require('../database/db'); // Importo la db
+const MedicoModel = require('../models/medicoModel');
+const medicoModel = new MedicoModel();
 
-exports.guardar = (req, res) => {
-    console.log(req.body); // Para ver qué datos están llegando
-    const medico = req.body.medico; // Guardo los req con los datos del body que me devuelve: nombre, tel, especialidad y ID
-    const telefono = req.body.telefono;
-    const id_especialidad = req.body.especialidad;
-    const id_usuario = req.body.id_usuario;
-
-    
-    const query = 'INSERT INTO medicos (id_usuario, id_especialidad, telefono) VALUES (?, ?, ?)'; // Hago la consulta a la db
-    conx.query(query, [id_usuario, id_especialidad, telefono], (error, results) => {
-        if (error) {
-            console.log('Error al guardar el médico: ', error); // Mensaje de error del servidor
-            res.status(500).send('Error al guardar el médico'); //Imprimo el error por pantalla
-        } else {
-            res.redirect('/medicos/listar'); // En caso de no tener error vuelvo al ejs con la info actualizada
-        }
-    });
-
-};
-
-exports.editar = (req, res) => {
-    console.log(req.body); // Para ver qué datos están llegando
-    const id = req.body.id; // Guardo los req con los datos del body que me devuelve: nombre, tel, especialidad y ID
-    const medico = req.body.medico;
-    const telefono = req.body.telefono;
-    const especialidad = req.body.especialidad;
-
-    // Busca el id de la especialidad
-    conx.query('SELECT id FROM especialidades WHERE nombre_especialidad = ?', [especialidad], (error, results) => { // Hago la consulta a la db
-        if (error) {
-            console.log('Error al editar la información: ', error); // Mensaje de error del servidor
-            res.status(500).send('Error al editar la información'); //Imprimo el error por pantalla
-        } else {
-            const id_especialidad = results[0].id; // No recuerdo bien para qué era esto
-            conx.query('UPDATE medicos SET nombre = ?, telefono = ?, id_especialidad = ? WHERE id = ?', [medico, telefono, id_especialidad, id], (error, results) => { // Hago la consulta a la db
-                if (error) {
-                    console.log('Error al editar la información: ', error); // Mensaje de error del servidor
-                    res.status(500).send('Error al editar la información'); //Imprimo el error por pantalla
-                } else {
-                    res.redirect('/medicos/listar'); // En caso de no tener error vuelvo al ejs con la info actualizada
-                }
+class MedicoController {
+    // Listado de todos los médicos
+    async listarMedicos(req, res) {
+        medicoModel.listar((medicos) => {
+            console.log("Médicos:", medicos);
+            res.render("medicos/listarMedicos", {
+                medicos: medicos
             });
+        });
+    }
+
+    // Función para mostrar formulario
+    async mostrarFormulario(req, res) {
+        try {
+            // Llamamos a medicoModel.listarEspecialidades() para obtener la lista de especialidades. Lo mismo con usuarios.
+            const especialidades = await medicoModel.listarEspecialidades();
+            const usuarios = await medicoModel.listarUsuarios();
+
+            res.render('medicos/insertarMedico', { 
+                especialidades: especialidades, //para poder usar especialidades en el ejs correspondiente
+                usuarios: usuarios //lo mismo que el de arriba
+            });
+        } catch (error) {
+            console.error('Error al obtener datos para el formulario:', error);
+            res.status(500).send('Error al obtener datos para el formulario'); //Este código indica que ha ocurrido un error interno en el servidor
         }
-    });
-};
+    }
+
+    // Obtengo un médico por su ID y lo muestro en un formulario para editar
+    async editarMedico(req, res) {
+        const id = req.params.id;
+        medicoModel.obtenerMedico(id, async (medico) => {
+            if (medico === false) { //// Si no se encuentra el médico (es decir, medico es false), obtiene un objeto base para crear un nuevo registro en medicos
+                medico = medicoModel.obtenerMedicoBase();
+            }
+            try {
+                const especialidades = await medicoModel.listarEspecialidades();
+                const usuarios = await medicoModel.listarUsuarios();
+    
+                console.log(medico);
+                res.render('medicos/editarMedico', {
+                    medico: medico,
+                    especialidades: especialidades,
+                    usuarios: usuarios
+                });
+            } catch (error) {
+                console.error('Error al obtener datos para la edición:', error);
+                res.status(500).send('Error al obtener datos para la edición');
+            }
+        });
+    }
+
+    // Guardar (crear o actualizar) un médico
+    async guardarMedico(req, res) {
+        // Obtener el id_usuario desde el formulario
+        const id_usuario = req.body.id_usuario || null;
+    
+        // Crear el objeto de datos
+        const datos = {
+            id: req.body.id || 0,
+            id_usuario: id_usuario,
+            id_especialidad: req.body.id_especialidad || null,
+            telefono: req.body.telefono || '',
+            foto: '',  
+            descripcion: req.body.descripcion || ''
+        };
+    
+        console.log('Datos recibidos para guardar:', datos);
+    
+        try {
+            const resultado = await medicoModel.guardarMedico(datos);
+            if (resultado && resultado.insertId) {
+                // Redirige al listado de médicos si se guarda correctamente
+                res.redirect('/medicos');
+            } else {
+                // Enviar un mensaje de error si la inserción falla
+                res.status(500).send('Error al guardar los datos');
+            }
+        } catch (error) {
+            console.error('Error al guardar médico:', error);
+            res.status(500).send('Error al guardar los datos');
+        }
+    }
+
+    // Eliminar un médico
+    async eliminarMedico(req, res) {
+        const id = req.params.id;
+        medicoModel.eliminar(id, () => {
+            res.redirect('/medicos'); // Redirige al listado después de eliminar
+        });
+    }
+
+    // Middleware para obtener especialidades
+    async obtenerEspecialidades(req, res, next) {
+        try {
+            const especialidades = await medicoModel.listarEspecialidades();
+            req.especialidades = especialidades;
+            next();
+        } catch (error) {
+            console.error('Error al obtener especialidades:', error);
+            res.status(500).send('Error al obtener especialidades');
+        }
+    }
+}
+
+module.exports = MedicoController;

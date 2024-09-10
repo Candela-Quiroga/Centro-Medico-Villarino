@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Médico</title>
+</head>
+<body>
+    <h1>Eliminar Médico</h1>
+    <p>¿Estás seguro que deseas eliminar a <%= medico.nombre %>?</p>
+    <form action="/medicos/eliminar/<%= medico.id %>" method="POST">
+        <button type="submit">Sí, eliminar</button>
+    </form>
+    <a href="/medicos/listar">Cancelar</a>
+</body>
+</html>

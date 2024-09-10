@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Médico</title>
+</head>
+<body>
+    <h1>Editar Médico</h1>
+    <form action="/medico/guardar" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<%= medico.id %>">
+        <input type="hidden" name="id_usuario" value="<%= medico.id_usuario %>">
+        
+        <label for="nombre">Nombre:</label>
+        <p><%= medico.nombre_medico %></p>
+
+        <label for="especialidad">Especialidad:</label>
+        <select name="id_especialidad" id="especialidad">
+            <% especialidades.forEach(function(especialidad) { %>
+                <option value="<%= especialidad.id %>" <%= especialidad.id === medico.id_especialidad ? 'selected' : '' %>><%= especialidad.nombre_especialidad %></option>
+            <% }); %>
+        </select><br>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" name="telefono" id="telefono" value="<%= medico.telefono %>"><br>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" id="descripcion"><%= medico.descripcion %></textarea><br>
+
+        <!-- Campo para foto (opcional) -->
+        <label for="foto">Foto:</label>
+        <input type="file" name="foto" id="foto"><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="/medicos">Volver al listado</a>
+</body>
+</html>

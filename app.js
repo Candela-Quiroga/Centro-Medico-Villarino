@@ -7,6 +7,8 @@ const rutasUsuarios = require('./routes/usuario'); //Para acceder a las rutas (a
 const rutasLogin = require('./routes/usuario');
 const rutasPanel = require('./routes/panel'); //para middleware
 const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para los turnos
+const rutasMedicos = require('./routes/medicos');
+
 
 //middleware
 app.use(session({
@@ -35,9 +37,7 @@ app.use('/', rutasUsuarios);
 app.use('/', rutasLogin);
 app.use('/', rutasPanel); 
 app.use('/', rutasTurnos);
-
-// Importo las rutas de Medicos
-app.use('/', require('./routes/medicosRoute'));
+app.use('/', rutasMedicos);
 
 app.listen(port, () => { //escucha el puerto
     console.log(`El servidor corre en el puerto ${port}`);

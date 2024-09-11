@@ -3,7 +3,6 @@ const conx = require('../database/db');
 
 //esta función obtiene los turnos y detalles de la base de datos
 const obtenerTurnos = (callback) => {
-    
     /*dentro de la constante "sql" guardo toda la consulta realizada para tener mayor prolijidad
     a la hora de hacer el conx.query, además realizo varios joins con las tablas relacionadas a 
     turnos para poder traer la información correspondiente en cada campo
@@ -12,8 +11,6 @@ const obtenerTurnos = (callback) => {
         SELECT 
             turnos.id AS turno_id, 
             CONCAT(usuarios.nombre) AS medico_nombre,
-            especialidades.nombre_especialidad AS especialidad, 
-            obras_sociales.nombre AS obra_social,
             pacientes.nombre AS paciente_nombre, 
             turnos.fecha_hora, 
             turnos.motivo 
@@ -34,7 +31,50 @@ const obtenerTurnos = (callback) => {
     });
 };
 
-//mas funciones a agregar
+//Funcion Agregar Turno
+const agregarTurno = (id_medico, id_paciente, fecha_hora, motivo, callback)=> {
+    const sql = `
+    INSERT INTO turnos (id_medico, id_paciente, fecha_hora, motivo) VALUES
+    (?, ?, ?, ?);
+    `;
+    conx.query(sql, [id_medico, id_paciente, fecha_hora, motivo], (error, results) => {
+        if (error) {
+            return callback(error, null); 
+        }
+        callback(null, results);
+    });
+};
+
+
+//Funcion Editar Turno
+const editarTurno = (callback)=> {
+    const sql = `
+    
+    
+    `;
+    conx.query(sql, (error, results) => {
+        if (error) {
+            return callback(error, null); 
+        }
+        callback(null, results);
+    });
+};
+
+//Funcion Eliminar Turno
+const eliminarTurno = (callback)=> {
+    const sql = `
+    
+    
+    `;
+    conx.query(sql, (error, results) => {
+        if (error) {
+            return callback(error, null); 
+        }
+        callback(null, results);
+    });
+};
+
+
 
 //exporto la función/es para poder ser utilizada/s desde el controlador
 module.exports = {

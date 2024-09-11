@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Turno</title>
+</head>
+<body>
+    <h1>Agregar Turno</h1>
+    <form action="/turno/guardar" method="POST">
+        
+        <label for="nombre">Médico:</label>
+        <input><br>
+
+        <label for="paciente">Paciente:</label>
+        <select name="id_paciente" id="">
+            <% pacientes.forEach(function(paciente) { %>
+                <option value="<%= paciente.id %>"></option>
+            <% }); %>
+        </select><br>
+
+        <label for="Fecha">Fecha y Hora:</label>
+        <input>
+
+        <label for="Motivo">Motivo:</label>
+        
+
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="/turnos/listar">Cancelar</a>
+</body>
+</html>

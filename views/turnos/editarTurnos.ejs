@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Editar</title>
+</head>
+<body>
+    <h1>Editar Turno</h1>
+    <form action="/turno/guardar" method="POST">
+        <input type="hidden" name="id" value="<%= turno.id %>">
+        
+        <label for="nombre">Médico:</label>
+        <p><%= medico.nombre_medico %></p>
+
+        <label for="paciente">Paciente:</label>
+        <select name="id_paciente" id="">
+            <% pacientes.forEach(function(paciente) { %>
+                <option value="<%= paciente.id %>"></option>
+            <% }); %>
+        </select><br>
+
+        <label for="Fecha">Fecha y Hora:</label>
+        <input type="text" name="Fecha" value="<%= medico.fecha_hora%>"><br>
+
+        <label for="Motivo">Motivo:</label>
+        <textarea name="Motivo"><%= turno.motivo %></textarea><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="/turnos/listar">Cancelar</a>
+</body>
+</html>

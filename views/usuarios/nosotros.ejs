@@ -4,56 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro Médico Villarino</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/public/css/estilos.css">
 
     <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+    <!--Iconos de Font Awesome-->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+
+    <!--Incluimos librería Swiper de JS para carruseles-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body>
     
-    <!-- Menú de navegación -->
-    <header>
-        <div class="header-logo"></div>
+   <!-- Menú de navegación -->
+   <header class="sombra">
+    <div class="logo"></div>
 
-        <ul class="menu-navegacion">
+    <nav>
+        <ul>
             <li><a href="#">Inicio</a></li>
-            <li><a href="./nosotros.ejs">Nosotros</a></li>
+            <li><a href="#">Nosotros</a></li>
             <li><a href="#">Profesionales</a></li>
             <li><a href="#">Coberturas</a></li>
             <li><a href="#">Contacto</a></li>
         </ul>
+    </nav>
 
-        <div class="menu-pedir-turno"><a href="#">Pedir Turno</a></div>
-        
-    </header>
 
-    <!-- Sección de información sobre el Centro Médico -->
-    <section class="nosotros">
-        
+    <a href="#" class="menu-pedir-turno boton">Pedir Turno</a>
+    
+</header>
 
-        <div class="container-imagen">
-            <h1>Sobre Nosotros:   </h1>
-            <p>Imágen del centro y breve descripción</p>
+<!-- Sección de información sobre el Centro Médico -->
+<section class="nosotros">
+    
+
+    <div class="container-imagen">
+        <h1>Sobre Nosotros:   </h1>
+        <p>Imágen del centro y breve descripción</p>
+        <img src="img/nosotros-medicos.jpg" alt="Imagen del Centro">
+    </div>
+
+    <!-- Esquema de proceso -->
+    <div class="container-proceso">
+        <div class="item-proceso">
+            <i class="fa-regular fa-eye"></i>
+        </div>
+        <div class="item-proceso">
+            <i class="fa-regular fa-hand-holding-heart"></i>
+        </div>
+        <div class="item-proceso">
+            <i class="fa-regular fa-handshake-simple"></i>
+        </div>
+        <div class="item-proceso">
+            <i class="fa-regular fa-bullseye-arrow"></i>
         </div>
 
-        <!-- Esquema de proceso -->
-        <div class="container-proceso">
-            <div class="item-proceso">Misión</div>
-            <div class="item-proceso">Visión</div>
-            <div class="item-proceso">Valores</div>
-            <div class="item-proceso">Objetivos</div>
+        <div class="imagen-centro">
+            <img src="img/logo-recortado.png" alt="Imagen Central">
+        </div>
+    </div>
 
-            <div class="imagen-centro">
-                <img src="img/logo-recortado.png" alt="Imagen Central">
+    <!--container fotos-->
+    <div class="container-img">
+        <div class="img1">
+            <img src="img/centro-medico.jpg" alt="Imagen 1">
+        </div>
+        <div class="img2">
+            <img src="img/centro-medico.jpg" alt="Imagen 2">
+        </div>
+        <div class="img3">
+            <img src="img/centro-medico.jpg" alt="Imagen 3">
+        </div>
+        <div class="img4">
+            <img src="img/centro-medico.jpg" alt="Imagen 4">
+        </div>
+    </div>
+
+    <div class="container-mapa">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d818.0726713749121!2d-60.02252270000001!3d-34.89915399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bea534817abb7f%3A0x6d1a9c6534364092!2sConsultorio%20Medico%20Villarino!5e0!3m2!1ses!2sar!4v1725455908050!5m2!1ses!2sar" 
+                width="400" 
+                height="300"
+                >
+            </iframe> <!--para traer paginas externas usamos iframe-->
+        <div class="container-info">
+            <h2>Información del centro:</h2>
+            <p><i class="fa-regular fa-location-dot"></i> Dirección:Lamadrid 29, Chivilcoy, Provincia de Bs As</p>
+            <p><i class="fa-regular fa-phone"></i> Teléfono: 2346 426515</p>
+            <p><i class="fa-regular fa-envelope"></i> Email:centromedicovillarino@gmail.com</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    
+    <div class="container-footer">
+        <div class="logo-redes">
+            <div class="logo-footer">
+                <img src="img/Logo Blanco.png">
+        </div>
+        <div class="redes-footer">
+           <!-- <h3 class="titulo-seguinos">Seguinos</h3> -->
+            <div class="iconos-redes">
+                <a href="https://www.instagram.com/centromedicovillarino?igsh=bnhsYXR4eDh5eW91" target="blank" class="icono-red instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61557067552824" target="blank" class="icono-red facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://wa.me/2346426515" target="blank" class="icono-red WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
             </div>
 
         </div>
-        
-
-    </section>
+    </div>
+        <div class="info-general">
+            <h3 class="titulo-footer">Centro Médico Villarino</h3>
+            <div class="texto">
+                <p>Nos dedicamos a brindar atención médica de calidad a nuestros pacientes. Contamos con un equipo de profesionales altamente capacitados y una amplia variedad de servicios médicos para cuidar de tu salud. ¡Te esperamos!</p>
+                <p><i class="fa-regular fa-location-dot"></i> Dirección:Lamadrid 29, Chivilcoy, Bs As</p>
+                
+            </div>
+        </div>
+        <div class="contacto-footer">
+            <h3 class="titulo-footer">Contactanos</h3>
+            <p><a href="https://wa.me/2346426515" target="blank" class="link-contacto"><i class="fa-brands fa-whatsapp"></i> WhatsApp:2346 426515</a></p>
+            <p><i class="fa-regular fa-phone"></i> Teléfono:2346 426515</p>
+            <p><a href="mailto:centromedicovillarino@gmail.com" class="link-contacto"><i class="fa-regular fa-envelope"></i> Email:centromedicovillarino@gmail.com</a></p>
+            
+        </div>
+      
+    </div>
+</footer>
 
 </body>
 </html>

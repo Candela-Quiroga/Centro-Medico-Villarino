@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Listado de Turnos</h1>
+    <a href="/turno/insertar">Agregar Nuevo Turno</a>
     <table border="1">
         <thead>
             <tr>
@@ -20,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <% results.forEach(function(turno) { %>
+            <% resultado.forEach(function(turno) { %>
                 <tr>
                     <td><%= turno.turno_id %></td>
                     <td><%= turno.medico_nombre %></td>
@@ -38,6 +39,5 @@
         </tbody>
         
     </table>
-    <a href="/turno/insertar">Agregar Nuevo Turno</a>
 </body>
 </html>

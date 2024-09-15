@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <% resultado.forEach(function(turno) { %>
+            <% turno.forEach(function(turno) { %>
                 <tr>
                     <td><%= turno.turno_id %></td>
                     <td><%= turno.medico_nombre %></td>
@@ -31,8 +31,8 @@
                     <td><%= date.getHours() %>:<%= date.getMinutes() %></td>
                     <td><%= turno.motivo %></td>
                     <td>
-                        <a href="/turno/editar/<%= turno.id %>">Editar</a>
-                        <a href="/turno/eliminar/<%= turno.id %>">Eliminar</a>
+                        <button><a href="/turnos/editar/<%= turno.turno_id %>">Editar</a></button>
+                        <button><a href="/turnos/eliminar/<%= turno.turno_id %>">Eliminar</a></button>
                     </td>
                 </tr>
             <% }); %>

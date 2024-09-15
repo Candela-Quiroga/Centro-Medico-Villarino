@@ -22,11 +22,42 @@ class TurnoModel{
             JOIN pacientes ON turnos.id_paciente = pacientes.id
             JOIN obras_sociales ON pacientes.id_obraSocial = obras_sociales.id
         `;
-        conx.query(sql, [], (err, results)=>{
+        conx.query(sql, [], (err, results) => {
+            if (err) {
+                console.error(err);
+                return callback([]);
+            }
             callback(results);
         });
     }
+
+    async obtenerTurno(id, callback){
+        let sql = `SELECT * FROM turnos WHERE id = ?`;
+        conx.query(sql, [id], async (err, results) => {
+            if (results.length === 0) {
+                return false;
+            } else {
+            callback(results[0]);
+            }
+        });
+    }
+
+    async guardarTurno(datos, callback){
+        if(datos.id == 0){
+            let sql = `INSERT INTO turnos (id_medico, id_paciente, fecha_hora, motivo)`;
+            sql += `VALUES (?,?,?,?)`;
+            conx.query(sql, [datos.medico, datos.paciente, datos.fecha_hora, datos.motivo], async (err, results)=>{
+                callback(results);
+        });
+        } else {
+            let sql = `UPDATE turnos SET medico= ?, paciente= ?, fecha_hora= ?, motivo= ? WHERE id = ?`;
+            conx.query(sql, [datos.medico, datos.paciente, datos.fecha_hora, datos.motivo, datos.id], async (err, results)=>{
+                callback(results);
+        });
+        }
+    }
 }
+
 
 //exporto la función/es para poder ser utilizada/s desde el controlador
 module.exports = TurnoModel;

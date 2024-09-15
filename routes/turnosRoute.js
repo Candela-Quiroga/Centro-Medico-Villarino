@@ -8,12 +8,12 @@ const turnoModel = new TurnoModel();
 //Ruta para listar los turnos
 router.get('/turnos', turnoController.listarTurnos);
 
-//Rutas a agregar
+//Ruta para editar y guardar turnos
+router.get('/turnos/editar/:id', turnoController.editarTurno);
+router.post('/turnos', turnoController.guardarTurno);
 
+//Ruta para eliminar turnos
+router.delete('/turnos/eliminar/:id', turnoController.eliminarTurno);
 
-//Ruta para editar turnos
-router.get('/turnos/editar/:id', (req, res)=>{
-
-});
 
 module.exports = router; //exporto el módulo para que pueda ser incorporado en app.js

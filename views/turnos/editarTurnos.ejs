@@ -3,31 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Editar</title>
+    <title>Editar Turno</title>
 </head>
 <body>
     <h1>Editar Turno</h1>
-    <form action="/turno/guardar" method="POST">
-        <input type="hidden" name="id" value="<%= turno.id %>">
-        
-        <label for="nombre">Médico:</label>
-        <p><%= medico.nombre_medico %></p>
+    <table border="1">
 
-        <label for="paciente">Paciente:</label>
-        <select name="id_paciente" id="">
-            <% pacientes.forEach(function(paciente) { %>
-                <option value="<%= paciente.id %>"></option>
-            <% }); %>
-        </select><br>
+        <thead></thead>
+            <tr>
+                <th>Médico</th>
+                <th>Paciente</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Motivo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
 
-        <label for="Fecha">Fecha y Hora:</label>
-        <input type="text" name="Fecha" value="<%= medico.fecha_hora%>"><br>
+        <tbody>
+                <tr>
+                    <td>
+                        <select id="medico_nombre" name="medico_nombre">
+                            <% medicos.forEach((medico) => { %>
+                                <!-- Comprobamos si el médico es el que está asociado al turno actual -->
+                                <option value="<%= medico.id %>" <%= turno.id_medico == medico.id ? 'selected' : '' %> >
+                                    <%= medico.nombre_medico %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="paciente_nombre" name="paciente_nombre">
+                            <% pacientes.forEach((paciente) => { %>
+                                <!-- Comprobamos si el paciente es el que está asociado al turno actual -->
+                                <option value="<%= paciente.id %>" <%= turno.id_paciente == paciente.id ? 'selected' : '' %> >
+                                    <%= paciente.nombre %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </td>
+                    <% let date = new Date(turno.fecha_hora) %>
+                    <td><input id="fecha" value="<%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %>"></td>
+                    <td><input id="hora" value="<%= date.getHours() %>:<%= date.getMinutes() %>"></td>
+                    <td><input id="motivo" value="<%= turno.motivo %>"></td>
+                    <td>
+                        <button class="guardar">Guardar</a></button>
+                        <button><a href="/turnos">Cancelar</a></button> 
+                    </td>
+                </tr>
+        </tbody>
+    </table>
 
-        <label for="Motivo">Motivo:</label>
-        <textarea name="Motivo"><%= turno.motivo %></textarea><br>
+    <script>
+        const botonGuardar = document.querySelector(".guardar");
+        const turnoMedico = document.querySelector("#medico_nombre");
+        const turnoPaciente = document.querySelector("#paciente_nombre");
+        const turnoFecha = document.querySelector("#fecha");
+        const turnoHora = document.querySelector("#hora");
+        const turnoMotivo = document.querySelector("#motivo");
 
-        <button type="submit">Guardar</button>
-    </form>
-    <a href="/turnos/listar">Cancelar</a>
+        botonGuardar.addEventListener("click", async()=>{
+            const datos = {
+                id_medico: turnoMedico.value,
+                id_paciente: turnoPaciente.value,
+                fecha_hora: turnoFecha.value,
+                motivo: turnoMotivo.value,
+                id: <%=turno.id%>,
+            }
+            const results = await fetch('/turnos', {
+                method: 'post',
+                body: datos,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            const data = await results.json();
+            if (data.success == true){
+                location.href = "/turnos";
+            } else {
+                alert ("Hubo un problema con los valores");
+            }
+        });
+    </script>
+
 </body>
 </html>

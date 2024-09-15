@@ -2,6 +2,17 @@
 const conx = require('../database/db');
 
 class TurnoModel{
+
+    obtenerTurnoBase(){
+        return {
+            id: 0,
+            id_medico: '',
+            id_paciente: '',
+            fecha_hora: '',
+            motivo: ''
+        }
+    }
+
     async listarTurnos(callback){
         //esta función obtiene los turnos y detalles de la base de datos
         /*dentro de la constante "sql" guardo toda la consulta realizada para tener mayor prolijidad
@@ -35,7 +46,7 @@ class TurnoModel{
         let sql = `SELECT * FROM turnos WHERE id = ?`;
         conx.query(sql, [id], async (err, results) => {
             if (results.length === 0) {
-                return false;
+                callback(false);
             } else {
             callback(results[0]);
             }
@@ -50,12 +61,25 @@ class TurnoModel{
                 callback(results);
         });
         } else {
-            let sql = `UPDATE turnos SET medico= ?, paciente= ?, fecha_hora= ?, motivo= ? WHERE id = ?`;
+            let sql = `UPDATE turnos SET id_medico= ?, id_paciente= ?, fecha_hora= ?, motivo= ? WHERE id = ?`;
             conx.query(sql, [datos.medico, datos.paciente, datos.fecha_hora, datos.motivo, datos.id], async (err, results)=>{
                 callback(results);
         });
         }
     }
+
+    async eliminarTurno(id, callback) {
+        let sql = `DELETE FROM turnos WHERE id = ?`;
+        conx.query(sql, [id], (err, results) => {
+            if (err) {
+                console.error(err);
+                callback(null);
+            } else {
+                callback(results);
+            }
+        });
+    }
+    
 }
 
 

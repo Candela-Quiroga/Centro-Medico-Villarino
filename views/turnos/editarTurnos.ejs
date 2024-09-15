@@ -58,21 +58,23 @@
         const botonGuardar = document.querySelector(".guardar");
         const turnoMedico = document.querySelector("#medico_nombre");
         const turnoPaciente = document.querySelector("#paciente_nombre");
-        const turnoFecha = document.querySelector("#fecha");
-        const turnoHora = document.querySelector("#hora");
+        const turnoFecha = document.querySelector("#fecha").value;
+        const turnoHora = document.querySelector("#hora").value;
+        const fechaCompleta = `${turnoFecha} ${turnoHora}`; // Combinar la fecha y hora
         const turnoMotivo = document.querySelector("#motivo");
 
         botonGuardar.addEventListener("click", async()=>{
+
             const datos = {
                 id_medico: turnoMedico.value,
                 id_paciente: turnoPaciente.value,
-                fecha_hora: turnoFecha.value,
+                fecha_hora: fechaCompleta, // Usar fecha y hora combinada
                 motivo: turnoMotivo.value,
                 id: <%=turno.id%>,
             }
             const results = await fetch('/turnos', {
                 method: 'post',
-                body: datos,
+                body: JSON.stringify(datos),
                 headers: {
                     'Content-Type': 'application/json'
                 }

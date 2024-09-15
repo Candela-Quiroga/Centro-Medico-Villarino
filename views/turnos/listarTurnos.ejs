@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Listado de Turnos</h1>
-    <a href="/turno/insertar">Agregar Nuevo Turno</a>
+    <a href="/turnos/0">Agregar Nuevo Turno</a>
     <table border="1">
         <thead>
             <tr>
@@ -32,12 +32,31 @@
                     <td><%= turno.motivo %></td>
                     <td>
                         <button><a href="/turnos/editar/<%= turno.turno_id %>">Editar</a></button>
-                        <button><a href="/turnos/eliminar/<%= turno.turno_id %>">Eliminar</a></button>
+                        <button class="btnEliminar" data-id="<%= turno.turno_id %>">Eliminar</button>
                     </td>
                 </tr>
             <% }); %>
         </tbody>
-        
     </table>
+
+    <script>
+        document.querySelectorAll('.btnEliminar').forEach(button => {
+            button.addEventListener('click', async() => {
+                const turnoId = this.getAttribute('data-id');
+                if (confirm('¿Estás seguro de que deseas eliminar este turno?')) {
+                    const response = await fetch(`/turnos/eliminar/${turnoId}`, {
+                        method: 'DELETE'
+                    });
+    
+                    if (response.ok) {
+                        location.reload(); // Recargar la página después de eliminar
+                    } else {
+                        alert('Hubo un problema al eliminar el turno');
+                    }
+                }
+            });
+        });
+    </script>
+    
 </body>
 </html>

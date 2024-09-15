@@ -15,5 +15,4 @@ router.post('/turnos', turnoController.guardarTurno);
 //Ruta para eliminar turnos
 router.delete('/turnos/eliminar/:id', turnoController.eliminarTurno);
 
-
 module.exports = router; //exporto el módulo para que pueda ser incorporado en app.js

@@ -65,14 +65,15 @@ class TurnoController {
     }
     
     //funcion para eliminar turnos
-    async eliminarTurno(req, res){
-
-    }
+    async eliminarTurno(req, res) {
+        const id = req.params.id; // Obtener el ID del turno desde los parámetros de la URL
+        turnoModel.eliminarTurno(id, (result) => {
+            if (!result) {
+                return res.status(500).send("Error al eliminar el turno.");
+            }
+            res.redirect('/turnos'); // Redirigir a la lista de turnos tras eliminar
+        });
+    }    
 }
-    
-
-
-
-
 //exporto el controller con la funcion de listar
 module.exports = TurnoController;

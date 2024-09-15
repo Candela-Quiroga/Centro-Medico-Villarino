@@ -56,24 +56,23 @@
 
     <script>
         const botonGuardar = document.querySelector(".guardar");
-        const turnoMedico = document.querySelector("#medico_nombre");
-        const turnoPaciente = document.querySelector("#paciente_nombre");
-        const turnoFecha = document.querySelector("#fecha").value;
-        const turnoHora = document.querySelector("#hora").value;
-        const fechaCompleta = `${turnoFecha} ${turnoHora}`; // Combinar la fecha y hora
-        const turnoMotivo = document.querySelector("#motivo");
-
         botonGuardar.addEventListener("click", async()=>{
+            const turnoMedico = document.querySelector("#medico_nombre").value;
+            const turnoPaciente = document.querySelector("#paciente_nombre").value;
+            const turnoFecha = document.querySelector("#fecha").value;
+            const turnoHora = document.querySelector("#hora").value;
+            const fechaCompleta = `${turnoFecha} ${turnoHora}`; // Combinar la fecha y hora
+            const turnoMotivo = document.querySelector("#motivo").value;
 
             const datos = {
-                id_medico: turnoMedico.value,
-                id_paciente: turnoPaciente.value,
+                id_medico: turnoMedico,
+                id_paciente: turnoPaciente,
                 fecha_hora: fechaCompleta, // Usar fecha y hora combinada
-                motivo: turnoMotivo.value,
+                motivo: turnoMotivo,
                 id: <%=turno.id%>,
-            }
-            const results = await fetch('/turnos', {
-                method: 'post',
+            };
+            const results = await fetch('/turnos/agregar/0', {
+                method: 'POST',
                 body: JSON.stringify(datos),
                 headers: {
                     'Content-Type': 'application/json'
@@ -84,10 +83,9 @@
             if (data.success == true){
                 location.href = "/turnos";
             } else {
-                alert ("Hubo un problema con los valores");
+                alert ("Hubo un problema con los datos");
             }
         });
     </script>
-
 </body>
 </html>

@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Listado de Turnos</h1>
-    <a href="/turnos/0">Agregar Nuevo Turno</a>
+    <button><a href="/turnos/agregar/0">Agregar Turno</a></button>
     <table border="1">
         <thead>
             <tr>
@@ -42,17 +42,12 @@
     <script>
         document.querySelectorAll('.btnEliminar').forEach(button => {
             button.addEventListener('click', async() => {
-                const turnoId = this.getAttribute('data-id');
+                const turnoId = button.getAttribute('data-id');
                 if (confirm('¿Estás seguro de que deseas eliminar este turno?')) {
                     const response = await fetch(`/turnos/eliminar/${turnoId}`, {
                         method: 'DELETE'
                     });
-    
-                    if (response.ok) {
-                        location.reload(); // Recargar la página después de eliminar
-                    } else {
-                        alert('Hubo un problema al eliminar el turno');
-                    }
+                    location.reload(); // Recargar la página después de eliminar
                 }
             });
         });

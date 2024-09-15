@@ -57,21 +57,51 @@ class TurnoController {
     //funcion para agregar turnos
     async guardarTurno(req, res){
         const datos = req.body;
-        turnoModel.guardarTurno(datos, ()=>{
+        turnoModel.guardarTurno(datos, (result)=>{
             res.send({
                 "success": true,
             });
         });
     }
+
+    //Funcion para agregar el nuevo turno
+    async agregarTurno(req, res) {
+        //para obtener los médicos y pacientes
+        Promise.all([
+            new Promise((resolve, reject) => {
+                pacienteModel.listarPaciente((pacientes) => {
+                    resolve(pacientes);
+                });
+            }),
+            new Promise((resolve, reject) => {
+                medicoModel.listar((medicos) => {
+                    resolve(medicos);
+                });
+            })
+        ])
+        .then(([pacientes, medicos]) => {
+            res.render("../views/turnos/agregarTurnos", {
+                turno: { id: 0 }, // Turno vacío
+                pacientes: pacientes,
+                medicos: medicos
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send("Error al cargar la información");
+        });
+    }
+
     
     //funcion para eliminar turnos
     async eliminarTurno(req, res) {
-        const id = req.params.id; // Obtener el ID del turno desde los parámetros de la URL
+        const id = req.params.id;
         turnoModel.eliminarTurno(id, (result) => {
             if (!result) {
                 return res.status(500).send("Error al eliminar el turno.");
+            } else {
+            res.redirect('/turnos'); // Redirige a la lista de turnos tras eliminar
             }
-            res.redirect('/turnos'); // Redirigir a la lista de turnos tras eliminar
         });
     }    
 }

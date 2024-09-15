@@ -7,26 +7,87 @@
 </head>
 <body>
     <h1>Agregar Turno</h1>
-    <form action="/turno/guardar" method="POST">
+    <table border="1">
+
+        <thead></thead>
+            <tr>
+                <th>Médico</th>
+                <th>Paciente</th>
+                <th>Fecha (DD/MM/AAAA)</th>
+                <th>Hora (HH:MM)</th>
+                <th>Motivo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+                <tr>
+                    <td>
+                        <select id="medico_nombre" name="medico_nombre">
+                            <% medicos.forEach((medico) => { %>
+                                <!-- Comprobamos si el médico es el que está asociado al turno actual -->
+                                <option value="<%= medico.id %>" <%= turno.id_medico == medico.id ? 'selected' : '' %> >
+                                    <%= medico.nombre_medico %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="paciente_nombre" name="paciente_nombre">
+                            <% pacientes.forEach((paciente) => { %>
+                                <!-- Comprobamos si el paciente es el que está asociado al turno actual -->
+                                <option value="<%= paciente.id %>" <%= turno.id_paciente == paciente.id ? 'selected' : '' %> >
+                                    <%= paciente.nombre %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </td>
+                    <% let date = new Date(turno.fecha_hora) %>
+                    <td><input id="fecha" value="<%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %>"></td>
+                    <td><input id="hora" value="<%= date.getHours() %>:<%= date.getMinutes() %>"></td>
+                    <td><input id="motivo" value="<%= turno.motivo %>"></td>
+                    <td>
+                        <button class="guardar">Guardar</a></button>
+                        <button><a href="/turnos">Cancelar</a></button> 
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const botonGuardar = document.querySelector(".guardar");
         
-        <label for="nombre">Médico:</label>
-        <input><br>
+        botonGuardar.addEventListener("click", async()=>{
+            const turnoMedico = document.querySelector("#medico_nombre").value;
+            const turnoPaciente = document.querySelector("#paciente_nombre").value;
+            const turnoFecha = document.querySelector("#fecha").value;
+            const turnoHora = document.querySelector("#hora").value;
+            const fechaCompleta = `${turnoFecha} ${turnoHora}`; // Combinar la fecha y hora
+            const turnoMotivo = document.querySelector("#motivo").value;
 
-        <label for="paciente">Paciente:</label>
-        <select name="id_paciente" id="">
-            <% pacientes.forEach(function(paciente) { %>
-                <option value="<%= paciente.id %>"></option>
-            <% }); %>
-        </select><br>
+            const datos = {
+                id_medico: turnoMedico,
+                id_paciente: turnoPaciente,
+                fecha_hora: fechaCompleta, // Usar fecha y hora combinada
+                motivo: turnoMotivo,
+                id: <%=turno.id%>,
+            }
+            const results = await fetch('/turnos', {
+                method: 'PUT',
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
 
-        <label for="Fecha">Fecha y Hora:</label>
-        <input>
+            const data = await results.json();
+            if (data.success == true){
+                location.href = "/turnos";
+            } else {
+                alert ("Hubo un problema con los valores");
+            }
+        });
+    </script>
 
-        <label for="Motivo">Motivo:</label>
-        
-
-        <button type="submit">Guardar</button>
-    </form>
-    <a href="/turnos/listar">Cancelar</a>
 </body>
 </html>

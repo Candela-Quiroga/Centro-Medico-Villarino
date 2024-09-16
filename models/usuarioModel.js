@@ -35,7 +35,7 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
     async guardar(datos,callback){ 
         if (datos.id == 0){ //si el id q mandé, inserto
             //creamos
-            let sql = "INSERT INTO usuarios (nombre, apellido, email, id_categoria) ";
+            let sql = "INSERT INTO usuarios (nombre, email, id_categoria) ";
             sql += "VALUES (?, ?, ?, ?) ";
             conx.query(sql, [datos.nombre, datos.email, datos.id_categoria], async (err, results) => {
                 callback(results);
@@ -43,7 +43,7 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
 
         } else { //si es distinto a cero, actualizo
             //actualizamos
-            let sql = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, id_categoria = ? WHERE id = ?";
+            let sql = "UPDATE usuarios SET nombre = ?, email = ?, id_categoria = ? WHERE id = ?";
             conx.query(sql, [datos.nombre, datos.email, datos.id_categoria], async (err, results) => {
                 callback(results);
             });

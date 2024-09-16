@@ -9,7 +9,6 @@ const rutasPanel = require('./routes/panel'); //para middleware
 const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para los turnos
 const rutasMedicos = require('./routes/medicos');
 
-
 //middleware
 app.use(session({
     "secret": 'hola', //se va a configurar una cookie en el navegador para q no se metan en el programa

@@ -63,7 +63,7 @@
             const turnoHora = document.querySelector("#hora").value;
             const fechaCompleta = `${turnoFecha} ${turnoHora}`; // Combinar la fecha y hora
             const turnoMotivo = document.querySelector("#motivo").value;
-
+            
             const datos = {
                 id: <%=turno.id%>,
                 id_medico: turnoMedico,
@@ -71,7 +71,7 @@
                 fecha_hora: fechaCompleta, // Usar fecha y hora combinada
                 motivo: turnoMotivo,
             };
-            const results = await fetch('/turnos/agregar/0', {
+            const results = await fetch('/turnos/editar/<%= turno.id %>', {
                 method: 'POST',
                 body: JSON.stringify(datos),
                 headers: {
@@ -82,6 +82,7 @@
             const data = await results.json();
             if (data.success == true){
                 location.href = "/turnos";
+                console.log(data);
             } else {
                 alert ("Hubo un problema con los datos");
             }

@@ -10,12 +10,11 @@ router.get('/turnos', turnoController.listarTurnos);
 
 //Ruta para editar y agregar turnos
 router.get('/turnos/editar/:id', turnoController.editarTurno);
+router.post('/turnos/editar/:id', turnoController.guardarTurno);
+
 router.get('/turnos/agregar/0', turnoController.agregarTurno);
 
-
-
-//Ruta para guardar cambios
-router.post('/tunos/editar/:id', turnoController.guardarTurno);
+router.post('/turnos/agregar/0', turnoController.guardarTurno);
 
 //Ruta para eliminar turnos
 router.delete('/turnos/eliminar/:id', turnoController.eliminarTurno);

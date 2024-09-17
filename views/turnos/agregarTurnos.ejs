@@ -64,7 +64,7 @@
             const turnoHora = document.querySelector("#hora").value;
             const fechaCompleta = `${turnoFecha} ${turnoHora}`; // Combinar la fecha y hora
             const turnoMotivo = document.querySelector("#motivo").value;
-
+            console.log('hola')
             const datos = {
                 id_medico: turnoMedico,
                 id_paciente: turnoPaciente,
@@ -72,8 +72,8 @@
                 motivo: turnoMotivo,
                 id: <%=turno.id%>,
             }
-            const results = await fetch('/turnos', {
-                method: 'PUT',
+            const results = await fetch('/turnos/agregar/0', {
+                method: 'POST',
                 body: JSON.stringify(datos),
                 headers: {
                     'Content-Type': 'application/json'

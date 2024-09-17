@@ -46,7 +46,7 @@ class TurnoModel{
         let sql = `SELECT * FROM turnos WHERE id = ?`;
         conx.query(sql, [id], async (err, results) => {
             if (results.length === 0) {
-                callback(false);
+                callback(this.obtenerTurnoBase());
             } else {
             callback(results[0]);
             }
@@ -57,7 +57,7 @@ class TurnoModel{
         if(datos.id == 0){
             let sql = `INSERT INTO turnos (id_medico, id_paciente, fecha_hora, motivo)`;
             sql += `VALUES (?,?,?,?)`;
-            conx.query(sql, [datos.medico, datos.paciente, datos.fecha_hora, datos.motivo], async (err, results)=>{
+            conx.query(sql, [datos.id_medico, datos.id_paciente, datos.fecha_hora, datos.motivo], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);
@@ -67,7 +67,7 @@ class TurnoModel{
         });
         } else {
             let sql = `UPDATE turnos SET id_medico= ?, id_paciente= ?, fecha_hora= ?, motivo= ? WHERE id = ?`;
-            conx.query(sql, [datos.medico, datos.paciente, datos.fecha_hora, datos.motivo, datos.id], async (err, results)=>{
+            conx.query(sql, [datos.id_medico, datos.id_paciente, datos.fecha_hora, datos.motivo, datos.id], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);
@@ -91,6 +91,7 @@ class TurnoModel{
     }
     
 }
+
 
 //exporto la función/es para poder ser utilizada/s desde el controlador
 module.exports = TurnoModel;

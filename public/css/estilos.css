@@ -67,7 +67,7 @@ header {
 header .logo {
     width: 20%;
     height: 60px;
-    background-image: url('../img/logo-header.png');
+    background-image: url('/public/img/logo-header.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -247,7 +247,7 @@ header.menu-pedir-turno a {
 }
 
 .seccion-nosotros .nosotros-foto{
-    background-image: url('../img/nosotros-fotos.png');
+    background-image: url('/public/img/nosotros-fotos.png');
     background-size: contain;
     background-repeat: no-repeat;
     width: 50%;

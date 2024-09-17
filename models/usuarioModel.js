@@ -8,7 +8,8 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
             id: 0,
             nombre: '',
             email: '',
-            id_categoria: 0
+            password: '',
+            id_categoriaPermiso: 0
         }
     }
     
@@ -35,23 +36,23 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
     async guardar(datos,callback){ 
         if (datos.id == 0){ //si el id q mandé, inserto
             //creamos
-            let sql = "INSERT INTO usuarios (nombre, email, id_categoria) ";
+            let sql = "INSERT INTO usuarios (nombre, email, password, id_categoriaPermiso) ";
             sql += "VALUES (?, ?, ?, ?) ";
-            conx.query(sql, [datos.nombre, datos.email, datos.id_categoria], async (err, results) => {
+            conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
                 callback(results);
             });
 
         } else { //si es distinto a cero, actualizo
             //actualizamos
-            let sql = "UPDATE usuarios SET nombre = ?, email = ?, id_categoria = ? WHERE id = ?";
-            conx.query(sql, [datos.nombre, datos.email, datos.id_categoria], async (err, results) => {
+            let sql = "UPDATE usuarios SET nombre = ?, email = ?, password = ?, id_categoriaPermiso = ? WHERE id = ?";
+            conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
                 callback(results);
             });
         }
     }
 
     async eliminar(id, callback){
-        let sql = "DELETE * FROM usuarios WHERE id = ?";
+        let sql = "DELETE FROM usuarios WHERE id = ?";
         conx.query(sql, [id], async (err, results) => {
             callback(results);
         })

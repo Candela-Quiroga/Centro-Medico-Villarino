@@ -11,6 +11,9 @@
                 <label>Email</label>
                 <input id="usuario_email" value="<%- usuario?.email %>">
 
+                <label>Password</label>
+                <input id="usuario_password" value="<%- usuario?.password %>">
+
                 <label>Categoria</label>
 
                 <select id="usuario_categoria"> <!--Estamos obteniendo las categorias en un condicional-->
@@ -29,13 +32,15 @@
 
             const usuarioNombre = document.querySelector("#usuario_nombre");
             const usuarioEmail = document.querySelector("#usuario_email");
+            const usuarioPassword = document.querySelector("#usuario_password");
             const usuarioCategoria = document.querySelector("#usuario_categoria");
 
             botonGuardar.addEventListener("click", async () => {
                 const datos = {
                     nombre: usuarioNombre.value,
                     email: usuarioEmail.value,
-                    id_categoria: usuarioCategoria.value,
+                    password: usuarioPassword.value,
+                    id_categoriaPermiso: usuarioCategoria.value,
                     id: <%= usuario.id %>,
                 }
                 console.log(datos);

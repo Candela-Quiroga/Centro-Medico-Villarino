@@ -15,7 +15,7 @@ router.get('/login', usuarioController.mostrarFormulario);
 router.post('/login', usuarioController.validarFormulario);
 
 //rutas redirección a home
-router.get('/', usuarioController.homepage);
+router.get('/home', usuarioController.homepage);
 
 //ruta a nosotros
 router.get('/nosotros', usuarioController.mostrarnosotros);

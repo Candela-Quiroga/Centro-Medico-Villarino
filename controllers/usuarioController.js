@@ -18,6 +18,12 @@ class UsuarioController {
         });
     }
 
+    //Mostrar pagina nosotros
+    mostrarnosotros(req,res){
+        res.render('usuarios/nosotros', {
+        });
+    }
+
     async validarFormulario (req, res){
         //para recibir datos puedo utilizar: 
         //req.query cuando recibo los datos por url (Normalmente get). 

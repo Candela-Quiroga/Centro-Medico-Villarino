@@ -15,6 +15,9 @@ router.get('/login', usuarioController.mostrarFormulario);
 router.post('/login', usuarioController.validarFormulario);
 
 //rutas redirección a home
-router.get('/usuarios/home', usuarioController.homepage);
+router.get('/', usuarioController.homepage);
+
+//ruta a nosotros
+router.get('/nosotros', usuarioController.mostrarnosotros);
 
 module.exports = router; //estamos diciendo "vamos a exportar el modulo router". Este modulo es el de la linea 2 y tiene las rutas generadas.

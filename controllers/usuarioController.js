@@ -12,6 +12,12 @@ class UsuarioController {
         });
     }
 
+    //Mostrar homepage
+    homepage(req,res){
+        res.render('usuarios/home', {
+        });
+    }
+
     async validarFormulario (req, res){
         //para recibir datos puedo utilizar: 
         //req.query cuando recibo los datos por url (Normalmente get). 

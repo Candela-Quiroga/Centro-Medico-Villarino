@@ -12,6 +12,8 @@ router.get('/turnos', turnoController.listarTurnos);
 router.get('/turnos/editar/:id', turnoController.editarTurno);
 router.get('/turnos/agregar/0', turnoController.agregarTurno);
 
+
+
 //Ruta para guardar cambios
 router.post('/tunos/editar/:id', turnoController.guardarTurno);
 

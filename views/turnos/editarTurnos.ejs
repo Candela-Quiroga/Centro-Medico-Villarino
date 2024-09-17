@@ -47,7 +47,7 @@
                     <td><input id="hora" value="<%= date.getHours() %>:<%= date.getMinutes() %>"></td>
                     <td><input id="motivo" value="<%= turno.motivo %>"></td>
                     <td>
-                        <button class="guardar">Guardar</a></button>
+                        <button class="guardar">Guardar</button>
                         <button><a href="/turnos">Cancelar</a></button> 
                     </td>
                 </tr>
@@ -65,11 +65,11 @@
             const turnoMotivo = document.querySelector("#motivo").value;
 
             const datos = {
+                id: <%=turno.id%>,
                 id_medico: turnoMedico,
                 id_paciente: turnoPaciente,
                 fecha_hora: fechaCompleta, // Usar fecha y hora combinada
                 motivo: turnoMotivo,
-                id: <%=turno.id%>,
             };
             const results = await fetch('/turnos/agregar/0', {
                 method: 'POST',

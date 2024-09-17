@@ -57,6 +57,7 @@ class TurnoController {
     //funcion para agregar turnos
     async guardarTurno(req, res){
         const datos = req.body;
+        console.log(datos);
         turnoModel.guardarTurno(datos, (result)=>{
             res.send({
                 "success": true,

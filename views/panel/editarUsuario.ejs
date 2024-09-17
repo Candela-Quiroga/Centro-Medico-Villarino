@@ -38,6 +38,7 @@
                     id_categoria: usuarioCategoria.value,
                     id: <%= usuario.id %>,
                 }
+                console.log(datos);
                 
                 const result = await fetch(`/usuario`, {
                 method: 'post',

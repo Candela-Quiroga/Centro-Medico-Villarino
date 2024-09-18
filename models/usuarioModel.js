@@ -36,8 +36,8 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
     async guardar(datos,callback){ 
         if (datos.id == 0){ //si el id q mandé, inserto
             //creamos
-            let sql = "INSERT INTO usuarios (nombre, email, password, id_categoriaPermiso) ";
-            sql += "VALUES (?, ?, ?, ?) ";
+            let sql = "INSERT INTO usuarios (id, nombre, email, password, id_categoriaPermiso) ";
+            sql += "VALUES (?, ?, ?, ?, ?) ";
             conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
                 callback(results);
             });

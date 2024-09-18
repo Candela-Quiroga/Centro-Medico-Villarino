@@ -3,7 +3,7 @@
     <%- include('../commons/head')%>
     <body>
         <div class="container">
-            <p><%=usuario.id_categoriaPermiso%></p>
+            <p><%=usuario.id%></p>
             <div>
                 <label>Nombre</label>
                 <input id="usuario_nombre" value="<%- usuario?.nombre %>">
@@ -30,6 +30,7 @@
             
             const botonGuardar = document.querySelector(".guardar");
 
+            const id_user = document.querySelector("#usuario_id");
             const usuarioNombre = document.querySelector("#usuario_nombre");
             const usuarioEmail = document.querySelector("#usuario_email");
             const usuarioPassword = document.querySelector("#usuario_password");
@@ -44,8 +45,9 @@
                     id: <%= usuario.id %>,
                 }
                 console.log(datos);
+                console.log('hola');
                 
-                const result = await fetch(`/usuario`, {
+                const result = await fetch(`/usuario/${datos.id}`, {
                 method: 'post',
                 body: JSON.stringify(datos),
                 headers: {
@@ -55,7 +57,7 @@
 
                 const data = await result.json();
                 if (data.success == true) { 
-                    location.href = "/usuarios";  //si toda la acutalización es correcta, volve al inicio
+                    //location.href = "/usuarios";  //si toda la acutalización es correcta, volve al inicio
                 } else { //si la actualización fue incorrecta
                     alert ("Hubo un problema actualizando los valores"); //envia una alerta
                 }

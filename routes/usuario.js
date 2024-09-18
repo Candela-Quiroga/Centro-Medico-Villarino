@@ -8,6 +8,7 @@ const usuarioController = new UsuarioController();
 router.get('/usuarios', usuarioController.listarUsuarios); //va a decir, "voy a crear un nuevo template y a partir de este nuevo template voy a listar todos los usuarios que yo ya tenga"
 router.get('/usuario/:id', usuarioController.editarUsuario); //con los dos puntos le decimos que es el comodin y despues de estos, le damos el nombre
 router.post('/usuario', usuarioController.guardarUsuario);
+router.post('/usuario/:id', usuarioController.editarUsuario);
 router.delete('/usuario/:id', usuarioController.eliminarUsuario);
 
 //rutas para ingreso

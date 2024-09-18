@@ -38,14 +38,14 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
             //creamos
             let sql = "INSERT INTO usuarios (id, nombre, email, password, id_categoriaPermiso) ";
             sql += "VALUES (?, ?, ?, ?, ?) ";
-            conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
+            conx.query(sql, [datos.id, datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
                 callback(results);
             });
 
         } else { //si es distinto a cero, actualizo
             //actualizamos
-            let sql = "UPDATE usuarios SET nombre = ?, email = ?, password = ?, id_categoriaPermiso = ? WHERE id = ?";
-            conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
+            let sql = "UPDATE usuarios SET id = ?, nombre = ?, email = ?, password = ?, id_categoriaPermiso = ? WHERE id = ?";
+            conx.query(sql, [datos.id, datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
                 callback(results);
             });
         }

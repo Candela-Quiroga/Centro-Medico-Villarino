@@ -7,32 +7,67 @@
 </head>
 <body>
     <h1>Editar Médico</h1>
-    <form action="/medico/guardar" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<%= medico.id %>">
-        <input type="hidden" name="id_usuario" value="<%= medico.id_usuario %>">
-        
-        <label for="nombre">Nombre:</label>
-        <p><%= medico.nombre_medico %></p>
+    <form id="medicoForm">
+        <label for="id_usuario">Nombre:</label>
+        <select name="id_usuario" id="id_usuario" required>
+            <% usuarios.forEach(function(usuario) { %>
+                <option value="<%= usuario.id %>" <%= usuario.id === medico.id_usuario ? 'selected' : '' %>><%= usuario.nombre %></option>
+            <% }); %>
+        </select><br>        
 
-        <label for="especialidad">Especialidad:</label>
-        <select name="id_especialidad" id="especialidad">
+        <label for="id_especialidad">Especialidad:</label>
+        <select name="id_especialidad" id="id_especialidad">
             <% especialidades.forEach(function(especialidad) { %>
                 <option value="<%= especialidad.id %>" <%= especialidad.id === medico.id_especialidad ? 'selected' : '' %>><%= especialidad.nombre_especialidad %></option>
             <% }); %>
         </select><br>
 
         <label for="telefono">Teléfono:</label>
-        <input type="text" name="telefono" id="telefono" value="<%= medico.telefono %>"><br>
+        <input type="text" name="telefono" id="telefono" value="<%= medico.telefono %>" required><br>
 
         <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion" id="descripcion"><%= medico.descripcion %></textarea><br>
+        <textarea name="descripcion" id="descripcion" required><%= medico.descripcion %></textarea><br>
 
-        <!-- Campo para foto (opcional) -->
         <label for="foto">Foto:</label>
         <input type="file" name="foto" id="foto"><br>
 
-        <button type="submit">Guardar</button>
+        <button type="button" class="guardar">Guardar</button>
+        <a href="/medicos">Cancelar</a>
     </form>
-    <a href="/medicos">Volver al listado</a>
+
+    <script>
+        const botonGuardar = document.querySelector(".guardar");
+
+        botonGuardar.addEventListener("click", async () => {
+            const medicoNombre = document.querySelector("#id_usuario").value;
+            const medicoEspecialidad = document.querySelector("#id_especialidad").value;
+            const medicoTelefono = document.querySelector("#telefono").value;
+            const medicoDescripcion = document.querySelector("#descripcion").value;
+
+            const datos = {
+                id: <%= medico.id %>,
+                id_usuario: medicoNombre,
+                id_especialidad: medicoEspecialidad,
+                telefono: medicoTelefono,
+                descripcion: medicoDescripcion,
+                // Para la foto, si necesitas manejarla, necesitarías FormData, pero aquí no se maneja la subida de archivos
+            };
+
+            const results = await fetch('/medico/editar/<%= medico.id %>', {
+                method: 'POST',
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await results.json();
+            if (data.success) {
+                location.href = "/medicos";
+            } else {
+                alert("Hubo un problema con los valores");
+            }
+        });
+    </script>
 </body>
 </html>

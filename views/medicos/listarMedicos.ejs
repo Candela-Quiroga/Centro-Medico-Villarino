@@ -27,14 +27,29 @@
                     <td><%= medico.telefono %></td>
                     <td><%= medico.descripcion %></td>
                     <td>
-                        <a href="/medico/editar/<%= medico.id %>">Editar</a>
-                        <a href="/medico/eliminar/<%= medico.id %>">Eliminar</a>
+                        <button><a href="/medico/editar/<%= medico.id %>">Editar</a></button>
+                        <button class="btnEliminar" data-id="<%= medico.id %>">Eliminar</button>
                     </td>
                 </tr>
             <% }); %>
         </tbody>
         
     </table>
-    <a href="/medico/insertar">Agregar Nuevo Médico</a>
+    <a href="/medico/agregar/0">Agregar Nuevo Médico</a>
+
+    <script>
+        document.querySelectorAll('.btnEliminar').forEach(button => {
+            button.addEventListener('click', async() => {
+                const medicoId = button.getAttribute('data-id');
+                if (confirm('¿Estás seguro de que deseas eliminar este médico?')) {
+                    const response = await fetch(`/medicos/eliminar/${medicoId}`, {
+                        method: 'DELETE'
+                    });
+                    location.reload(); // Recargar la página después de eliminar
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

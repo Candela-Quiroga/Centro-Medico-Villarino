@@ -34,7 +34,7 @@ class TurnoController {
                 });
             }),
             new Promise((resolve, reject) => {
-                medicoModel.listar((medicos) => {
+                medicoModel.listarMedicos((medicos) => {
                     resolve(medicos);
                 });
             })
@@ -75,7 +75,7 @@ class TurnoController {
                 });
             }),
             new Promise((resolve, reject) => {
-                medicoModel.listar((medicos) => {
+                medicoModel.listarMedicos((medicos) => {
                     resolve(medicos);
                 });
             })

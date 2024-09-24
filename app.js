@@ -33,8 +33,8 @@ app.set('view engine', 'ejs'); //con esto le decimos que todos los elementos que
 app.use('/login', rutasLogin);
 app.use('/usuarios', rutasUsuarios);
 app.use('/panel', rutasPanel); 
-app.use('/turnos', rutasTurnos);
-app.use('/medicos', rutasMedicos);
+app.use('/', rutasTurnos);
+app.use('/', rutasMedicos);
 
 //puerto que escucha el server
 app.listen(port, () => { 

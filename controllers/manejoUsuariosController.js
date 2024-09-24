@@ -27,6 +27,9 @@ class ManejoUsuarioController {
 
     async listarUsuarios (req,res) {
         usuarioModel.listar((users) => {
+            if (users.length === 0){ //acá, en el caso de que no haya usuarios, va a mostrar un cartel que diga lo que dice el alert
+                alert("No se encontraron usuarios.");
+            }
             console.log("Usuarios:", users); // Verifica qué datos se están obteniendo
             res.render("panel/listado", {
                 usuarios: users

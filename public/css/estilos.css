@@ -403,6 +403,8 @@ header.menu-pedir-turno a {
     font-weight: bold;
     position: absolute;
     color: #c2c2c2;
+    z-index: 1;
+    transition: background-color 0.5s, border-color 0.5s;
 
 }
 
@@ -414,39 +416,91 @@ header.menu-pedir-turno a {
 }
 
 .item-proceso i {
-    font-size: 15px;
+    font-size: 30px;
     color: white;
+}
 
+.info-proceso {
+    height: auto;
+    width: 450px;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 2; /*para que el cuadro de info esté arriba de los iconos*/
+}
+.info-proceso p {
+    font-weight: 300;
+    margin-top: 5px;
+}
+
+.info-proceso h3 {
+    font-size: 20px;
+    margin-top: 5px;
+    color: white;
+}
+
+.info-1 {
+    background: var(--DEGRADADO);
+    position: absolute;
+    left: -180%;
+    transform: translateX(80%);
+    bottom: 5%;
+}
+
+.info-2 {
+    background: var(--DEGRADADO);
+    position: absolute;
+    left:-180%;
+    transform: translateX(80%);
+}
+
+.info-3 {
+    background: var(--DEGRADADOREVES);
+    position: absolute;
+    left: -80%;
+    transform: translateX(-80%);
+}
+
+.info-4 {
+    background: var(--DEGRADADOREVES);
+    position: absolute;
+    left: -80%;
+    transform: translateX(-80%);
+}
+
+
+.item-proceso:hover .info-proceso {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Posicionar los elementos en forma de círculo */
 .item-proceso:nth-child(1) { 
-    top: 50px; 
-    left: 50%; 
-    transform: translate(-50%, 0);
+    top: calc(50% - 200px); 
+    left: 50%;
+    transform: translate(-50%, 0); 
 }
 
 .item-proceso:nth-child(2) { 
-    top: calc(50% - 60px); 
-    left: calc(50% + 150px); 
-    transform: translate(-50%, 0);
+    top: calc(80% - 150px); 
+    left: calc(45% + 250px); 
+    transform: translate(-50%, -50%); 
 }
 
 .item-proceso:nth-child(3) { 
-    bottom: 50px; 
-    left: 50%; 
-    transform: translate(-50%, 0);
+    bottom: calc(50% - 150px);
+    left: 50%;
+    transform: translate(-50%, 50%); 
 }
 
 .item-proceso:nth-child(4) { 
-    top: calc(50% - 60px); 
-    left: calc(50% - 150px); 
-    transform: translate(-50%, 0);
-}
-
-.item-proceso i {
-    font-size: 40px; 
-    color: white; 
+    top: calc(80% - 150px); 
+    left: calc(55% - 250px); 
+    transform: translate(-50%, -50%); 
 }
 
 /*logo en el centro de los elementos*/
@@ -458,6 +512,7 @@ header.menu-pedir-turno a {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    z-index: 0;
 
 }
 
@@ -522,6 +577,89 @@ header.menu-pedir-turno a {
     padding-left: 20px;
     color: var(--AZUL_OSCURO);
 }
+
+/*PEDIRTURNO.EJS*/
+.pedir-turno h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 700;
+    color: white;
+    background: var(--DEGRADADO);
+}
+
+.container-filtros {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: var(--VERDE_AGUA);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap:20px;
+    height:300px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.filtros {
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    margin-top:-10px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 18px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+
+.filtros select, 
+.filtros input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: inset 0 1px 3px var(--AZUL_OSCURO);
+    transition: border-color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+select:focus, input[type="date"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.btn-enviar {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: var(--AZUL_CLARO); 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px; 
+    font-family: 'Montserrat', sans-serif;
+    font-weight:600;
+}
+
+.btn-enviar:hover {
+    background-color: var(--AZUL_OSCURO); 
+}
+
+option {
+    font-size: 16px;
+}
+
 
 /*FOOTER*/
 footer {

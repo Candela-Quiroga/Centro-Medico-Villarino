@@ -25,8 +25,8 @@
 
     <nav>
         <ul>
-            <li><a href="/home">Inicio</a></li>
-            <li><a href="#">Nosotros</a></li>
+            <li><a href="home.ejs">Inicio</a></li>
+            <li><a href="nosotros.ejs">Nosotros</a></li>
             <li><a href="#">Profesionales</a></li>
             <li><a href="#">Coberturas</a></li>
             <li><a href="#">Contacto</a></li>
@@ -36,114 +36,135 @@
 
     <a href="#" class="menu-pedir-turno boton">Pedir Turno</a>
     
-</header>
+    </header>
 
-<!-- Sección de información sobre el Centro Médico -->
-<section class="nosotros">
+    <!-- Sección de información sobre el Centro Médico -->
+    <section class="nosotros">
+
+        <div class="container-imagen">
+            <h1>Sobre Nosotros:</h1>
+            <p>Imágen del centro y breve descripción</p>
+            <img src="img/nosotros-medicos.jpg" alt="Imagen del Centro">
+        </div>
     
-
-    <div class="container-imagen">
-        <h1>Sobre Nosotros:   </h1>
-        <p>Imágen del centro y breve descripción</p>
-        <img src="/public/img/nosotros-medicos.jpg" alt="Imagen del Centro">
-    </div>
-
-    <!-- Esquema de proceso -->
-    <div class="container-proceso">
-        <div class="item-proceso">
-            <i class="fa-regular fa-eye"></i>
+        <!-- Esquema de proceso -->
+        <div class="container-proceso">
+            <div class="item-proceso">
+                <i class="fa-regular fa-eye"></i>
+                <div class="info-proceso info-1">
+                    <h3>Visión</h3>
+                    <p>Nuestra visión es ser el centro de referencia en atención médica integral
+                        en Chivilcoy, reconocidos por nuestra calidad, innovación y compromiso.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="item-proceso">
+                <i class="fa-regular fa-hand-holding-heart"></i>
+                <div class="info-proceso info-2">
+                    <h3>Confianza</h3>
+                    <p>Construimos relaciones basadas en la transparencia y el respeto,
+                        garantizando que cada paciente se sienta seguro y cuidado en todo momento.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="item-proceso">
+                <i class="fa-regular fa-handshake-simple"></i>
+                <div class="info-proceso info-3">
+                    <h3>Objetivo</h3>
+                    <p>Nuestro objetivo es mejorar la calidad de vida de nuestra comunidad a través
+                        de servicios médicos innovadores y accesibles, siempre enfocados
+                        en el bienestar integral.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="item-proceso">
+                <i class="fa-regular fa-bullseye-arrow"></i>
+                <div class="info-proceso info-4">
+                    <h3>Misión</h3>
+                    <p>Nuestra misión es ofrecer atención médica accesible y de excelencia, promoviendo
+                        la salud y el bienestar de nuestra comunidad. Nos esforzamos por ser un aliado
+                        confiable en la salud de nuestros pacientes.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="imagen-centro">
+                <img src="img/logo-recortado.png" alt="Imagen Central">
+            </div>
         </div>
-        <div class="item-proceso">
-            <i class="fa-regular fa-hand-holding-heart"></i>
+    
+        <!-- Container fotos -->
+        <div class="container-img">
+            <div class="img1">
+                <img src="img/centro-medico.jpg" alt="Imagen 1">
+            </div>
+            <div class="img2">
+                <img src="img/centro-medico.jpg" alt="Imagen 2">
+            </div>
+            <div class="img3">
+                <img src="img/centro-medico.jpg" alt="Imagen 3">
+            </div>
+            <div class="img4">
+                <img src="img/centro-medico.jpg" alt="Imagen 4">
+            </div>
         </div>
-        <div class="item-proceso">
-            <i class="fa-regular fa-handshake-simple"></i>
-        </div>
-        <div class="item-proceso">
-            <i class="fa-regular fa-bullseye-arrow"></i>
-        </div>
-
-        <div class="imagen-centro">
-            <img src="/public/img/logo-recortado.png" alt="Imagen Central">
-        </div>
-    </div>
-
-    <!--container fotos-->
-    <div class="container-img">
-        <div class="img1">
-            <img src="/public/img/centro-medico.jpg" alt="Imagen 1">
-        </div>
-        <div class="img2">
-            <img src="/public/img/centro-medico.jpg" alt="Imagen 2">
-        </div>
-        <div class="img3">
-            <img src="/public/img/centro-medico.jpg" alt="Imagen 3">
-        </div>
-        <div class="img4">
-            <img src="/public/img/centro-medico.jpg" alt="Imagen 4">
-        </div>
-    </div>
-
-    <div class="container-mapa">
+    
+        <div class="container-mapa">
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d818.0726713749121!2d-60.02252270000001!3d-34.89915399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bea534817abb7f%3A0x6d1a9c6534364092!2sConsultorio%20Medico%20Villarino!5e0!3m2!1ses!2sar!4v1725455908050!5m2!1ses!2sar" 
                 width="400" 
-                height="300"
-                >
-            </iframe> <!--para traer paginas externas usamos iframe-->
-        <div class="container-info">
-            <h2>Información del centro:</h2>
-            <p><i class="fa-regular fa-location-dot"></i> Dirección:Lamadrid 29, Chivilcoy, Provincia de Bs As</p>
-            <p><i class="fa-regular fa-phone"></i> Teléfono: 2346 426515</p>
-            <p><i class="fa-regular fa-envelope"></i> Email:centromedicovillarino@gmail.com</p>
-
+                height="300">
+            </iframe> <!-- Para traer páginas externas usamos iframe -->
+            <div class="container-info">
+                <h2>Información del centro:</h2>
+                <p><i class="fa-regular fa-location-dot"></i> Dirección: Lamadrid 29, Chivilcoy, Provincia de Bs As</p>
+                <p><i class="fa-regular fa-phone"></i> Teléfono: 2346 426515</p>
+                <p><i class="fa-regular fa-envelope"></i> Email: centromedicovillarino@gmail.com</p>
+            </div>
         </div>
-
-    </div>
-
-</section>
-
-<footer>
     
-    <div class="container-footer">
-        <div class="logo-redes">
-            <div class="logo-footer">
-                <img src="/public/img/Logo Blanco.png">
-        </div>
-        <div class="redes-footer">
-           <!-- <h3 class="titulo-seguinos">Seguinos</h3> -->
-            <div class="iconos-redes">
-                <a href="https://www.instagram.com/centromedicovillarino?igsh=bnhsYXR4eDh5eW91" target="blank" class="icono-red instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=61557067552824" target="blank" class="icono-red facebook">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="https://wa.me/2346426515" target="blank" class="icono-red WhatsApp">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
+    </section>
+    
+    <footer>
+        <div class="container-footer">
+            <div class="logo-redes">
+                <div class="logo-footer">
+                    <img src="/public/img/Logo Blanco.png">
+                </div>
+                <div class="redes-footer">
+                    <div class="iconos-redes">
+                        <a href="https://www.instagram.com/centromedicovillarino?igsh=bnhsYXR4eDh5eW91" target="blank" class="icono-red instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61557067552824" target="blank" class="icono-red facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/2346426515" target="blank" class="icono-red WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-
-        </div>
-    </div>
-        <div class="info-general">
-            <h3 class="titulo-footer">Centro Médico Villarino</h3>
-            <div class="texto">
-                <p>Nos dedicamos a brindar atención médica de calidad a nuestros pacientes. Contamos con un equipo de profesionales altamente capacitados y una amplia variedad de servicios médicos para cuidar de tu salud. ¡Te esperamos!</p>
-                <p><i class="fa-regular fa-location-dot"></i> Dirección:Lamadrid 29, Chivilcoy, Bs As</p>
-                
+    
+            <div class="info-general">
+                <h3 class="titulo-footer">Centro Médico Villarino</h3>
+                <div class="texto">
+                    <p>Nos dedicamos a brindar atención médica de calidad a nuestros pacientes. Contamos con un equipo de profesionales altamente capacitados y una amplia variedad de servicios médicos para cuidar de tu salud. ¡Te esperamos!</p>
+                    <p><i class="fa-regular fa-location-dot"></i> Dirección: Lamadrid 29, Chivilcoy, Bs As</p>
+                </div>
+            </div>
+    
+            <div class="contacto-footer">
+                <h3 class="titulo-footer">Contactanos</h3>
+                <p><a href="https://wa.me/2346426515" target="blank" class="link-contacto"><i class="fa-brands fa-whatsapp"></i> WhatsApp: 2346 426515</a></p>
+                <p><i class="fa-regular fa-phone"></i> Teléfono: 2346 426515</p>
+                <p><a href="mailto:centromedicovillarino@gmail.com" class="link-contacto"><i class="fa-regular fa-envelope"></i> Email: centromedicovillarino@gmail.com</a></p>
             </div>
         </div>
-        <div class="contacto-footer">
-            <h3 class="titulo-footer">Contactanos</h3>
-            <p><a href="https://wa.me/2346426515" target="blank" class="link-contacto"><i class="fa-brands fa-whatsapp"></i> WhatsApp:2346 426515</a></p>
-            <p><i class="fa-regular fa-phone"></i> Teléfono:2346 426515</p>
-            <p><a href="mailto:centromedicovillarino@gmail.com" class="link-contacto"><i class="fa-regular fa-envelope"></i> Email:centromedicovillarino@gmail.com</a></p>
-            
-        </div>
-      
-    </div>
-</footer>
+    </footer>
 
 </body>
 </html>

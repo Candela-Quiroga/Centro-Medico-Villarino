@@ -660,6 +660,233 @@ option {
     font-size: 16px;
 }
 
+/*Contacto.ejs*/
+.carrusel-contacto {
+    position: relative;
+    background-color: #e0e0e0; 
+    padding: 20px;
+    border-radius: 10px; 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px; 
+    height: 300px;
+    text-align: left;
+}
+
+.carrusel-contacto h1, .carrusel-contacto p {
+    position: relative; 
+    z-index: 2; /*le ponemos un index mayor al de la img para que quede arriba*/ 
+    color: var(--AZUL_OSCURO); 
+}
+
+.carrusel-contacto img {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    z-index: 1; 
+}
+
+/*formulario de contacto */
+.contacto {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--DEGRADADO);
+    border-radius: 10px;
+    margin-top: 120px;
+}
+
+.contacto h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.form-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.campos-contacto {
+    display: flex;
+    gap: 30px;
+}
+
+.campo-datos {
+    flex: 1;
+}
+
+.campo-datos label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--AZUL_OSCURO);
+}
+
+.campo-datos input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.campo-grande label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--AZUL_OSCURO);
+}
+
+.campo-grande textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.boton-enviar {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.boton-enviar button {
+    padding: 10px 20px;
+    background-color: var(--VERDE_AGUA);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+    
+.boton-enviar button:hover {
+    background-color: #0056b3;
+}
+
+/*segundo container*/
+
+.form-turno {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 40px; 
+    margin-bottom: 40px;
+    height: 200px; 
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.container-reserva {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px; 
+    margin-top: 30px;
+    width: 50%;
+    border: 2px solid var(--AZUL_OSCURO);
+    border-radius: 10px;
+    height: 150px;
+    padding: 20px;
+    
+}
+
+.container-reserva h2 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--AZUL_OSCURO);
+    
+}
+
+.boton-turno {
+    margin-top: 30px;
+    padding: 15px 30px;
+    background-color: var(--AZUL_CLARO);
+    border: none;
+    border-radius: 25px 0 25px 0;
+    cursor: pointer;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.boton-turno:hover {
+    background-color: var(--AZUL_OSCURO);
+}
+
+.container-turno {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    border: 2px solid var(--AZUL_OSCURO);
+    border-radius: 10px;
+    height:150px;
+    width: 400px;
+    margin-top: 30px;
+    padding: 20px;
+    
+}
+
+.container-turno h3 {
+    font-size: 25px;
+    font-weight: 500;
+    margin-right: 0px;
+    margin-top: 0px;
+    color: var(--AZUL_OSCURO);
+}
+
+.iconos-redes-contacto {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+    margin-top: 10px;
+}
+
+
+.iconos-container {
+    display: flex;
+    gap: 30px; 
+    margin-top: 15px;
+}
+
+.icono-red-contacto {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 25px 0 25px 0;
+    background: var(--DEGRADADO);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+}
+
+
+.icono-red-contacto:hover {
+    color: var(--AZUL_OSCURO);
+}
+
+.icono-red-contacto i {
+    font-size: 25px;
+}
+
 
 /*FOOTER*/
 footer {

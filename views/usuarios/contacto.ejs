@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Médico Villarino</title>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!--Iconos de Font Awesome-->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+
+    <!--Incluimos librería Swiper de JS para carruseles-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+</head>
+<body>
+    <header class="sombra">
+        <div class="logo"></div>
+    
+        <nav>
+            <ul>
+                <li><a href="/home">Inicio</a></li>
+                <li><a href="/nosotros">Nosotros</a></li>
+                <li><a href="#">Profesionales</a></li>
+                <li><a href="#">Coberturas</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    
+    
+        <a href="/pedirTurno" class="menu-pedir-turno boton">Pedir Turno</a>
+        
+    </header>
+        
+        <div class="carrusel-contacto">
+            <h1>Contactanos   </h1>
+            <p>Imágen del centro y breve descripción</p>
+            <img src="img/carrusel-contacto.webp" alt="Imagen del Centro">
+        </div>
+    <!-- Sección de contacto -->
+    <section class="contacto">
+        <h2>Dejanos tu contacto</h2>
+
+        <form action="/enviar-mensaje" method="POST" class="form-contacto">
+            <!-- Campos de nombre y correo -->
+            <div class="campos-contacto">
+                <div class="campo-datos">
+                    <label for="nombre">Nombre y Apellido</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="campo-datos">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" required>
+                </div>
+            </div>
+
+            <div class="campo-grande">
+                <label for="mensaje">Motivo de la consulta</label>
+                <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+             </div>
+
+            <div class="boton-enviar">
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </section>
+
+    <form action="pedirTurno.html" method="GET" class="form-turno">
+        <div class="container-reserva sombra">
+            <h2>Ahora podes reservar tu turno online</h2>
+            <button type="submit" class="boton-turno">Pedir Turno</button>
+        </div>
+
+        <div class="container-turno sombra">
+            <h3>Encontranos en</h3>
+            <div class="iconos-redes-contacto">
+                <div class="iconos-container">
+                    <a href="https://wa.me/2346426515" target="blank" class="icono-red-contacto whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/centromedicovillarino" target="blank" class="icono-red-contacto instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61557067552824" target="blank" class="icono-red-contacto facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+    <footer>
+        
+        <div class="container-footer">
+            <div class="logo-redes">
+                <div class="logo-footer">
+                    <img src="img/Logo Blanco.png">
+            </div>
+            <div class="redes-footer">
+               <!-- <h3 class="titulo-seguinos">Seguinos</h3> -->
+                <div class="iconos-redes">
+                    <a href="https://www.instagram.com/centromedicovillarino?igsh=bnhsYXR4eDh5eW91" target="blank" class="icono-red instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61557067552824" target="blank" class="icono-red facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/2346426515" target="blank" class="icono-red WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+  
+            </div>
+        </div>
+            <div class="info-general">
+                <h3 class="titulo-footer">Centro Médico Villarino</h3>
+                <div class="texto">
+                    <p>Nos dedicamos a brindar atención médica de calidad a nuestros pacientes. Contamos con un equipo de profesionales altamente capacitados y una amplia variedad de servicios médicos para cuidar de tu salud. ¡Te esperamos!</p>
+                    <p><i class="fa-regular fa-location-dot"></i> Dirección:Lamadrid 29, Chivilcoy, Bs As</p>
+                    
+                </div>
+            </div>
+            <div class="contacto-footer">
+                <h3 class="titulo-footer">Contactanos</h3>
+                <p><a href="https://wa.me/2346426515" target="blank" class="link-contacto"><i class="fa-brands fa-whatsapp"></i> WhatsApp:2346 426515</a></p>
+                <p><i class="fa-regular fa-phone"></i> Teléfono:2346 426515</p>
+                <p><a href="mailto:centromedicovillarino@gmail.com" class="link-contacto"><i class="fa-regular fa-envelope"></i> Email:centromedicovillarino@gmail.com</a></p>
+                
+            </div>
+          
+        </div>
+    </footer>
+</body>

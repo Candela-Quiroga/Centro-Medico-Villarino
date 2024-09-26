@@ -9,6 +9,7 @@
     --AZUL_CLARO: #165bba;
     --VERDE_AGUA: #38b5a9;
     --DEGRADADO: linear-gradient(90deg, var(--VERDE_AGUA), var(--AZUL_CLARO));
+    --DEGRADADOREVES: linear-gradient(90deg, var(--AZUL_CLARO), var(--VERDE_AGUA));
 }
 
 /* ¿Cómo usar estas variables? Dejo un ejemplo: 

@@ -9,6 +9,7 @@ const rutasPanel = require('./routes/panel'); //para middleware
 const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para los turnos
 const rutasPacientes = require('./routes/pacienteRoute');
 const rutasMedicos = require('./routes/medicos');
+const rutasWeb = require('./routes/webRoute'); //importo rutas para home, nosotros, etc.
 
 //middleware
 app.use(session({
@@ -29,6 +30,8 @@ app.use(express.json()); //siempre el usuario va a devolver json cuando algo pas
 //templates
 app.use('/public', express.static('public'));
 app.set('view engine', 'ejs'); //con esto le decimos que todos los elementos que tenemos los trabajamos sobre engine ejs, entonces permite tener las view y todos los modelos que queramos.
+app.set('views', __dirname + '/views/web'); //para poder visualizar el home, nosotros, etc.
+
 
 //rutas app.use dice la primera barra es de donde va a arrancar la ruta y los otros son los archivos q voy a incluir q van a partir de esto
 app.use('/', rutasLogin);
@@ -37,6 +40,7 @@ app.use('/', rutasPanel);
 app.use('/', rutasTurnos);
 app.use('/', rutasPacientes);
 app.use('/', rutasMedicos);
+app.use('/', rutasWeb);
 
 //puerto que escucha el server
 app.listen(port, () => { 

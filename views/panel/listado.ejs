@@ -35,19 +35,20 @@
 
         <script>
             async function eliminarUsuario(id) {
-              const resultado = fetch(`/usuario/${id}`, { 
-                method: 'delete',
-              });
-              
-              const data = await resultado.json();
-
-              if (data.success == true) {
-                location.reload();
-              }
+                try{
+                    const resultado = fetch(`/usuario/${id}`, { 
+                        method: 'DELETE',
+                    });
+                    const data = await resultado.json();
+                    if (data.success == true) {
+                    location.reload();
+                    } else{
+                        alert("Error al eliminar el usuario");
+                    }
+                } catch (error) {
+                    alert("Hubo un error en la conexión.");
+                }
             }
         </script>
-
     </body>
 </html>
-
-

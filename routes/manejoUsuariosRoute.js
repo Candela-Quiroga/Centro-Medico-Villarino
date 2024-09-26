@@ -11,10 +11,4 @@ router.post('/usuario', manejoUsuariosController.guardarUsuario);
 router.post('/usuario/:id', manejoUsuariosController.editarUsuario);
 router.delete('/usuario/:id', manejoUsuariosController.eliminarUsuario);
 
-//rutas redirección a home
-router.get('/home', manejoUsuariosController.homepage);
-
-//ruta a nosotros
-router.get('/nosotros', manejoUsuariosController.mostrarnosotros);
-
-module.exports = router; //estamos diciendo "vamos a exportar el modulo router". Este modulo es el de la linea 2 y tiene las rutas generadas.
+module.exports = router; //Exportar módulo 

@@ -1,6 +1,9 @@
 const UsuarioModel = require('../models/usuarioModel');
 const CategoriaModel = require('../models/categoriaModel');
 
+const bcrypt = require('bcrypt'); //para el hash de las contraseñas
+const rondas = 10; //cantidad de veces que se aplica 
+
 const usuarioModel = new UsuarioModel();
 const categoriaModel = new CategoriaModel();
 
@@ -13,31 +16,19 @@ class ManejoUsuarioController {
         });
     }
 
-    //Mostrar homepage
-    homepage(req,res){
-        res.render('usuarios/home', {
-        });
-    }
-
-    //Mostrar pagina nosotros
-    mostrarnosotros(req,res){
-        res.render('usuarios/nosotros', {
-        });
-    }
-
     async listarUsuarios (req,res) {
         usuarioModel.listar((users) => {
-            if (users.length === 0){ //acá, en el caso de que no haya usuarios, va a mostrar un cartel que diga lo que dice el alert
+            if (users.length === 0){ //acá, en el caso de que no haya usuarios, va a mostrar una alerta
                 alert("No se encontraron usuarios.");
             }
             console.log("Usuarios:", users); // Verifica qué datos se están obteniendo
             res.render("panel/listado", {
                 usuarios: users
-            }); //esta función se va a encargar de hacer la lógica
+            }); 
         });
     }
 
-    async editarUsuario(req, res) {  //dice q vamos a obtener el usuario ocn el id correspondiente
+    async editarUsuario(req, res) {  //dice q vamos a obtener el usuario con el id correspondiente
         const id = req.params.id; // toma el id del usuario //una vez que está el usuario, hay que llamar al modelo. El nombre de este comodín se llama id, por eso usamos req.params.id
         try {
             const user = await usuarioModel.obtenerUsuario(id);
@@ -58,6 +49,10 @@ class ManejoUsuarioController {
     async guardarUsuario(req,res) { 
         try{
             const datos = req.body; //toma todos los valores del formulario
+            if (datos.id == 0 || datos.password){
+                const hashedPassword = await bcrypt.hash(datos.password, rondas);
+                datos.password = hashedPassword; //asigna la contraseña con el hash
+            }
             await usuarioModel.guardar(datos);
             res.json({
                 success: true,
@@ -87,7 +82,5 @@ class ManejoUsuarioController {
             });
         }
     }
-
 }
-
 module.exports = ManejoUsuarioController;

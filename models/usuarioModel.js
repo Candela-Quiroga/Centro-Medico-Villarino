@@ -1,10 +1,10 @@
-const conx = require('../database/db'); //conexión a la bd. Aca importamos la bd
+//usuario model es el encargado de hacer todas las consultas a la bd de todos los usuarios. 
 
-class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos métodos y propiedades. Los métodos van a trabajar con la bd, por ende, a partir de esas configuraciones vamos a poner los datos que vamos a obtener.
-    
-    //esta función sirve para crear un nuevo usuario
-    obtenerUsuarioBase() {
-        return { //acá simulo un usuario q no existe pero tiene la misma estructura de uno q si, me ayuda al de crear, xq si le pasamos un id 0 va a crear en la parte de guardar
+const conx = require('../database/db'); //conexión a la bd. 
+
+class UsuarioModel{ // Es una clase que tiene distintos métodos y propiedades. Los métodos van a trabajar con la bd, por ende, a partir de esas configuraciones vamos a poner los datos que vamos a obtener.
+    obtenerUsuarioBase() { //esta función sirve para crear un nuevo usuario
+        return { //simulo un usuario q no existe pero tiene la misma estructura de uno q si, me ayuda al de crear, xq si le pasamos un id 0 va a crear en la parte de guardar
             id: 0,
             nombre: '',
             email: '',
@@ -15,10 +15,9 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
     
     async listar(callback) { //este método es un método asincrónico. Lo que permite trabajar con async y await. ES PARA VER TODOS LOS USUARIOS
         let sql = "SELECT * FROM usuarios"; //consulta para obtener todos los usuarios
-        conx.query(sql, [], async (err,results) => { //esto va a permitir utilizar las diferentes consultas q queramos ejecutar en la bd. Los parámetros que vamos a enviarle a la función, y tiene que pasarse por un array que los contengan
-            //acá va a estar la lógica para trabajar con los resultados que queremos de la bd
+        conx.query(sql, [], async (err,results) => { //esto permite utilizar las diferentes consultas q queramos ejecutar en la bd. Los parámetros que vamos a enviarle a la función, y tiene que pasarse por un array que los contengan
             if (err) {
-                console.error(err); // Manejo básico de errores
+                console.error(err); 
                 return callback([]);
             }
             callback(results); //todo lo que va a venir de los usuarios. 
@@ -34,18 +33,25 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
     } //TAMBIÉN LA VAMOS A USAR PARA EL LOGIN
 
     async guardar(datos,callback){ 
-        if (datos.id == 0){ //si el id q mandé, inserto
+        if (datos.id == 0){ //si es nuevo el usuario, inserto
             //creamos
             let sql = "INSERT INTO usuarios (id, nombre, email, password, id_categoriaPermiso) ";
             sql += "VALUES (?, ?, ?, ?, ?) ";
             conx.query(sql, [datos.id, datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
+                if (err) {
+                    console.error("Error al guardar el usuario:", err);
+                    return callback(null);
+                }
                 callback(results);
             });
 
-        } else { //si es distinto a cero, actualizo
-            //actualizamos
+        } else { //si es distinto a cero (ya existe), actualizo
             let sql = "UPDATE usuarios SET id = ?, nombre = ?, email = ?, password = ?, id_categoriaPermiso = ? WHERE id = ?";
             conx.query(sql, [datos.id, datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
+                if (err) {
+                    console.error("Error al actualizar el usuario:", err);
+                    return callback(null);
+                }
                 callback(results);
             });
         }
@@ -77,5 +83,5 @@ class UsuarioModel{ //el modelo es usuario. Es una clase que tiene distintos mé
     }
     //FIN FUNCIÓN PARA LOGIN
 
-}; //usuario model es el encargado de hacer todas las consultas a la bd de todos los usuarios. 
-module.exports = UsuarioModel; //es para exportar el modulo.
+}; 
+module.exports = UsuarioModel; //para exportar el modulo.

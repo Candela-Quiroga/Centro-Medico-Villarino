@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Pacientes</title>
+</head>
+<body>
+    <h1>Listado de Pacientes</h1>
+    <button><a href="/pacientes/agregar/0">Agregar Paciente</a></button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Obra Social</th>
+                <th>N° Afiliado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% pacientes.forEach(function(pacientes) { %>
+                <tr>
+                    <td><%= pacientes.id %></td>
+                    <td><%= pacientes.nombre %></td>
+                    <td><%= pacientes.email %></td>
+                    <td><%= pacientes.telefono %></td>
+                    <td><%= pacientes.id_obrasocial %></td>
+                    <td><%= pacientes.nro_afiliado %></td>
+                    <td>
+                        <button><a href="/pacientes/editar/<%= pacientes.id %>">Editar</a></button>
+                        <button class="btnEliminar" data-id="<%= pacientes.id %>">Eliminar</button>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <script>
+        document.querySelectorAll('.btnEliminar').forEach(button => {
+            button.addEventListener('click', async() => {
+                const pacienteId = button.getAttribute('data-id');
+                if (confirm('¿Estás seguro de que deseas eliminar este paciente?')) {
+                    const response = await fetch(`/pacientes/eliminar/${pacienteId}`, {
+                        method: 'DELETE'
+                    });
+                    location.reload(); // Recargar la página después de eliminar
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

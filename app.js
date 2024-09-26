@@ -7,6 +7,7 @@ const rutasUsuarios = require('./routes/manejoUsuariosRoute'); //Para acceder a 
 const rutasLogin = require('./routes/loginRoute'); //para acceder a login
 const rutasPanel = require('./routes/panel'); //para middleware
 const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para los turnos
+const rutasPacientes = require('./routes/pacienteRoute');
 const rutasMedicos = require('./routes/medicos');
 
 //middleware
@@ -34,6 +35,7 @@ app.use('/login', rutasLogin);
 app.use('/usuarios', rutasUsuarios);
 app.use('/panel', rutasPanel); 
 app.use('/', rutasTurnos);
+app.use('/', rutasPacientes);
 app.use('/', rutasMedicos);
 
 //puerto que escucha el server

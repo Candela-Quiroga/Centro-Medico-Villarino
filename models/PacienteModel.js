@@ -2,8 +2,94 @@
 const conx = require('../database/db');
 
 class PacienteModel{
-    async listarPaciente(callback){
-        let sql = `SELECT * FROM pacientes`;
+
+    obtenerPacienteBase(){
+        return {
+            id: 0,
+            nombre: '',
+            email: '',
+            telefono: '',
+            id_obrasocial: '',
+            nro_afiliado: ''
+        }
+    }
+
+    async listarPacientes(callback){
+        //esta función obtiene los pacientes y detalles de la base de datos
+        /*dentro de la constante "sql" guardo toda la consulta realizada para tener mayor prolijidad
+        a la hora de hacer el conx.query, además realizo varios joins con las tablas relacionadas a 
+        pacientes para poder traer la información correspondiente en cada campo
+        */
+        let sql = `
+            SELECT 
+                pacientes.id AS id, 
+                pacientes.nombre AS nombre, 
+                pacientes.email AS email, 
+                pacientes.telefono AS telefono,
+                pacientes.id_obrasocial,
+                pacientes.nro_afiliado
+            FROM pacientes
+        `;
+        conx.query(sql, [], (err, results) => {
+            if (err) {
+                console.error(err);
+                return callback([]);
+            }
+            callback(results);
+        });
+    }
+
+    async obtenerPaciente(id, callback){
+        let sql = `SELECT * FROM pacientes WHERE id = ?`;
+        conx.query(sql, [id], async (err, results) => {
+            if (results.length === 0) {
+                callback(this.obtenerPacienteBase());
+            } else {
+            callback(results[0]);
+            }
+        });
+    }
+
+    async guardarPaciente(datos, callback){
+        if(datos.id == 0){
+            let sql = `INSERT INTO pacientes (nombre, email, telefono, id_obrasocial, nro_afiliado) VALUES (?, ?, ?, ?, ?)`;
+            conx.query(sql, [datos.nombre, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado], async (err, results) => {
+
+                if (err) {
+                    console.error(err);
+                    callback(null);
+                } else {
+                    callback(results);
+                }
+        });
+        } else {
+            let sql = `UPDATE pacientes SET nombre= ?, email= ?, telefono= ?, id_obrasocial= ?, nro_afiliado= ? WHERE id = ?`;
+            conx.query(sql, [datos.nombre, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado, datos.id], async (err, results)=>{
+                if (err) {
+                    console.error(err);
+                    callback(null);
+                } else {
+                    callback(results);
+                }
+        });
+        }
+    }
+
+    async eliminarPaciente(id, callback) {
+        let sql = `DELETE FROM pacientes WHERE id = ?`;
+        conx.query(sql, [id], (err, results) => {
+            if (err) {
+                console.error(err);
+                callback(null);
+            } else {
+                callback(results);
+            }
+        });
+    }
+
+    //Función para traerme las obras sociales en editarPaciente.ejs
+    async obtenerObrasSociales(callback) {
+        let sql = `SELECT id, nombre FROM obras_sociales`;
         conx.query(sql, [], (err, results) => {
             if (err) {
                 console.error(err);
@@ -17,4 +103,3 @@ class PacienteModel{
 
 //exporto la función/es para poder ser utilizada/s desde el controlador
 module.exports = PacienteModel;
-

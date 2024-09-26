@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Paciente</title>
+</head>
+<body>
+    <h1>Agregar Paciente</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Obra Social</th>
+                <th>N° Afiliado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td><input id="nombre" placeholder="Ingrese el nombre"></td>
+                    <td><input id="email" placeholder="Ingrese el email"></td>
+                    <td><input id="telefono" placeholder="Ingrese el telefono"></td>
+                    <td>
+                        <select id="id_obrasocial" required>
+                            <option value="">Seleccione una obra social</option>
+                            <% obrasSociales.forEach(function(obra) { %>
+                                <option value="<%= obra.id %>" <%= obra.id === paciente.id_obrasocial ? 'selected' : '' %>><%= obra.nombre %></option>
+                            <% }); %>
+                        </select>
+                    </td>
+                    <td><input id="nro_afiliado" placeholder="Ingrese el número de afiliado"></td>
+                    <td>
+                        <button class="guardar">Guardar</button>
+                        <button><a href="/pacientes">Cancelar</a></button>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+    
+    <script>
+        const botonGuardar = document.querySelector(".guardar");
+        botonGuardar.addEventListener("click", async () => {
+            console.log("Botón Guardar clickeado");
+            const pacienteNombre = document.querySelector("#nombre").value;
+            const pacienteEmail = document.querySelector("#email").value;
+            const pacienteTelefono = document.querySelector("#telefono").value;
+            const pacienteId_obrasocial = document.querySelector("#id_obrasocial").value;
+            const pacienteNro_afiliado = document.querySelector("#nro_afiliado").value;
+            
+            const datos = {
+                id: <%= paciente.id %>,
+                nombre: pacienteNombre,
+                email: pacienteEmail,
+                telefono: pacienteTelefono,
+                id_obrasocial: pacienteId_obrasocial,
+                nro_afiliado: pacienteNro_afiliado,
+            };
+
+            console.log(datos);
+
+            const results = await fetch('/pacientes/agregar/0', {
+                method: 'POST',
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await results.json();
+            if (data.success === true) {
+                location.href = "/pacientes";
+            } else {
+                alert("Hubo un problema con los datos");
+            }
+        });
+    </script>
+</body>
+</html>

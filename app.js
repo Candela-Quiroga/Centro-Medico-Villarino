@@ -38,7 +38,7 @@ app.set('view engine', 'ejs'); //con esto le decimos que todos los elementos que
 //rutas app.use dice la primera barra es de donde va a arrancar la ruta y los otros son los archivos q voy a incluir q van a partir de esto
 app.use('/', rutasLogin);
 app.use('/', rutasUsuarios);
-app.use('/', rutasPanel); 
+//app.use('/', rutasPanel);  //ESTÁ COMENTADA PORQUE SACAMOS PANEL POR AHORA
 app.use('/', rutasTurnos);
 app.use('/', rutasPacientes);
 app.use('/', rutasMedicos);

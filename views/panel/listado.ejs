@@ -4,9 +4,7 @@
     <%- include('../commons/head')%> <!--El guion medio permite que siempre que estamos incluyendo el archivo, traiga el html completo-->
     <body>
         <div class="container">
-
             <a href="/usuario/0">Crear Usuario</a> <!--Aca creo el usuario de cero, aparece un boton para crearlo-->
-
             <table>
                 <thead>
                     <tr>
@@ -26,7 +24,7 @@
                             <td><%- user.categoria %></td>
                             <td>
                                 <a href="/usuario/<%= user.id%>">Editar Usuario</a> <!--OPCION, llevamos al usuario a un nuevo url(Nueva ruta)-->
-                                <button onclick="eliminarUsuario('<%= user.id %>')">Eliminar Usuario</button>
+                                <button class="borrarUsuario" data-id="<%= user.id %>">Eliminar Usuario</button>
                             </td>
                         </tr>
                     <% }) %>   
@@ -35,21 +33,17 @@
         </div>
 
         <script>
-            async function eliminarUsuario(id) {
-                try{
-                    const resultado = fetch(`/usuario/${id}`, { 
-                        method: 'DELETE',
+            document.querySelectorAll('.borrarUsuario').forEach(button => {
+            button.addEventListener('click', async() => {
+                const userId = button.getAttribute('data-id');
+                if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+                    const response = await fetch(`/usuarios/eliminar/${userId}`, {
+                        method: 'DELETE'
                     });
-                    const data = await resultado.json();
-                    if (data.success == true) {
-                    location.reload();
-                    } else{
-                        alert("Error al eliminar el usuario");
-                    }
-                } catch (error) {
-                    alert("Hubo un error en la conexión.");
+                    location.reload(); // Recargar la página después de eliminar
                 }
-            }
+            });
+        });
         </script>
     </body>
 </html>

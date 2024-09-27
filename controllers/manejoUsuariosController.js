@@ -23,9 +23,9 @@ class ManejoUsuarioController {
         });
     }
     async editarUsuario(req, res) {  
-        const id = req.params.id; // toma el id del usuario. El nombre de este comodín se llama id, por eso usamos req.params.id
+        const id = req.params.id; // toma el id del usuario.
         try {
-            let user = await usuarioModel.obtenerUsuario(id);
+            let user = await usuarioModel.obtenerUsuarios(id);
             const categories = await categoriaModel.listar();
             if (!user){
                 user = usuarioModel.obtenerUsuarioBase();
@@ -39,7 +39,6 @@ class ManejoUsuarioController {
             res.status(500).send("Error al obtener usuario");
         }
     }
-
     async guardarUsuario(req,res) { 
         try{
             const datos = req.body; //toma todos los valores del formulario
@@ -48,11 +47,18 @@ class ManejoUsuarioController {
                 datos.password = hashedPassword; //asigna la contraseña con el hash
             }
             if (datos.id == 0) { 
-                await usuarioModel.crear(datos);  //Esto es para crear
+                await usuarioModel.guardar(datos);  //Esto es para crear
+                res.status(200).json({
+                    success: true,
+                    message: "Usuario creado exitosamente."
+                });
             } else { 
                 await usuarioModel.actualizar(datos); //Esto es para para actualizar
+                res.status(200).json({ // Cambié el estado a 200 para actualización exitosa
+                    success: true,
+                    message: "Usuario actualizado exitosamente."
+                });
             }
-            await usuarioModel.guardar(datos);
             res.json({
                 success: true,
             });
@@ -64,7 +70,6 @@ class ManejoUsuarioController {
             });
         }
     }
-
     async eliminarUsuario (req, res) {
         const id = req.params.id;
         try {

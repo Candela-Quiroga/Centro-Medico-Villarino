@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Editar Médico</h1>
-    <form id="medicoForm">
+    <div> <!--Trabajamos con div para luego con Form Data, en JS, simular un formulario (eso para poder pasar la imagen a un JSON) -->
         <label for="id_usuario">Nombre:</label>
         <select name="id_usuario" id="id_usuario" required>
             <% usuarios.forEach(function(usuario) { %>
@@ -23,7 +23,7 @@
         </select><br>
 
         <label for="telefono">Teléfono:</label>
-        <input type="text" name="telefono" id="telefono" value="<%= medico.telefono %>" required><br>
+        <input type="text" name="telefono" id="telefono" value="<%= medico.telefono %>" required min=""><br>
 
         <label for="descripcion">Descripción:</label>
         <textarea name="descripcion" id="descripcion" required><%= medico.descripcion %></textarea><br>
@@ -31,36 +31,38 @@
         <label for="foto">Foto:</label>
         <input type="file" name="foto" id="foto"><br>
 
+        <% if (medico.foto != "") { %>
+            <img src="<%= medico.foto %>">
+        <% } %>
+
         <button type="button" class="guardar">Guardar</button>
         <a href="/medicos">Cancelar</a>
-    </form>
+    </div>
 
     <script>
         const botonGuardar = document.querySelector(".guardar");
 
         botonGuardar.addEventListener("click", async () => {
-            const medicoNombre = document.querySelector("#id_usuario").value;
+            const medicoUsuario = document.querySelector("#id_usuario").value;
             const medicoEspecialidad = document.querySelector("#id_especialidad").value;
             const medicoTelefono = document.querySelector("#telefono").value;
             const medicoDescripcion = document.querySelector("#descripcion").value;
+            const medicoFoto = document.querySelector("#foto").value;
 
-            const datos = {
-                id: <%= medico.id %>,
-                id_usuario: medicoNombre,
-                id_especialidad: medicoEspecialidad,
-                telefono: medicoTelefono,
-                descripcion: medicoDescripcion,
-                // Para la foto, si necesitas manejarla, necesitarías FormData, pero aquí no se maneja la subida de archivos
-            };
+            const form_data = new FormData(); //agarramos los datos que obtuvimos en los input y los convertimos en un "falso formulario" para poder trabajar con la imagen 
+            form_data.append("id", <%= medico.id %>);
+            form_data.append("id_usuario", medicoUsuario);
+            form_data.append("id_especialidad", medicoEspecialidad);
+            form_data.append("telefono", medicoTelefono);
+            form_data.append("descripcion", medicoDescripcion);
+            form_data.append("foto", document.querySelector("#foto").files[0]);
 
             const results = await fetch('/medico/editar/<%= medico.id %>', {
                 method: 'POST',
-                body: JSON.stringify(datos),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                body: form_data,
             });
 
+            //convertimos el "formulario" en un json
             const data = await results.json();
             if (data.success) {
                 location.href = "/medicos";

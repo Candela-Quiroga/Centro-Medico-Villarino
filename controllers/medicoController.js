@@ -64,17 +64,45 @@ async editarMedico(req, res) {
     }
 }
 
+async listarMedicos(req, res) {
+    medicoModel.listarMedicos((medicos) => {
+        console.log("Médicos:", medicos);
+        res.render("medicos/listarMedicos", {
+            medicos: medicos
+        });
+    });
+}
+
+
 
     // Función para guardar (crear o actualizar) un médico
-    async guardarMedico(req, res){
+    async guardarMedico(req, res) {
         const datos = req.body;
-        console.log(datos);
+    
+        // Verificamos si se ha subido una nueva foto
+        if (req.file) {
+            datos.foto = "/" + req.file.path; // Si se subió un archivo, se actualiza la foto. Usamos una ruta absoluta "/" para indicar que la ruta de la imagen cargada comienza en la carpeta raiz
+        } else {
+            // Si no se subió un archivo, mantener la foto original
+            const medico = await new Promise((resolve, reject) => {
+                medicoModel.obtenerMedico(datos.id, (medico) => {
+                    if (medico) {
+                        resolve(medico);
+                    } else {
+                        reject(new Error('No se encontró el médico.'));
+                    }
+                });
+            });
+            datos.foto = medico.foto; // Mantener la foto existente
+        }
+    
         medicoModel.guardarMedico(datos, (result) => {
             res.send({
                 "success": true,
-            })
-        })
+            });
+        });
     }
+    
 
     // Eliminar un médico
     async eliminarMedico(req, res) {

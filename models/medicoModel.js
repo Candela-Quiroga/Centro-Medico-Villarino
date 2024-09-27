@@ -71,8 +71,8 @@ class MedicoModel {
         });
 
         }else{ //si no, actualiza datos existentes
-        let sql = `UPDATE medicos SET telefono = ?, foto = ?, descripcion = ? WHERE id = ?`;
-        conx.query(sql, [datos.telefono, datos.foto, datos.descripcion, datos.id], async (err, results) => {
+        let sql = `UPDATE medicos SET id_usuario = ?, id_especialidad = ?, telefono = ?, descripcion = ?, foto = ? WHERE id = ?`;
+        conx.query(sql, [datos.id_usuario, datos.id_especialidad, datos.telefono, datos.descripcion, datos.foto, datos.id], async (err, results) => {
             if(err){
                 console.error(err);
                 callback(null);
@@ -100,7 +100,7 @@ class MedicoModel {
 
     //listado de especialidades 
     async listarEspecialidades() {
-        let sql = "SELECT * FROM especialidades";
+        let sql = `SELECT * FROM especialidades`;
         return new Promise((resolve, reject) => {
             conx.query(sql, [], (err, results) => {
                 if (err) {
@@ -116,7 +116,10 @@ class MedicoModel {
 
     //listado de todos los usuarios
     async listarUsuarios() {
-        let sql = "SELECT id, nombre FROM usuarios";
+        let sql = `SELECT usuarios.id, usuarios.nombre 
+                    FROM usuarios
+                    JOIN categoria_permiso ON usuarios.id_categoriaPermiso = categoria_permiso.id
+                    WHERE usuarios.id_categoriaPermiso = 2`;
         return new Promise((resolve, reject) => {
             conx.query(sql, [], (err, results) => {
                 if (err) {
@@ -128,6 +131,7 @@ class MedicoModel {
             });
         });
     }
+    
 
 }
 

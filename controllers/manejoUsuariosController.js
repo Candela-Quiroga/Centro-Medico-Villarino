@@ -1,3 +1,6 @@
+//manejoUsuariosController.js
+//acá va todo lo relacionado con el ABML 
+
 const UsuarioModel = require('../models/usuarioModel');
 const CategoriaModel = require('../models/categoriaModel');
 
@@ -8,15 +11,7 @@ const usuarioModel = new UsuarioModel();
 const categoriaModel = new CategoriaModel();
 
 class ManejoUsuarioController {
-
-    //MIDDLEWARE
-    mostrarFormulario (req, res) { //cuando quiero devolver templates, utilizo res.render. Las plantillas son para mostrarle una pagina web al usuario
-        console.log(req.session);
-        res.render('panel/login', {
-        });
-    }
-
-    async listarUsuarios (req,res) {
+    async listarUsuarios (req,res) { //MUESTRA
         usuarioModel.listar((users) => {
             if (users.length === 0){ //acá, en el caso de que no haya usuarios, va a mostrar una alerta
                 alert("No se encontraron usuarios.");
@@ -27,18 +22,17 @@ class ManejoUsuarioController {
             }); 
         });
     }
-
-    async editarUsuario(req, res) {  //dice q vamos a obtener el usuario con el id correspondiente
-        const id = req.params.id; // toma el id del usuario //una vez que está el usuario, hay que llamar al modelo. El nombre de este comodín se llama id, por eso usamos req.params.id
+    async editarUsuario(req, res) {  
+        const id = req.params.id; // toma el id del usuario. El nombre de este comodín se llama id, por eso usamos req.params.id
         try {
-            const user = await usuarioModel.obtenerUsuario(id);
+            let user = await usuarioModel.obtenerUsuario(id);
             const categories = await categoriaModel.listar();
             if (!user){
                 user = usuarioModel.obtenerUsuarioBase();
             }
             res.render('panel/editarUsuario', {
-               usuario: user,
-               categorias: categories, 
+                usuario: user,
+                categorias: categories, 
             });
         } catch (error) {
             console.error("Error al obtener usuario: ", error);
@@ -52,6 +46,11 @@ class ManejoUsuarioController {
             if (datos.id == 0 || datos.password){
                 const hashedPassword = await bcrypt.hash(datos.password, rondas);
                 datos.password = hashedPassword; //asigna la contraseña con el hash
+            }
+            if (datos.id == 0) { 
+                await usuarioModel.crear(datos);  //Esto es para crear
+            } else { 
+                await usuarioModel.actualizar(datos); //Esto es para para actualizar
             }
             await usuarioModel.guardar(datos);
             res.json({
@@ -76,7 +75,7 @@ class ManejoUsuarioController {
             });
         } catch (error){
             console.error("Error al eliminar el usuario: ", error);
-            req.status(500).send({
+            res.status(500).send({
                 success: false,
                 message: "Error al eliminar el usuario.",
             });

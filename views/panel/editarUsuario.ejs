@@ -1,3 +1,4 @@
+<!--editarUsuario.ejs-->
 <!DOCTYPE html>
 <html lang="en">
     <%- include('../commons/head')%>
@@ -6,13 +7,13 @@
             <p id="usuario_id"><%=usuario.id%></p>
             <div>
                 <label>Nombre</label>
-                <input id="usuario_nombre" value="<%- usuario?.nombre %>">
+                <input id="usuario_nombre" value="<%= usuario?.nombre %>">
 
                 <label>Email</label>
-                <input id="usuario_email" value="<%- usuario?.email %>">
+                <input id="usuario_email" value="<%= usuario?.email %>">
 
                 <label>Password</label>
-                <input id="usuario_password" type="password" value="<%- usuario?.password %>">
+                <input id="usuario_password" type="password" value="<%= usuario.id === 0 ? '':'*******' %>">
 
                 <label>Categoria</label>
                 <select id="usuario_categoria"> <!--Estamos obteniendo las categorias en un condicional-->
@@ -41,35 +42,31 @@
                     id: "<%= usuario.id %>",
                     nombre: usuarioNombre.value,
                     email: usuarioEmail.value,
-                    password: usuarioPassword.value,
+                    password: usuarioPassword.value || undefined, //esto es para que no envíe contraseña vacía,
                     id_categoriaPermiso: usuarioCategoria.value
-                }
-                //console.log(datos);
-                //console.log('hola');
-                
-                try {
-                    const result = await fetch(`/usuario/${datos.id}`, {
-                        method: 'post',
-                        body: JSON.stringify(datos),
-                        headers: {
-                            'Content-Type': 'application/json' //si no lo hacemos de esta forma, todos los datos que queramos recibir, van a estar mal.
-                        }
-                    });
+                };
 
-                    const data = await result.json();
-                    if (data.success == true) { 
-                        alert ("Usuario guardado correctamente");
-                        location.href = "/usuarios";  //si toda la acutalización es correcta, volve al inicio
-                    } else { //si la actualización fue incorrecta
-                        alert ("Hubo un problema actualizando los valores"); //envia una alerta
+                if (!usuarioNombre.value || !usuarioEmail.value || !usuarioCategoria.value) { //acá valido que ingresen todos los campos
+                    alert("Todos los campos son requeridos.");
+                    return;
+                }
+
+                const result = await fetch(`/usuario/${datos.id}`, {
+                    method: 'post',
+                    body: JSON.stringify(datos),
+                    headers: {
+                        'Content-Type': 'application/json' //si no lo hacemos de esta forma, todos los datos que queramos recibir, van a estar mal.
                     }
-                }catch (error) {
-                    console.error("Error guardando el usuario: ", error);
-                    alert("Error en la conexión");
+                });
+
+                const data = await result.json();
+                if (data.success) { 
+                    alert ("Usuario guardado correctamente");
+                    location.href = "/usuarios";  //si toda la acutalización es correcta, volve al inicio
+                } else { //si la actualización fue incorrecta
+                    alert ("No se pudieron actualizar los valores"); //envia una alerta
                 }
             });
-
         </script>
-
     </body>
 </html>

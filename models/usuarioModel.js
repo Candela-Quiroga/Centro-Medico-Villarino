@@ -1,8 +1,8 @@
-//usuario model es el encargado de hacer todas las consultas a la bd de todos los usuarios. 
+//usuarioModel.js es el encargado de hacer todas las consultas a la bd de todos los usuarios. 
 
 const conx = require('../database/db'); //conexión a la bd. 
 
-class UsuarioModel{ // Es una clase que tiene distintos métodos y propiedades. Los métodos van a trabajar con la bd, por ende, a partir de esas configuraciones vamos a poner los datos que vamos a obtener.
+class UsuarioModel{ 
     obtenerUsuarioBase() { //esta función sirve para crear un nuevo usuario
         return { //simulo un usuario q no existe pero tiene la misma estructura de uno q si, me ayuda al de crear, xq si le pasamos un id 0 va a crear en la parte de guardar
             id: 0,
@@ -12,6 +12,21 @@ class UsuarioModel{ // Es una clase que tiene distintos métodos y propiedades. 
             id_categoriaPermiso: 0
         }
     }
+
+    async obtenerUsuario(id, callback){//le pasamos el id para hacer la búsqueda
+        let sql = "SELECT * FROM usuarios WHERE id = ?"; //se le pasa un comodín xq vamos a tener que pasarle una variable a la consulta
+        return new Promise((resolve, reject) => {
+            conx.query(sql, [id], async (err, results) => {
+                if(err){
+                    reject(err);
+                } else if(results.length === 0){
+                    resolve(false);
+                } else{
+                    resolve(results[0]);
+                }
+            });
+        })
+    } //TAMBIÉN LA VAMOS A USAR PARA EL LOGIN
     
     async listar(callback) { //este método es un método asincrónico. Lo que permite trabajar con async y await. ES PARA VER TODOS LOS USUARIOS
         let sql = "SELECT * FROM usuarios"; //consulta para obtener todos los usuarios
@@ -24,20 +39,12 @@ class UsuarioModel{ // Es una clase que tiene distintos métodos y propiedades. 
         }); //la función última se encarga de decir cuándo va a pasar algo y cuando no
     }
 
-    async obtenerUsuario(id, callback){//le pasamos el id para hacer la búsqueda
-        let sql = "SELECT * FROM usuarios WHERE id = ?"; //se le pasa un comodín xq vamos a tener que pasarle una variable a la consulta
-        conx.query(sql, [id], async (err, results) => {
-            if(results.length === 0) callback(false); //si el usuario no existe tenemos false y si no
-            callback(results[0]); //devolvemos el user correspondiente
-        })
-    } //TAMBIÉN LA VAMOS A USAR PARA EL LOGIN
-
-    async guardar(datos,callback){ 
+    async guardar(datos, callback){ 
         if (datos.id == 0){ //si es nuevo el usuario, inserto
             //creamos
-            let sql = "INSERT INTO usuarios (id, nombre, email, password, id_categoriaPermiso) ";
-            sql += "VALUES (?, ?, ?, ?, ?) ";
-            conx.query(sql, [datos.id, datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
+            let sql = "INSERT INTO usuarios (nombre, email, password, id_categoriaPermiso) ";
+            sql += "VALUES (?, ?, ?, ?) ";
+            conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
                 if (err) {
                     console.error("Error al guardar el usuario:", err);
                     return callback(null);
@@ -63,25 +70,6 @@ class UsuarioModel{ // Es una clase que tiene distintos métodos y propiedades. 
             callback(results);
         })
     }
-
-    //FUNCIÓN PARA EL LOGIN
-    validarUsuario(email, password) {
-        return new Promise( (resolve, reject) => {
-            let sql = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
-            conx.query(sql, [email, password], (err, results) => {
-                if (err){
-                    reject(err); //si hay un error, se rechaza
-                }else{
-                    if (results.length === 0){
-                        resolve(null); //si no se encuentra usuario, devuelve null
-                    }else{
-                        resolve(results[0]);//si se encuentra, devolvemos el primero q se encontró
-                    }
-                } 
-            });
-        });
-    }
-    //FIN FUNCIÓN PARA LOGIN
 
 }; 
 module.exports = UsuarioModel; //para exportar el modulo.

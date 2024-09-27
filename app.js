@@ -1,3 +1,4 @@
+//app.js
 const express = require('express'); //variable donde se llama a la libreria
 const session = require('express-session'); //importa el middleware para manejo de sesiones
 const app = express(); //variable donde guardamos
@@ -5,10 +6,10 @@ const port = 3000; //puerto donde corre la app
 
 const rutasUsuarios = require('./routes/manejoUsuariosRoute'); //Para acceder a ABML de usuarios 
 const rutasLogin = require('./routes/loginRoute'); //para acceder a login
-const rutasPanel = require('./routes/panel'); //para middleware
+const rutasPanel = require('./routes/panelRoute'); //para middleware
 const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para los turnos
 const rutasPacientes = require('./routes/pacienteRoute');
-const rutasMedicos = require('./routes/medicos');
+const rutasMedicos = require('./routes/medicosRoute');
 const rutasWeb = require('./routes/webRoute'); //importo rutas para home, nosotros, etc.
 
 //middleware
@@ -43,7 +44,7 @@ app.use('/', rutasPacientes);
 app.use('/', rutasMedicos);
 app.use('/', rutasWeb);
 
-//puerto que escucha el server
+//muestra el puerto que escucha el server
 app.listen(port, () => { 
     console.log(`El servidor corre en el puerto ${port}`);
 });

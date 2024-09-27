@@ -1,10 +1,14 @@
+//loginController.js
+//acá va todo lo relacionado con el inicio de sesión
+
 const UsuarioModel = require('../models/usuarioModel');
 const usuarioModel = new UsuarioModel();
 
 const bcrypt = require('bcrypt'); //para hashear las contraseñas al guardarlas  y despues compararlas en la validación
 
 class loginController {
-    async mostrarFormulario(req, res){
+    async mostrarFormulario (req, res) { 
+        console.log(req.session);
         res.render('panel/login');
     }
 

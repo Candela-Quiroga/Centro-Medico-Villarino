@@ -1,3 +1,4 @@
+<!--listado.ejs-->
 <!DOCTYPE html>
 <html>
     <%- include('../commons/head')%> <!--El guion medio permite que siempre que estamos incluyendo el archivo, traiga el html completo-->
@@ -24,8 +25,8 @@
                             <td><%- user.email %></td>
                             <td><%- user.categoria %></td>
                             <td>
-                                <a href="/usuario/<%- user.id%>">Editar Usuario</a> <!--OPCION, llevamos al usuario a un nuevo url(Nueva ruta)-->
-                                <button onclick="eliminarUsuario(<%= user.id %>)">Eliminar Usuario</button>
+                                <a href="/usuario/<%= user.id%>">Editar Usuario</a> <!--OPCION, llevamos al usuario a un nuevo url(Nueva ruta)-->
+                                <button onclick="eliminarUsuario('<%= user.id %>')">Eliminar Usuario</button>
                             </td>
                         </tr>
                     <% }) %>   

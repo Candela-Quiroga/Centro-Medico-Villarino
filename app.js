@@ -3,7 +3,6 @@ const express = require('express'); //variable donde se llama a la libreria
 const session = require('express-session'); //importa el middleware para manejo de sesiones
 const app = express(); //variable donde guardamos
 const port = 3000; //puerto donde corre la app
-const bodyParser = require('body-parser');
 
 const rutasUsuarios = require('./routes/manejoUsuariosRoute'); //Para acceder a ABML de usuarios 
 const rutasLogin = require('./routes/loginRoute'); //para acceder a login
@@ -12,9 +11,6 @@ const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para lo
 const rutasPacientes = require('./routes/pacienteRoute');
 const rutasMedicos = require('./routes/medicosRoute');
 const rutasWeb = require('./routes/webRoute'); //importo rutas para home, nosotros, etc.
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 //middleware
 app.use(session({

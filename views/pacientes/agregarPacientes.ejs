@@ -6,13 +6,12 @@
     <title>Agregar Paciente</title>
 </head>
 <body>
-    <h1>Agregar Paciente</h1>
+    <h1>Complete los campos con sus datos</h1>
     <table border="1">
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>DNI</th>
-                <th>Fecha de nacimiento (AAAA/MM/DD)</th>
                 <th>Edad</th>
                 <th>Email</th>
                 <th>Telefono</th>
@@ -25,8 +24,6 @@
                 <tr>
                     <td><input id="nombre" placeholder="Ingrese el nombre"></td>
                     <td><input id="dni" placeholder="Ingrese su DNI"></td>
-                    <% let date = new Date(paciente.fecha_de_nacimiento) %>
-                    <td><input id="fecha_de_nacimiento" type="date" value="<%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %>"></td>
                     <td><input id="edad" placeholder="Ingrese su edad"></td>
                     <td><input id="email" placeholder="Ingrese el email"></td>
                     <td><input id="telefono" placeholder="Ingrese el telefono"></td>
@@ -53,7 +50,6 @@
             console.log("Botón Guardar clickeado");
             const pacienteNombre = document.querySelector("#nombre").value;
             const pacienteDNI = document.querySelector("#dni").value;
-            const pacienteFechaDeNacimiento = document.querySelector("#fecha_de_nacimiento").value;
             const pacienteEdad = document.querySelector("#edad").value;
             const pacienteEmail = document.querySelector("#email").value;
             const pacienteTelefono = document.querySelector("#telefono").value;
@@ -64,7 +60,6 @@
                 id: <%= paciente.id %>,
                 nombre: pacienteNombre,
                 dni: pacienteDNI,
-                fecha_de_nacimiento: pacienteFechaDeNacimiento,
                 edad: pacienteEdad,
                 email: pacienteEmail,
                 telefono: pacienteTelefono,

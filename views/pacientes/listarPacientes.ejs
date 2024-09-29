@@ -20,7 +20,6 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>DNI</th>
-                <th>Fecha de nacimiento</th>
                 <th>Edad</th>
                 <th>Email</th>
                 <th>Telefono</th>
@@ -35,8 +34,6 @@
                     <td><%= pacientes.id %></td>
                     <td><%= pacientes.nombre %></td>
                     <th><%= pacientes.dni %></th>
-                    <% let date = new Date(pacientes.fecha_de_nacimiento) %>
-                    <th><%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %></th>
                     <th><%= pacientes.edad %></th>
                     <td><%= pacientes.email %></td>
                     <td><%= pacientes.telefono %></td>

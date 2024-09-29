@@ -297,7 +297,6 @@ CREATE TABLE `pacientes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
   `dni` int(11) NOT NULL,
-  `fecha_de_nacimiento` datetime NOT NULL,
   `edad` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
@@ -309,10 +308,10 @@ CREATE TABLE `pacientes` (
 -- Volcado de datos para la tabla `pacientes`
 --
 
-INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `fecha_de_nacimiento`, `edad`, `email`, `telefono`, `id_obrasocial`, `nro_afiliado`) VALUES
-(1, 'Junior Alexander', 94222538, '0000-00-00 00:00:00', 21, 'junioracuna@gmail.com', '2324652338', 28, '0'),
-(2, 'Camila Mazzaro', 44555666, '0000-00-00 00:00:00', 22, 'camimazzaro@gmail.com', '23246687656', 8, '123456789'),
-(3, 'agus', 11, '2024-09-27 00:00:00', 45, 'agus@gmail.com', '2324652338', 2, '654');
+INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `edad`, `email`, `telefono`, `id_obrasocial`, `nro_afiliado`) VALUES
+(1, 'Junior Alexander', 94222538, 21, 'junioracuna@gmail.com', '2324652338', 28, '0'),
+(2, 'Camila Mazzaro', 44555666, 22, 'camimazzaro@gmail.com', '23246687656', 8, '123456789'),
+(3, 'agus', 11, 45, 'agus@gmail.com', '2324652338', 2, '654');
 
 -- --------------------------------------------------------
 

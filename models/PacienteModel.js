@@ -25,7 +25,6 @@ class PacienteModel{
                 pacientes.id AS id, 
                 pacientes.nombre AS nombre, 
                 pacientes.dni AS dni,
-                pacientes.fecha_de_nacimiento AS fecha_de_nacimiento,
                 pacientes.edad AS edad,
                 pacientes.email AS email, 
                 pacientes.telefono AS telefono,
@@ -56,8 +55,8 @@ class PacienteModel{
 
     async guardarPaciente(datos, callback){
         if(datos.id == 0){
-            let sql = `INSERT INTO pacientes (nombre, dni, fecha_de_nacimiento, edad, email, telefono, id_obrasocial, nro_afiliado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.fecha_de_nacimiento, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado], async (err, results) => {
+            let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial, nro_afiliado) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado], async (err, results) => {
 
                 if (err) {
                     console.error(err);
@@ -67,8 +66,8 @@ class PacienteModel{
                 }
         });
         } else {
-            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, fecha_de_nacimiento= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ?, nro_afiliado= ? WHERE id = ?`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.fecha_de_nacimiento, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado, datos.id], async (err, results)=>{
+            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ?, nro_afiliado= ? WHERE id = ?`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado, datos.id], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);

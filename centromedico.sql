@@ -284,7 +284,8 @@ INSERT INTO `obras_sociales` (`id`, `nombre`) VALUES
 (24, 'OSSEG'),
 (25, 'Ospedyc'),
 (26, 'SIS'),
-(27, 'Osalara');
+(27, 'Osalara'),
+(28, 'Ninguna de las anteriores');
 
 -- --------------------------------------------------------
 
@@ -295,11 +296,23 @@ INSERT INTO `obras_sociales` (`id`, `nombre`) VALUES
 CREATE TABLE `pacientes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
+  `dni` int(11) NOT NULL,
+  `fecha_de_nacimiento` datetime NOT NULL,
+  `edad` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
   `id_obrasocial` int(11) NOT NULL,
   `nro_afiliado` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pacientes`
+--
+
+INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `fecha_de_nacimiento`, `edad`, `email`, `telefono`, `id_obrasocial`, `nro_afiliado`) VALUES
+(1, 'Junior Alexander', 94222538, '0000-00-00 00:00:00', 21, 'junioracuna@gmail.com', '2324652338', 28, '0'),
+(2, 'Camila Mazzaro', 44555666, '0000-00-00 00:00:00', 22, 'camimazzaro@gmail.com', '23246687656', 8, '123456789'),
+(3, 'agus', 11, '2024-09-27 00:00:00', 45, 'agus@gmail.com', '2324652338', 2, '654');
 
 -- --------------------------------------------------------
 
@@ -314,6 +327,15 @@ CREATE TABLE `turnos` (
   `fecha_hora` datetime NOT NULL,
   `motivo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+--
+-- Volcado de datos para la tabla `turnos`
+--
+
+INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `motivo`) VALUES
+(1, 1, 1, '0000-00-00 00:00:00', 'Dolor de pata'),
+(2, 5, 2, '0000-00-00 00:00:00', 'Dolor de cabeza'),
+(3, 3, 1, '0000-00-00 00:00:00', 'asdad'),
+(4, 7, 3, '0000-00-00 00:00:00', 'asdasd');
 
 -- --------------------------------------------------------
 

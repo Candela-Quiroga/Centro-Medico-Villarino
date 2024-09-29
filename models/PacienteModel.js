@@ -24,11 +24,15 @@ class PacienteModel{
             SELECT 
                 pacientes.id AS id, 
                 pacientes.nombre AS nombre, 
+                pacientes.dni AS dni,
+                pacientes.fecha_de_nacimiento AS fecha_de_nacimiento,
+                pacientes.edad AS edad,
                 pacientes.email AS email, 
                 pacientes.telefono AS telefono,
-                pacientes.id_obrasocial,
+                obras_sociales.nombre AS obra_social,
                 pacientes.nro_afiliado
             FROM pacientes
+            LEFT JOIN obras_sociales ON pacientes.id_obrasocial = obras_sociales.id
         `;
         conx.query(sql, [], (err, results) => {
             if (err) {
@@ -52,8 +56,8 @@ class PacienteModel{
 
     async guardarPaciente(datos, callback){
         if(datos.id == 0){
-            let sql = `INSERT INTO pacientes (nombre, email, telefono, id_obrasocial, nro_afiliado) VALUES (?, ?, ?, ?, ?)`;
-            conx.query(sql, [datos.nombre, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado], async (err, results) => {
+            let sql = `INSERT INTO pacientes (nombre, dni, fecha_de_nacimiento, edad, email, telefono, id_obrasocial, nro_afiliado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.fecha_de_nacimiento, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado], async (err, results) => {
 
                 if (err) {
                     console.error(err);
@@ -63,8 +67,8 @@ class PacienteModel{
                 }
         });
         } else {
-            let sql = `UPDATE pacientes SET nombre= ?, email= ?, telefono= ?, id_obrasocial= ?, nro_afiliado= ? WHERE id = ?`;
-            conx.query(sql, [datos.nombre, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado, datos.id], async (err, results)=>{
+            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, fecha_de_nacimiento= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ?, nro_afiliado= ? WHERE id = ?`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.fecha_de_nacimiento, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado, datos.id], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);
@@ -99,7 +103,6 @@ class PacienteModel{
         });
     }
 }
-
 
 //exporto la función/es para poder ser utilizada/s desde el controlador
 module.exports = PacienteModel;

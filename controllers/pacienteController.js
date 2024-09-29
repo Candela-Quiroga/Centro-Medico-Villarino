@@ -1,9 +1,14 @@
 //importo el model para poder acceder a las funciones que interactuan con la bbdd
 const PacienteModel = require('../models/pacienteModel');
 const pacienteModel = new PacienteModel();
+const MedicoModel = require('../models/medicoModel');
+const medicoModel = new MedicoModel();
+const TurnoModel = require('../models/turnoModel');
+const turnoModel = new TurnoModel();
 
 
 class PacienteController {
+
     //funcion para listar los pacientes
     async listarPacientes (req, res) {
         pacienteModel.listarPacientes((pacientes) => {
@@ -45,9 +50,6 @@ class PacienteController {
             res.status(500).send("Ocurrió un error al intentar editar el paciente.");
         }
     }
-    
-    
-
     
     //funcion para agregar pacientes
     async guardarPaciente(req, res){
@@ -98,8 +100,6 @@ class PacienteController {
         }
     }
 
-
-    
     //funcion para eliminar pacientes
     async eliminarPaciente(req, res) {
         const id = req.params.id;

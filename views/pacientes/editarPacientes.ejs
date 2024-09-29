@@ -12,6 +12,9 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>DNI</th>
+                <th>Fecha de nacimiento (AAAA/MM/DD)</th>
+                <th>Edad</th>
                 <th>Email</th>
                 <th>Telefono</th>
                 <th>Obra Social</th>
@@ -23,6 +26,10 @@
                 <tr>
                     <td><input id="id" value="<%= paciente.id %>"></td>
                     <td><input id="nombre" value="<%= paciente.nombre %>"></td>
+                    <td><input id="dni" value="<%= paciente.dni %>"></td>
+                    <% let date = new Date(paciente.fecha_de_nacimiento) %>
+                    <td><input id="fecha_de_nacimiento" value="<%= paciente.fecha_de_nacimiento %>"></td>
+                    <td><input id="edad" value="<%= paciente.edad %>"></td>
                     <td><input id="email" value="<%= paciente.email %>"></td>
                     <td><input id="telefono" value="<%= paciente.telefono %>"></td>
                     <td>
@@ -49,6 +56,9 @@
         const botonGuardar = document.querySelector(".guardar");
         botonGuardar.addEventListener("click", async()=>{
             const pacienteNombre = document.querySelector("#nombre").value;
+            const pacienteDNI = document.querySelector("#dni").value;
+            const pacienteFechaDeNacimiento = document.querySelector("#fecha_de_nacimiento").value;
+            const pacienteEdad = document.querySelector("#edad").value;
             const pacienteEmail = document.querySelector("#email").value;
             const pacienteTelefono = document.querySelector("#telefono").value;
             const pacienteId_obrasocial = document.querySelector("#id_obrasocial").value;
@@ -57,6 +67,9 @@
             const datos = {
                 id: <%=paciente.id%>,
                 nombre: pacienteNombre,
+                dni: pacienteDNI,
+                fecha_de_nacimiento: pacienteFechaDeNacimiento,
+                edad: pacienteEdad,
                 email: pacienteEmail,
                 telefono: pacienteTelefono,
                 id_obrasocial: pacienteId_obrasocial,

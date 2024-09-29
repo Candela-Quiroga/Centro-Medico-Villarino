@@ -7,12 +7,21 @@
 </head>
 <body>
     <h1>Listado de Pacientes</h1>
+
+    <form method="GET" action="/pacientes">
+        <input type="text" name="" placeholder="Buscar por nombre, DNI o email" value="">
+        <button type="submit">Buscar</button>
+    </form>
+
     <button><a href="/pacientes/agregar/0">Agregar Paciente</a></button>
     <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>DNI</th>
+                <th>Fecha de nacimiento</th>
+                <th>Edad</th>
                 <th>Email</th>
                 <th>Telefono</th>
                 <th>Obra Social</th>
@@ -25,9 +34,13 @@
                 <tr>
                     <td><%= pacientes.id %></td>
                     <td><%= pacientes.nombre %></td>
+                    <th><%= pacientes.dni %></th>
+                    <% let date = new Date(pacientes.fecha_de_nacimiento) %>
+                    <th><%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %></th>
+                    <th><%= pacientes.edad %></th>
                     <td><%= pacientes.email %></td>
                     <td><%= pacientes.telefono %></td>
-                    <td><%= pacientes.id_obrasocial %></td>
+                    <td><%= pacientes.obra_social %></td>
                     <td><%= pacientes.nro_afiliado %></td>
                     <td>
                         <button><a href="/pacientes/editar/<%= pacientes.id %>">Editar</a></button>

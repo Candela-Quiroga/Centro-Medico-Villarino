@@ -14,7 +14,6 @@ router.post('/pacientes/editar/:id', pacienteController.guardarPaciente);
 router.get('/pacientes/agregar/0', pacienteController.mostrarAgregarPaciente);
 router.post('/pacientes/agregar/0', pacienteController.guardarPaciente);
 
-
 //Ruta para eliminar pacientes
 router.delete('/pacientes/eliminar/:id', pacienteController.eliminarPaciente);
 

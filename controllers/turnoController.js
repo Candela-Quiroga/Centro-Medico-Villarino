@@ -2,7 +2,7 @@
 const TurnoModel = require('../models/turnoModel');
 const turnoModel = new TurnoModel();
 
-const PacienteModel = require('../models/PacienteModel');
+const PacienteModel = require('../models/pacienteModel');
 const pacienteModel = new PacienteModel();
 
 const MedicoModel = require('../models/medicoModel');
@@ -11,7 +11,19 @@ const medicoModel = new MedicoModel();
 class TurnoController {
     //funcion para listar los turnos
     async listarTurnos (req, res) {
-        turnoModel.listarTurnos((turnos) => {
+
+        const { buscar } = req.query; // Obtiene el valor del query y lo almacena en buscar
+        let filtro = ''; // Almacena las palabra que usamos para filtrar
+        
+        if (buscar) {
+            filtro = `
+                WHERE pacientes.nombre LIKE '%${buscar}%' 
+                OR usuarios.nombre LIKE '%${buscar}%' 
+                OR pacientes.dni LIKE '%${buscar}%'
+            `;
+        }
+
+        turnoModel.listarTurnos(filtro, (turnos) => {
             if (!turnos || turnos.length === 0) {
                 console.log("No se encontraron turnos.");
             } else {
@@ -29,7 +41,7 @@ class TurnoController {
             // Obtener pacientes y médicos en paralelo usando Promises
         Promise.all([
             new Promise((resolve, reject) => {
-                pacienteModel.listarPaciente((pacientes) => {
+                pacienteModel.listarPacientes((pacientes) => {
                     resolve(pacientes);
                 });
             }),
@@ -53,7 +65,6 @@ class TurnoController {
     });
     }
 
-    
     //funcion para agregar turnos
     async guardarTurno(req, res){
         const datos = req.body;
@@ -70,7 +81,7 @@ class TurnoController {
         //para obtener los médicos y pacientes
         Promise.all([
             new Promise((resolve, reject) => {
-                pacienteModel.listarPaciente((pacientes) => {
+                pacienteModel.listarPacientes((pacientes) => {
                     resolve(pacientes);
                 });
             }),
@@ -104,7 +115,40 @@ class TurnoController {
             res.redirect('/turnos'); // Redirige a la lista de turnos tras eliminar
             }
         });
-    }    
-}
+    }   
+    
+    async obtenerTurnosDisponibles(req, res) {
+        const { fecha, id_medico } = req.params;
+
+        // Obtener turnos ocupados para ese día
+        const ocupados = await Turno.findAll({ where: { Fecha: fecha, id_medico: id_medico } });
+
+        // Generar intervalos de 15 minutos
+        const turnos = [];
+        for (let hora = 8; hora < 18; hora += 0.25) {
+            const tiempo = `${Math.floor(hora)}:${(hora % 1) * 60 === 0 ? '00' : '15'}`;
+            if (!ocupados.some(turno => turno.Hora === tiempo)) {
+                turnos.push(tiempo);
+            }
+        }
+
+        res.json(turnos);
+    }
+
+    generarPDF(turno) {
+        const doc = new pdfKit();
+        const nombreArchivo = `comprobante_turno_${turno.id}.pdf`;
+
+        doc.pipe(fs.createWriteStream(nombreArchivo));
+        doc.fontSize(25).text('Comprobante de Turno', { align: 'center' });
+        doc.text(`Paciente: ${turno.id_paciente}`);
+        doc.text(`Doctor: ${turno.id_medico}`);
+        doc.text(`Fecha: ${turno.Fecha}`);
+        doc.text(`Hora: ${turno.Hora}`);
+        doc.text(`Motivo: ${turno.Motivo}`);
+        doc.end();
+    }
+};
+
 //exporto el controller con la funcion de listar
 module.exports = TurnoController;

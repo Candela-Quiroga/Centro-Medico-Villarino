@@ -23,7 +23,7 @@
                             <td><%- user.email %></td>
                             <td><%- user.categoria %></td>
                             <td>
-                                <a href="/usuario/<%= user.id%>">Editar Usuario</a> <!--OPCION, llevamos al usuario a un nuevo url(Nueva ruta)-->
+                                <a href="/usuario/editar/<%= user.id%>">Editar Usuario</a> 
                                 <button class="borrarUsuario" data-id="<%= user.id %>">Eliminar Usuario</button>
                             </td>
                         </tr>
@@ -31,16 +31,20 @@
                 </tbody>
             </table>
         </div>
-
         <script>
             document.querySelectorAll('.borrarUsuario').forEach(button => {
             button.addEventListener('click', async() => {
                 const userId = button.getAttribute('data-id');
                 if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-                    const response = await fetch(`/usuarios/eliminar/${userId}`, {
+                    const response = await fetch(`/usuarios/${userId}`, {
                         method: 'DELETE'
                     });
-                    location.reload(); // Recargar la página después de eliminar
+                    if (response.ok) {
+                        alert('Usuario eliminado correctamente');
+                        location.reload(); // Recargar la página después de eliminar
+                    } else {
+                        alert('Error al eliminar el usuario');
+                    }
                 }
             });
         });

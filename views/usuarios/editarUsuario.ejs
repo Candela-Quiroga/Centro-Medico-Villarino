@@ -3,14 +3,15 @@
 <html lang="en">
     <%- include('../commons/head')%>
     <body>
+        <h1>Listado de usuarios</h1>
         <div class="container">
             <p id="usuario_id"><%=usuario.id%></p>
             <div>
                 <label>Nombre</label>
-                <input id="usuario_nombre" value="<%= usuario?.nombre %>">
+                <input id="usuario_nombre" value="<%= usuario.nombre %>">
 
                 <label>Email</label>
-                <input id="usuario_email" value="<%= usuario?.email %>">
+                <input id="usuario_email" value="<%= usuario.email %>">
 
                 <label>Password</label>
                 <input id="usuario_password" type="password" value="<%= usuario.id === 0 ? '':'*******' %>">
@@ -23,11 +24,10 @@
                         </option>
                     <% }) %>
                 </select>            
-
                 <button class="guardar">Guardar Usuario</button>
+                <a href="/usuarios">Cancelar</a>
             </div>
         </div>
-
         <script>
             
             const botonGuardar = document.querySelector(".guardar");
@@ -45,20 +45,17 @@
                     password: usuarioPassword.value || undefined, //esto es para que no envíe contraseña vacía,
                     id_categoriaPermiso: usuarioCategoria.value
                 };
-
                 if (!usuarioNombre.value || !usuarioEmail.value || !usuarioCategoria.value) { //acá valido que ingresen todos los campos
                     alert("Todos los campos son requeridos.");
                     return;
                 }
-
                 const result = await fetch(`/usuario/${datos.id}`, {
-                    method: 'post',
+                    method: 'PUT',
                     body: JSON.stringify(datos),
                     headers: {
                         'Content-Type': 'application/json' //si no lo hacemos de esta forma, todos los datos que queramos recibir, van a estar mal.
                     }
                 });
-
                 const data = await result.json();
                 if (data.success) { 
                     alert ("Usuario guardado correctamente");

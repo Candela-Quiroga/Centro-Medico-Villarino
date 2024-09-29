@@ -36,33 +36,37 @@ class UsuarioModel{
             callback(results); //todo lo que va a venir de los usuarios. 
         }); //la función última se encarga de decir cuándo va a pasar algo y cuando no
     }
-
-    async guardar(datos, callback){ 
+    async crear(datos, callback){ 
         let sql = "INSERT INTO usuarios (nombre, email, password, id_categoriaPermiso) ";
         sql += "VALUES (?, ?, ?, ?) ";
         conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
             if (err) {
                 console.error("Error al guardar el usuario:", err);
-                return callback(null);
+                callback(null);
             }
             callback(results);
         });
     }
     async actualizar(datos, callback){        
         let sql = "UPDATE usuarios SET nombre = ?, email = ?, password = ?, id_categoriaPermiso = ? WHERE id = ?";
-        conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
+        conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso, datos.id], async (err, results) => {
             if (err) {
                 console.error("Error al actualizar el usuario:", err);
                 return callback(null);
+            }else{
+                callback(results);
             }
-            callback(results);
         });
     }
     async eliminar(id, callback){
         let sql = "DELETE FROM usuarios WHERE id = ?";
-        conx.query(sql, [id], async (err, results) => {
+        conx.query(sql, [id], (err, results) => {
+            if (err) {
+                console.error("Error al eliminar el usuario:", err);
+                return callback(null);
+            }
             callback(results);
-        })
+        });
     }
 }; 
 module.exports = UsuarioModel; //para exportar el modulo.

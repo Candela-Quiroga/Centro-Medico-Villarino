@@ -13,78 +13,91 @@ const categoriaModel = new CategoriaModel();
 class ManejoUsuarioController {
     async listarUsuarios (req,res) { //MUESTRA
         usuarioModel.listar((users) => {
-            if (users.length === 0){ //acá, en el caso de que no haya usuarios, va a mostrar una alerta
-                alert("No se encontraron usuarios.");
-            }
-            console.log("Usuarios:", users); // Verifica qué datos se están obteniendo
-            res.render("panel/listado", {
-                usuarios: users
-            }); 
+            console.log("Usuarios:", users);
+            res.render("medicos/listarMedicos", {
+                users: users
+            });
         });
     }
-    async editarUsuario(req, res) {  
-        const id = req.params.id; // toma el id del usuario.
+
+    async crearUsuario (req, res){
         try {
-            let user = await usuarioModel.obtenerUsuarios(id);
-            const categories = await categoriaModel.listar();
-            if (!user){
-                user = usuarioModel.obtenerUsuarioBase();
-            }
-            res.render('panel/editarUsuario', {
-                usuario: user,
-                categorias: categories, 
+            const categorias = await categoriaModel.listar(); 
+            const usuario = await usuarioModel.obtenerUsuarioBase(); 
+            res.render("usuarios/crearUsuario", {
+                usuario: {id: 0}, 
+                categorias: categorias, 
             });
-        } catch (error) {
-            console.error("Error al obtener usuario: ", error);
-            res.status(500).send("Error al obtener usuario");
+        } catch (err){
+            console.error("Error al crear el usuario: ", err);
+            res.status(500).send("Error al crear el usuario");
+        }
+    }
+
+    async editarUsuario(req, res) {  
+        const datos = req.body.id;
+        try{
+            const usuario = await new Promise((resolve, reject) => {
+                usuarioModel.obtenerUsuarios(id, (usuario) => {
+                    if(usuario) {
+                        resolve(usuario);
+                    } else {
+                        reject(new Error('No se encontró el usuario'));
+                    }
+                });
+            });
+            const usuarios = usuarioModel.obtenerUsuarios(id); 
+            const categorias = categoriaModel.listar(); 
+            if (datos.password) {
+            const hashedPassword = await bcrypt.hash(datos.password, rondas);
+            datos.password = hashedPassword; 
+            }
+            res.render('usuarios/editarUsuario', { 
+                usuario: usuario,
+                categorias: categorias,
+                message: "Usuario actualizado con éxito."
+            });
+        } catch (err) {
+            console.error("Error al cargar el usuario: ", err);
+            res.status(500).send("Error al cargar el usuario.");
         }
     }
     async guardarUsuario(req,res) { 
-        try{
-            const datos = req.body; //toma todos los valores del formulario
-            if (datos.id == 0 || datos.password){
-                const hashedPassword = await bcrypt.hash(datos.password, rondas);
-                datos.password = hashedPassword; //asigna la contraseña con el hash
-            }
-            if (datos.id == 0) { 
-                await usuarioModel.guardar(datos);  //Esto es para crear
-                res.status(200).json({
-                    success: true,
-                    message: "Usuario creado exitosamente."
-                });
-            } else { 
-                await usuarioModel.actualizar(datos); //Esto es para para actualizar
-                res.status(200).json({ // Cambié el estado a 200 para actualización exitosa
-                    success: true,
-                    message: "Usuario actualizado exitosamente."
-                });
-            }
-            res.json({
-                success: true,
-            });
-        } catch (error) {
-            console.error("Error al guardar el usuario: ", error);
-            res.status(500).json({
+        const datos = req.body; 
+        if (!datos.password) {
+            return res.status(500).json({
                 success: false,
-                message: "Error al guardar el usuario",
+                message: "La contraseña es obligatoria."
             });
         }
+        const hashedPassword = await bcrypt.hash(datos.password, rondas); //Hashear la contraseña
+        datos.password = hashedPassword;
+        usuarioModel.crear(datos, (result) => {
+            if(!result) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error al guardar el usuario"
+                })
+            }
+            res.status(200).json({
+                success: true,
+                message: "El usuario se creó correctamente"
+            })
+        });
+        usuarioModel.actualizar(datos, (result) => {
+            if(result){
+                return res.status(200).send("Guardado correctamente");
+            }
+        });
     }
     async eliminarUsuario (req, res) {
         const id = req.params.id;
-        try {
-            usuarioModel.eliminar(id, () => {
-                res.send({
-                    success: true,  
-                });
-            });
-        } catch (error){
-            console.error("Error al eliminar el usuario: ", error);
-            res.status(500).send({
-                success: false,
-                message: "Error al eliminar el usuario.",
-            });
-        }
+        usuarioModel.eliminar(id, (result) => {
+            if(!result){
+                return res.status(500).send("Error al eliminar el usuario");
+            } 
+            res.redirect('/usuarios');
+        });
     }
 }
 module.exports = ManejoUsuarioController;

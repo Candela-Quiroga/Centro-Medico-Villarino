@@ -14,7 +14,7 @@ class PacienteModel{
         }
     }
 
-    async listarPacientes(callback){
+    async listarPacientes(filtro, callback){
         //esta función obtiene los pacientes y detalles de la base de datos
         /*dentro de la constante "sql" guardo toda la consulta realizada para tener mayor prolijidad
         a la hora de hacer el conx.query, además realizo varios joins con las tablas relacionadas a 
@@ -32,7 +32,9 @@ class PacienteModel{
                 pacientes.nro_afiliado
             FROM pacientes
             LEFT JOIN obras_sociales ON pacientes.id_obrasocial = obras_sociales.id
+            ${filtro}
         `;
+        
         conx.query(sql, [], (err, results) => {
             if (err) {
                 console.error(err);

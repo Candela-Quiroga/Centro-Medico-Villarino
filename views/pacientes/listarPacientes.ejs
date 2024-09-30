@@ -8,9 +8,9 @@
 <body>
     <h1>Listado de Pacientes</h1>
 
-    <form method="GET" action="/pacientes">
-        <input type="text" name="" placeholder="Buscar por nombre, DNI o email" value="">
-        <button type="submit">Buscar</button>
+    <form action="/pacientes" method="GET">
+        <input type="text" name="buscar" placeholder="DNI, Nombre o Email">
+        <input type="submit" value="Buscar">
     </form>
 
     <button><a href="/pacientes/agregar/0">Agregar Paciente</a></button>

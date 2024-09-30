@@ -43,8 +43,8 @@
                         </select>
                     </td>
                     <% let date = new Date(turno.fecha_hora) %>
-                    <td><input id="fecha_hora" value="<%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %>"></td>
-                    <td><input id="fecha_hora" value="<%= date.getHours() %>:<%= date.getMinutes() %>"></td>
+                    <td><input id="fecha" value="<%= date.getFullYear() %>/<%= date.getMonth()+1 %>/<%= date.getDate() %>"></td>
+                    <td><input id="hora" value="<%= date.getHours() %>:<%= date.getMinutes() %>"></td>
                     <td><input id="motivo" value="<%= turno.motivo %>"></td>
                     <td>
                         <button class="guardar">Guardar</button>
@@ -59,8 +59,8 @@
         botonGuardar.addEventListener("click", async()=>{
             const turnoMedico = document.querySelector("#medico_nombre").value;
             const turnoPaciente = document.querySelector("#paciente_nombre").value;
-            const turnoFecha = document.querySelector("#fecha_hora").value;
-            const turnoHora = document.querySelector("#fecha_hora").value;
+            const turnoFecha = document.querySelector("#fecha").value;
+            const turnoHora = document.querySelector("#hora").value;
             const fechaCompleta = `${turnoFecha} ${turnoHora}`; // Combinar la fecha y hora
             const turnoMotivo = document.querySelector("#motivo").value;
             

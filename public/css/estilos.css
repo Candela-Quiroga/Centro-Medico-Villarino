@@ -888,6 +888,314 @@ option {
     font-size: 25px;
 }
 
+/* COBERTURAS.EJS */
+
+.container-coberturas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; 
+}
+
+
+.container-coberturas h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    color: var(--AZUL_OSCURO);
+    text-align: center;
+    margin-top: 60px;
+}
+
+
+.container-coberturas p {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: black;
+}
+
+
+.label-container {
+    background-color: #25a09e;
+    color: white;
+    padding: 15px;
+    border-radius: 25px 0 0 0 ;
+    border: 2px solid var(--VERDE_AGUA);
+    text-align: center;
+    width: 100%;
+    max-width: 570px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    margin: 0 auto;;
+}
+
+.label-container span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid var(--VERDE_AGUA);
+    max-width: 600px; 
+    border-radius: 0 0 25px 0;
+    margin: 0 auto;
+    height: 315px;
+}
+
+.select-cobertura {
+    width: 100%;
+    max-width: 600px; 
+}
+
+
+.select-cobertura select {
+    width: 100%;
+    font-size: 16px;
+    background-color: white; 
+    border: none;
+    outline: none;
+    border-radius: 0 0 25px 0;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.select-cobertura select option {
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    padding: 20px;
+}
+
+/*tarjetas de medicos*/
+.container-medicos {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+}
+.container-medicos .tarjeta-medico {
+    border: 1px solid #ccc; 
+    border-radius: 25px 0 25px 0;
+    margin: 10px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
+    width: 250px; 
+    background-color: var(--VERDE_AGUA); 
+    transition: transform 0.2s; 
+    height: 450px;
+}
+
+.tarjeta-medico :hover {
+    transform: scale(1.05); 
+    cursor: pointer;
+}
+
+.medico-foto {
+    width: 100%; 
+    height: 250px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+}
+
+.medico-nombre {
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 20px; 
+    color:white; 
+    margin: 0; 
+    background-color: var(--AZUL_OSCURO);
+    width: 100%;
+    display: block;
+    padding: 10px 0;
+    box-sizing: border-box; /*para que el padding no afecte al ancho del elemento*/
+}
+
+.medico-especialidad,
+.medico-cobertura,
+.medico-horario {
+    font-family: 'Montserrat', sans-serif; 
+    color: white; 
+    font-weight: 200;
+    font-size: 15px;
+}
+
+.medico-contacto {
+    background-color: var(--AZUL_OSCURO);
+    font-family: 'Montserrat', sans-serif;
+    color: white; 
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;  
+}
+
+.medico-contacto:hover {
+    background-color: #1e8b7e; 
+    cursor: pointer;
+}
+
+/*container obras sociales */
+
+.container-obrassociales {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:auto;
+    width:1200px;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.container-obrassociales img {
+    width: 100%;
+}
+
+/*container pedir turno*/
+
+.container-pedirTurno {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:400px;
+    width:1200px;
+    margin: 0 auto;
+    margin-top: 80px;
+    margin-bottom: 60px;
+}
+
+.container-pedirTurno img {
+    width: 100%;
+    height: 100%;
+    filter: blur(2px);
+    border-radius: 10px;
+}
+
+.contenido {
+    position: absolute;
+    height: 150px;
+    width: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.contenido h1 {
+    color: var(--AZUL_OSCURO);
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.boton-pedirTurno {
+    background: var(--DEGRADADO);
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 25px 0 25px 0;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+/*container info y foto del centro*/
+
+.container-datosCentro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.container-datosCentro img {
+    width: 45%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.datos-centro {
+    width: 50%;
+    padding-left: 10px;
+    text-align: left;
+}
+
+.datos-centro h2 {
+    color: var(--AZUL_OSCURO);
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.datos-centro p {
+    font-size: 20px;
+    margin-bottom: 40px;
+    color: var(--AZUL_OSCURO);
+    display: flex;
+    align-items: center;
+}
+
+.datos-centro p i {
+    background-color: var(--VERDE_AGUA); 
+    padding: 10px; 
+    border-radius: 25px 0 25px 0; 
+    margin-right: 10px; 
+    color: white; 
+    font-size: 24px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.container-seguinos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.container-seguinos h2 {
+    background: var(--DEGRADADO);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px 0 25px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.container-seguinos .iconos-redes {
+    display: flex;
+    gap: 10px;
+}
+
+.container-seguinos .icono-red {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    border-radius: 30px;
+    color: var(--AZUL_OSCURO);
+    text-decoration: none;
+    font-size: 30px;
+}
 
 /*FOOTER*/
 footer {

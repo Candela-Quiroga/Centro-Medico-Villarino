@@ -3,9 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Centro Médico Villarino</title>
+    <link rel="stylesheet" href="/public/css/estilos.css">
+
+    <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!--Iconos de Font Awesome-->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+
+    <!--Incluimos librería Swiper de JS para carruseles-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body>
-    <h1>PROBANDO</h1>
+     
+    <!-- Menú de navegación -->
+   <header class="sombra">
+    <div class="logo"></div>
+
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/nosotros">Nosotros</a></li>
+                <li><a href="/profesionales">Profesionales</a></li>
+                <li><a href="/coberturas">Coberturas</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+             </ul>
+        </nav>
+        <a href="/pedirTurno" class="menu-pedir-turno boton">Pedir Turno</a>
+    
+    </header>
+    <div class="container-coberturas">
+        <h1>Consultá por tu Cobertura Médica</h1>
+        <p>Conocé los médicos de nuestro centro que trabajan con tu obra social:</p>
+    </div>
+
+
+    <div class="label-container">
+        <span>Seleccione su Cobertura Médica aquí</span>
+    </div>
+
+   <!-- Contenedor para el select -->
+    <div class="select-container">
+        <div class="select-cobertura">
+            <select id="cobertura" name="cobertura" required size="5">
+             <!--a cada opcion se le pone como value el id que tienen asignados en la BD-->
+              <option value="" selected>Ninguna</option>
+              <option value="1">JERARQUICOS SALUD</option>
+              <option value="2">PODER JUDICIAL</option>
+              <option value="3">LA PEQUEÑA FAMILIA</option>
+              <option value="4">SANCOR SALUD</option>
+              <option value="5">CASA</option>
+              <option value="6">OSPEPBA/option>
+              <option value="7">DASMI</option>
+              <option value="8">IOMA</option>
+              <option value="9">OSFATLYF</option>
+              <option value="10">OSDE</option>
+              <option value="11">OSPE</option>
+              <option value="12">SWISS MEDICAL</option>
+              <option value="13">GALENO</option>
+              <option value="14">MEDIFÉ</option>
+              <option value="15">CENTRO MÉDICO PUEYRREDÓN</option>
+              <option value="16">OSPF</option>
+              <option value="17">COMEI</option>
+              <option value="18">OSPIP</option>
+              <option value="19">OSPTV</option>
+              <option value="20">COLEGIO DE ESCRIBANOS</option>
+              <option value="21">OSPEGYPE</option>
+              <option value="22">AMEBPBA</option>
+              <option value="23">OSDOP</option>
+              <option value="24">OSSEG</option>
+              <option value="25">OSPEDYC</option>
+              <option value="26">SIS</option>
+              <option value="27">OSALARA</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="container-medicos" id="medicos">
+        
+        <div class="tarjeta-medico">
+            <img src="/public/img/medico-1.png" alt="Nombre del Médico" class="medico-foto">
+            <h2 class="medico-nombre">Esteban Mazzaro</h2>
+            <p class="medico-especialidad">Especialidad: Oftalmología</p>
+            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
+            <button class="medico-contacto">Pedir turno</button>
+        </div>
+        <div class="tarjeta-medico">
+            <img src="/public/img/medico-2.png" alt="Nombre del Médico" class="medico-foto">
+            <h2 class="medico-nombre">Magdalena Bauschen</h2>
+            <p class="medico-especialidad">Especialidad: Oftalmología</p>
+            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
+            <button class="medico-contacto">Pedir turno</button>
+        </div>
+        <div class="tarjeta-medico">
+            <img src="/public/img/medico-3.png" alt="Nombre del Médico" class="medico-foto">
+            <h2 class="medico-nombre">Jorge Biffis</h2>
+            <p class="medico-especialidad">Especialidad: Oftalmología</p>
+            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
+            <button class="medico-contacto">Pedir turno</button>
+        </div>
+        <div class="tarjeta-medico">
+            <img src="/public/img/medico-4.png" alt="Nombre del Médico" class="medico-foto">
+            <h2 class="medico-nombre">Julio Sosa</h2>
+            <p class="medico-especialidad">Especialidad: Oftalmología</p>
+            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
+            <button class="medico-contacto">Pedir turno</button>
+        </div>
+        <div class="tarjeta-medico">
+            <img src="/public/img/medico-5.png" alt="Nombre del Médico" class="medico-foto">
+            <h2 class="medico-nombre">Pablo Urga</h2>
+            <p class="medico-especialidad">Especialidad: Oftalmología</p>
+            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
+            <button class="medico-contacto">Pedir turno</button>
+        </div>
+        <div class="tarjeta-medico">
+            <img src="/public/img/medico-1.png" alt="Nombre del Médico" class="medico-foto">
+            <h2 class="medico-nombre">Rodrigo Zalabardo</h2>
+            <p class="medico-especialidad">Especialidad: Oftalmología</p>
+            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
+            <button class="medico-contacto">Pedir turno</button>
+        </div>
+        <div class="tarjeta-medico">
+            <img src="/public/img/medico-3.png" alt="Nombre del Médico" class="medico-foto">
+            <h2 class="medico-nombre">Gustavo Iralde</h2>
+            <p class="medico-especialidad">Especialidad: Oftalmología</p>
+            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
+            <button class="medico-contacto">Pedir turno</button>
+        </div> 
+    
+    </div>
+    <div class="container-obrassociales">
+        <img src="/public/img/Obras-sociales.png">
+    </div>
+    <div class="container-pedirTurno">
+        <img src="/public/img/centromedico.jpg">
+        <div class="contenido">
+            <h1>Pedir turno online</h1>
+            <button class="boton-pedirTurno">Haciendo click acá</button>
+        </div>
+    </div>
+    <div class="container-datosCentro">
+        <img src="/public/img/centro-img-frente.webp">
+        <div class="datos-centro">
+            <p><i class="fa-regular fa-location-dot"></i>Dirección:Lamadrid 29,Chivilcoy,Bs As</p>
+            <p><i class="fa-regular fa-phone"></i>Teléfono: 2346-426515</p>
+            <p><i class="fa-regular fa-envelope"></i>Email: centromedicovillarino@gmail.com</p>
+
+            <div class=container-seguinos>
+                <h2>¡Seguinos en nuestras redes!</h2>
+                <div class="iconos-redes">
+                    <a href="https://www.instagram.com/centromedicovillarino?igsh=bnhsYXR4eDh5eW91" target="blank" class="icono-red instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61557067552824" target="blank" class="icono-red facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/2346426515" target="blank" class="icono-red WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container-footer">
+            <div class="logo-redes">
+                <div class="logo-footer">
+                    <img src="/public/img/Logo Blanco.png">
+                </div>
+                <div class="redes-footer">
+                    <div class="iconos-redes">
+                        <a href="https://www.instagram.com/centromedicovillarino?igsh=bnhsYXR4eDh5eW91" target="blank" class="icono-red instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61557067552824" target="blank" class="icono-red facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/2346426515" target="blank" class="icono-red WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="info-general">
+                <h3 class="titulo-footer">Centro Médico Villarino</h3>
+                <div class="texto">
+                    <p>Nos dedicamos a brindar atención médica de calidad a nuestros pacientes. Contamos con un equipo de profesionales altamente capacitados y una amplia variedad de servicios médicos para cuidar de tu salud. ¡Te esperamos!</p>
+                    <p><i class="fa-regular fa-location-dot"></i> Dirección: Lamadrid 29, Chivilcoy, Bs As</p>
+                </div>
+            </div>
+    
+            <div class="contacto-footer">
+                <h3 class="titulo-footer">Contactanos</h3>
+                <p><a href="https://wa.me/2346426515" target="blank" class="link-contacto"><i class="fa-brands fa-whatsapp"></i> WhatsApp: 2346 426515</a></p>
+                <p><i class="fa-regular fa-phone"></i> Teléfono: 2346 426515</p>
+                <p><a href="mailto:centromedicovillarino@gmail.com" class="link-contacto"><i class="fa-regular fa-envelope"></i> Email: centromedicovillarino@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

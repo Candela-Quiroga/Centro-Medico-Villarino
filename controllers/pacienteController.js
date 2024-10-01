@@ -23,7 +23,7 @@ class PacienteController {
             `;
         }
 
-        pacienteModel.listarPacientes(filtro, (pacientes) => {
+        pacienteModel.listarPacientes((pacientes) => {
             if (!pacientes || pacientes.length === 0) {
                 console.log("No se encontraron pacientes.");
             } else {

@@ -4,52 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Médicos</title>
+    <link rel="stylesheet" href="/public/css/medicos.css">
+
+        <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!--Boostrap para dar estilos a las tablas e inputs-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!--Íconos Font Awesome -->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 </head>
 <body>
-    <h1>Listado de Médicos</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Especialidad</th>
-                <th>Teléfono</th>
-                <th>Descripción</th>
-                <th>Foto</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% medicos.forEach(function(medico) { %>
-                <tr>
-                    <td><%= medico.id %></td>
-                    <td><%= medico.nombre_medico %></td>
-                    <td><%= medico.nombre_especialidad %></td>
-                    <td><%= medico.telefono %></td>
-                    <td><%= medico.descripcion %></td>
-                    <td><img width="100" height="100" src="<%= medico.foto %>" alt=""></td>
-                    <td>
-                        <button><a href="/medico/editar/<%= medico.id %>">Editar</a></button>
-                        <button class="btnEliminar" data-id="<%= medico.id %>">Eliminar</button>
-                    </td>
-                </tr>
-            <% }); %>
-        </tbody>
+    <div class="container mt-5 container-listado-medicos">
+        <h1>Listado de Médicos</h1>
+        <div class="listado-medicos sombra">
+            <table class="table table-striped table-bordered border rounded shadow-lg">
+                <thead>
+                    <tr>
+                        <th class="col">ID</th>
+                        <th class="col">Nombre</th>
+                        <th class="col">Especialidad</th>
+                        <th class="col">Teléfono</th>
+                        <th class="col">Descripción</th>
+                        <th class="col">Foto</th>
+                        <th class="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% medicos.forEach(function(medico) { %>
+                        <tr>
+                            <td class="contenedor-id"><%= medico.id %></td>
+                            <td><%= medico.nombre_medico %></td>
+                            <td><%= medico.nombre_especialidad %></td>
+                            <td><%= medico.telefono %></td>
+                            <td class="contenedor-descripcion"><%= medico.descripcion %></td>
+                            <td><img width="100" height="100" src="<%= medico.foto %>" alt="" class="rounded-circle"></td>
+                            <td>
+                                <button class="btn btn-editar"><a href="/medico/editar/<%= medico.id %>" class="text-white text-decoration-none">Editar</a></button>
+                                <button class="btn btn-eliminar btnEliminar" data-id="<%= medico.id %>">Eliminar</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
         
-    </table>
-    <a href="/medico/agregar/0">Agregar Nuevo Médico</a>
+        <div id="btn-agregar" class="btn btn-agregar"><a href="/medico/agregar/0">Agregar Nuevo Médico</a></div>
+    </div>
+
+        <!-- Ícono de flecha fijo en la esquina inferior derecha -->
+        <div class="atajo-agregar" id="atajo-agregar">
+            <p>Agregar Médico</p>
+            <a href="#btn-agregar" class="btn-flecha" id="btn-flecha">
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         document.querySelectorAll('.btnEliminar').forEach(button => {
-            button.addEventListener('click', async() => {
+            button.addEventListener('click', async () => {
                 const medicoId = button.getAttribute('data-id');
                 if (confirm('¿Estás seguro de que deseas eliminar este médico?')) {
                     const response = await fetch(`/medicos/eliminar/${medicoId}`, {
                         method: 'DELETE'
                     });
-                    location.reload(); // Recargar la página después de eliminar
+                    location.reload();
                 }
             });
+        });
+
+        //Botón fixed
+        const atajoAgregar = document.getElementById('atajo-agregar');
+        const btnFlecha = document.getElementById('btn-flecha');
+
+        let lastScrollTop = 0;
+
+        // Manejar el clic en el botón de flecha
+        btnFlecha.addEventListener('click', () => {
+            atajoAgregar.classList.add('hidden'); // Oculta el contenedor
+        });
+
+        // Mostrar/ocultar el contenedor basado en el scroll
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Compara la posición del scroll actual con la anterior
+            if (scrollTop < lastScrollTop) {
+                // Scrolling hacia arriba
+                atajoAgregar.classList.remove('hidden'); // Muestra el contenedor
+            } else {
+                // Scrolling hacia abajo
+                atajoAgregar.classList.add('hidden'); // Oculta el contenedor
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Para evitar valores negativos
         });
     </script>
 

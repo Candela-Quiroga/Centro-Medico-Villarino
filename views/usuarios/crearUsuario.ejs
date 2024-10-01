@@ -1,0 +1,71 @@
+<!--crearUsuario.ejs-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar Usuario</title>
+</head>
+<%- include('../commons/head')%>
+<body>
+    <h1>Insertar Usuario</h1>
+    <form id=" crearUsuarioForm"> 
+        <div> 
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="usuario_nombre" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="usuario_email" autocomplete="new-email" required><br>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" name="password" id="usuario_password" autocomplete="new-password" required><br>
+
+            <label for="categoria">Categoría:</label>
+            <select id="usuario_categoria"> 
+                <% categorias.forEach((category) => { %>
+                    <option value="<%= category.id %>" <%= (category.id == usuario.id_categoriaPermiso) ? 'selected' : '' %> >
+                        <%= category.nombre %>
+                    </option>
+                <% }) %>
+            </select>     
+
+            <button type="submit" class="guardar">Guardar</button> 
+            <a href="/usuarios">Cancelar</a>
+        </div>
+    </form> 
+
+    <script>
+        const botonGuardar = document.querySelector(".guardar");
+
+        botonGuardar.addEventListener("click", async () => {
+            const usuarioNombre = document.querySelector("#usuario_nombre").value;
+            const usuarioEmail = document.querySelector("#usuario_email").value;
+            const usuarioPassword = document.querySelector("#usuario_password").value;
+            const usuarioCategoria = document.querySelector("#usuario_categoria").value;
+
+            const datos = {
+                nombre: usuarioNombre,
+                email: usuarioEmail,
+                password: usuarioPassword,
+                categoria: usuarioCategoria
+            };
+
+            const results = await fetch('/usuario/agregar/0', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(datos)  
+            });
+            console.log(datos);
+
+            const data = await results.json();
+            if (data.success) {
+                location.href = "/usuarios"; 
+            } else {
+                alert("Hubo un problema");
+            }
+        });
+    </script>
+</body>
+</html>

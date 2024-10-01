@@ -1,9 +1,14 @@
 <!--editarUsuario.ejs-->
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Editar Usuario</title>
+    </head>
     <%- include('../commons/head')%>
     <body>
-        <h1>Listado de usuarios</h1>
+        <h1>Editar usuarios</h1>
         <div class="container">
             <p id="usuario_id"><%=usuario.id%></p>
             <div>
@@ -17,7 +22,7 @@
                 <input id="usuario_password" type="password" value="<%= usuario.id === 0 ? '':'*******' %>">
 
                 <label>Categoria</label>
-                <select id="usuario_categoria"> <!--Estamos obteniendo las categorias en un condicional-->
+                <select id="usuario_categoria"> 
                     <% categorias.forEach((category) => { %>
                         <option value="<%= category.id %>" <%= (category.id == usuario.id_categoriaPermiso) ? 'selected' : '' %> >
                             <%= category.nombre %>
@@ -29,7 +34,6 @@
             </div>
         </div>
         <script>
-            
             const botonGuardar = document.querySelector(".guardar");
 
             const usuarioNombre = document.querySelector("#usuario_nombre");
@@ -39,29 +43,36 @@
 
             botonGuardar.addEventListener("click", async () => {
                 const datos = {
-                    id: "<%= usuario.id %>",
-                    nombre: usuarioNombre.value,
-                    email: usuarioEmail.value,
-                    password: usuarioPassword.value || undefined, //esto es para que no envíe contraseña vacía,
-                    id_categoriaPermiso: usuarioCategoria.value
+                    usuario_nombre: usuarioNombre.value,
+                    usuario_email: usuarioEmail.value,
+                    usuario_password: usuarioPassword.value,
+                    usuario_categoria: usuarioCategoria.value
                 };
-                if (!usuarioNombre.value || !usuarioEmail.value || !usuarioCategoria.value) { //acá valido que ingresen todos los campos
+
+                if (!usuarioNombre.value || !usuarioEmail.value || !usuarioCategoria.value) { 
                     alert("Todos los campos son requeridos.");
                     return;
                 }
-                const result = await fetch(`/usuario/${datos.id}`, {
+
+                const results = await fetch(`/usuario/editar/${usuario.id}`, {
                     method: 'PUT',
-                    body: JSON.stringify(datos),
                     headers: {
-                        'Content-Type': 'application/json' //si no lo hacemos de esta forma, todos los datos que queramos recibir, van a estar mal.
-                    }
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({
+                        usuario_nombre: usuarioNombre.value,
+                        usuario_email: usuarioEmail.value,
+                        usuario_password: usuarioPassword.value,
+                        usuario_categoria: usuarioCategoria.value
+                    })
                 });
+
                 const data = await result.json();
-                if (data.success) { 
-                    alert ("Usuario guardado correctamente");
-                    location.href = "/usuarios";  //si toda la acutalización es correcta, volve al inicio
+                if (data.success) { //si toda la acutalización es correcta, 
+                    alert ("Usuario guardado correctamente"); //avisa que lo fue
+                    location.href = "/usuarios";  //volve al inicio
                 } else { //si la actualización fue incorrecta
-                    alert ("No se pudieron actualizar los valores"); //envia una alerta
+                    alert ("No se pudieron actualizar los valores"); //envia una alerta que lo fue
                 }
             });
         </script>

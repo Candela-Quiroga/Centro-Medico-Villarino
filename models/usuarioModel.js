@@ -3,8 +3,9 @@
 const conx = require('../database/db'); //conexión a la bd. 
 
 class UsuarioModel{ 
-    obtenerUsuarioBase() { //esta función sirve para crear un nuevo usuario. 
-        return { //simulo un usuario q no existe pero tiene la misma estructura de uno q si, me ayuda al de crear, xq si le pasamos un id 0 va a crear en la parte de guardar
+
+    obtenerUsuarioBase() { //esta función sirve para crear un nuevo usuario y usa como molde la estructura. 
+        return { 
             id: 0,
             nombre: '',
             email: '',
@@ -12,60 +13,57 @@ class UsuarioModel{
             id_categoriaPermiso: 0
         };
     }
-    async obtenerUsuarios(id, callback){//Esta función sirve para obtener el usuario por su id
-        let sql = "SELECT * FROM usuarios WHERE id = ?"; //se le pasa un comodín xq vamos a tener que pasarle una variable a la consulta
-        return new Promise((resolve, reject) => {
-            conx.query(sql, [id], async (err, results) => {
-                if(err){
-                    reject(err);
-                } else if(results.length === 0){
-                    resolve(false);
-                } else{
-                    resolve(results[0]);
-                }
-            });
-        })
-    } 
-    async listar(callback) { //ES PARA VER TODOS LOS USUARIOS
-        let sql = "SELECT * FROM usuarios"; //consulta para obtener todos los usuarios
-        conx.query(sql, [], async (err,results) => { //esto permite utilizar las diferentes consultas q queramos ejecutar en la bd. Los parámetros que vamos a enviarle a la función, y tiene que pasarse por un array que los contengan
-            if (err) {
-                console.error(err); 
-                return callback([]);
-            }
-            callback(results); //todo lo que va a venir de los usuarios. 
-        }); //la función última se encarga de decir cuándo va a pasar algo y cuando no
-    }
-    async crear(datos, callback){ 
-        let sql = "INSERT INTO usuarios (nombre, email, password, id_categoriaPermiso) ";
-        sql += "VALUES (?, ?, ?, ?) ";
-        conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], async (err, results) => {
-            if (err) {
-                console.error("Error al guardar el usuario:", err);
-                callback(null);
-            }
-            callback(results);
-        });
-    }
-    async actualizar(datos, callback){        
-        let sql = "UPDATE usuarios SET nombre = ?, email = ?, password = ?, id_categoriaPermiso = ? WHERE id = ?";
-        conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso, datos.id], async (err, results) => {
-            if (err) {
-                console.error("Error al actualizar el usuario:", err);
-                return callback(null);
-            }else{
-                callback(results);
-            }
-        });
-    }
-    async eliminar(id, callback){
-        let sql = "DELETE FROM usuarios WHERE id = ?";
+
+    obtenerUsuarios(id, callback) {
+        const sql = "SELECT * FROM usuarios WHERE id = ?";
         conx.query(sql, [id], (err, results) => {
             if (err) {
-                console.error("Error al eliminar el usuario:", err);
-                return callback(null);
+                return callback(err, null); 
             }
-            callback(results);
+            if (results.length === 0) {
+                return callback(null, false);
+            }
+            callback(null, results[0]);
+        });
+    }
+
+    listar(callback) {
+        const sql = "SELECT * FROM usuarios";
+        conx.query(sql, (err, results) => {
+            if (err) {
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
+    }
+
+    crear(datos, callback) {
+        const sql = "INSERT INTO usuarios (nombre, email, password, id_categoriaPermiso) VALUES (?, ?, ?, ?)";
+        conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso], (err, results) => {
+            if (err) {
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
+    }
+    
+    actualizar(datos, callback) {        
+        const sql = "UPDATE usuarios SET nombre = ?, email = ?, password = ?, id_categoriaPermiso = ? WHERE id = ?";
+        conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso, datos.id], (err, results) => {
+            if (err) {
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
+    }
+
+    eliminar(id, callback) {
+        const sql = "DELETE FROM usuarios WHERE id = ?";
+        conx.query(sql, [id], (err, results) => {
+            if (err) {
+                return callback(err, null);
+            }
+            callback(null, results);
         });
     }
 }; 

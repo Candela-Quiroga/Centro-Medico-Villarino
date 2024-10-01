@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>Login</title>
 </head>
 <body>
     <h1>Pantalla Login</h1>
@@ -33,13 +33,11 @@
                     password: inputPassword.value // input password tambien es un objeto
                 }),
             });
-
             const data = await resultado.json();
-
             if (data.error == 1) {
-                alert ("usuario o contraseña incorrecto");
+                alert ("Usuario o contraseña incorrecto");
             } else {
-                alert ("login correcto");
+                alert ("Login correcto");
                 window.location.href = "/usuarios/home"; //PARA REDIRIGIR A UNA PÁGINA DESPUÉS DE QUE SE LOGRÓ INGRESAR
             }
         });

@@ -15,7 +15,6 @@ class loginController {
     async validarFormulario(req, res){
         const email = req.body.email; 
         const password = req.body.password; 
-
         const usuario = await usuarioModel.validarUsuario(email, password);
 
         if(usuario && bcrypt.compareSync(password, usuario.password)) {

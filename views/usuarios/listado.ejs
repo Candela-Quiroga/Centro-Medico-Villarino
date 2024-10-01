@@ -1,10 +1,14 @@
 <!--listado.ejs-->
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Listar Usuarios</title>
+    </head>
     <%- include('../commons/head')%> <!--El guion medio permite que siempre que estamos incluyendo el archivo, traiga el html completo-->
     <body>
         <div class="container">
-            <a href="/usuario/0">Crear Usuario</a> <!--Aca creo el usuario de cero, aparece un boton para crearlo-->
             <table>
                 <thead>
                     <tr>
@@ -23,28 +27,24 @@
                             <td><%- user.email %></td>
                             <td><%- user.categoria %></td>
                             <td>
-                                <a href="/usuario/editar/<%= user.id%>">Editar Usuario</a> 
+                                <button><a href="/usuario/editar/<%= user.id%>">Editar Usuario</a></button>
                                 <button class="borrarUsuario" data-id="<%= user.id %>">Eliminar Usuario</button>
                             </td>
                         </tr>
                     <% }) %>   
                 </tbody>
             </table>
+            <a href="/usuario/agregar/0">Crear Usuario</a> <!--Aca creo el usuario de cero, aparece un boton para crearlo-->
         </div>
         <script>
             document.querySelectorAll('.borrarUsuario').forEach(button => {
             button.addEventListener('click', async() => {
                 const userId = button.getAttribute('data-id');
                 if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-                    const response = await fetch(`/usuarios/${userId}`, {
+                    const response = await fetch(`/usuarios/eliminar/${userId}`, {
                         method: 'DELETE'
                     });
-                    if (response.ok) {
-                        alert('Usuario eliminado correctamente');
-                        location.reload(); // Recargar la página después de eliminar
-                    } else {
-                        alert('Error al eliminar el usuario');
-                    }
+                    location.reload(); 
                 }
             });
         });

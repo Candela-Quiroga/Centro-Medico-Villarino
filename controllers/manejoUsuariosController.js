@@ -5,97 +5,119 @@ const UsuarioModel = require('../models/usuarioModel');
 const CategoriaModel = require('../models/categoriaModel');
 
 const bcrypt = require('bcrypt'); //para el hash de las contraseñas
-const rondas = 10; //cantidad de veces que se aplica 
+const rondas = 10; //cantidad de veces que se aplica el hash
 
 const usuarioModel = new UsuarioModel();
 const categoriaModel = new CategoriaModel();
 
 class ManejoUsuarioController {
-    async listarUsuarios (req,res) { //MUESTRA
-        usuarioModel.listar((users) => {
-            console.log("Usuarios:", users);
-            res.render("medicos/listarMedicos", {
-                users: users
+
+    async listarUsuarios(req, res){
+        usuarioModel.listar((err, usuarios) => {
+            if (err) {
+                console.error("Error al listar los usuarios:", err);
+                return res.status(500).send("Error al listar los usuarios.");
+            }
+            res.render("usuarios/listado", {
+                usuarios
             });
         });
     }
 
-    async crearUsuario (req, res){
+    async crearUsuario(req, res){
         try {
-            const categorias = await categoriaModel.listar(); 
-            const usuario = await usuarioModel.obtenerUsuarioBase(); 
+            const categorias = await categoriaModel.listar();
+            const usuario = usuarioModel.obtenerUsuarioBase();
             res.render("usuarios/crearUsuario", {
-                usuario: {id: 0}, 
-                categorias: categorias, 
-            });
-        } catch (err){
-            console.error("Error al crear el usuario: ", err);
-            res.status(500).send("Error al crear el usuario");
-        }
-    }
-
-    async editarUsuario(req, res) {  
-        const datos = req.body.id;
-        try{
-            const usuario = await new Promise((resolve, reject) => {
-                usuarioModel.obtenerUsuarios(id, (usuario) => {
-                    if(usuario) {
-                        resolve(usuario);
-                    } else {
-                        reject(new Error('No se encontró el usuario'));
-                    }
-                });
-            });
-            const usuarios = usuarioModel.obtenerUsuarios(id); 
-            const categorias = categoriaModel.listar(); 
-            if (datos.password) {
-            const hashedPassword = await bcrypt.hash(datos.password, rondas);
-            datos.password = hashedPassword; 
-            }
-            res.render('usuarios/editarUsuario', { 
                 usuario: usuario,
-                categorias: categorias,
-                message: "Usuario actualizado con éxito."
+                categorias: categorias
             });
         } catch (err) {
-            console.error("Error al cargar el usuario: ", err);
-            res.status(500).send("Error al cargar el usuario.");
+            console.error("Error creando el usuario:", err);
+            res.status(500).send("Error creando el usuario.");
         }
     }
-    async guardarUsuario(req,res) { 
-        const datos = req.body; 
-        if (!datos.password) {
-            return res.status(500).json({
+
+    async editarUsuario(req, res){
+        const id = req.params.id;
+        try {
+            const usuario = await new Promise((resolve, reject) => {
+                usuarioModel.obtenerUsuarios(id, (err, usuario) => {
+                    if (err || !usuario) {
+                        return reject(new Error("No se encontró el usuario"));
+                    }
+                    resolve(usuario);
+                });
+            });
+            const categorias = await categoriaModel.listar();
+            res.render("usuarios/editarUsuario", {
+                usuario: usuario,
+                categorias: categorias
+            });
+        } catch (err) {
+            console.error("Error cargando  el usuario:", err);
+            res.status(500).send("Error cargando el usuario.");
+        }
+    }
+
+    async guardarUsuario(req, res){
+        const datos = {
+            id: req.params.id, 
+            nombre: req.body.usuario_nombre,
+            email: req.body.usuario_email,
+            password: req.body.usuario_password,
+            id_categoriaPermiso: req.body.usuario_categoria
+        };
+        console.log(req.body);
+        
+        if (!datos.nombre || !datos.email || !datos.password || !datos.id_categoriaPermiso) {
+            return res.status(400).json({
                 success: false,
-                message: "La contraseña es obligatoria."
+                message: "Todos los campos son obligatorios."
             });
         }
-        const hashedPassword = await bcrypt.hash(datos.password, rondas); //Hashear la contraseña
-        datos.password = hashedPassword;
-        usuarioModel.crear(datos, (result) => {
-            if(!result) {
-                return res.status(500).json({
-                    success: false,
-                    message: "Error al guardar el usuario"
-                })
+
+        try {
+            datos.password = await bcrypt.hash(datos.password, rondas); // Hashear la contraseña
+            if (datos.id == 0) {
+                usuarioModel.crear(datos, (err, result) => {
+                    if (err || !result) {
+                        return res.status(500).json({ 
+                            success: false, 
+                            message: "Error al guardar el usuario." 
+                        });
+                    }
+                    res.status(200).json({ 
+                        success: true, 
+                        message: "El usuario se creó correctamente." 
+                    });
+                });
+            } else {
+                usuarioModel.actualizar(datos, (err, result) => {
+                    if (err || !result) {
+                        return res.status(500).json({ 
+                            success: false, 
+                            message: "Error al actualizar el usuario." 
+                        });
+                    }
+                    res.status(200).json({ 
+                        success: true, 
+                        message: "El usuario se actualizó correctamente." 
+                    });
+                });
             }
-            res.status(200).json({
-                success: true,
-                message: "El usuario se creó correctamente"
-            })
-        });
-        usuarioModel.actualizar(datos, (result) => {
-            if(result){
-                return res.status(200).send("Guardado correctamente");
-            }
-        });
+        } catch (err) {
+            console.error("Error al guardar el usuario: ", err);
+            res.status(500).send("Error al guardar el usuario.");
+        }
     }
-    async eliminarUsuario (req, res) {
+
+    async eliminarUsuario(req, res) {
         const id = req.params.id;
-        usuarioModel.eliminar(id, (result) => {
-            if(!result){
-                return res.status(500).send("Error al eliminar el usuario");
-            } 
+        usuarioModel.eliminar(id, (err, result) => {
+            if (err || !result) {
+                return res.status(500).send("Error al eliminar el usuario.");
+            }
             res.redirect('/usuarios');
         });
     }

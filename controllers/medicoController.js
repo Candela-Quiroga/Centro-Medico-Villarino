@@ -64,16 +64,6 @@ async editarMedico(req, res) {
     }
 }
 
-async listarMedicos(req, res) {
-    medicoModel.listarMedicos((medicos) => {
-        console.log("Médicos:", medicos);
-        res.render("medicos/listarMedicos", {
-            medicos: medicos
-        });
-    });
-}
-
-
 
     // Función para guardar (crear o actualizar) un médico
     async guardarMedico(req, res) {
@@ -84,7 +74,7 @@ async listarMedicos(req, res) {
             datos.foto = "/" + req.file.path; // Si se subió un archivo, se actualiza la foto. Usamos una ruta absoluta "/" para indicar que la ruta de la imagen cargada comienza en la carpeta raiz
         } else {
             // Si no se subió un archivo, mantener la foto original
-            const medico = await new Promise((resolve, reject) => {
+            const medicoExistente = await new Promise((resolve, reject) => {
                 medicoModel.obtenerMedico(datos.id, (medico) => {
                     if (medico) {
                         resolve(medico);
@@ -93,7 +83,7 @@ async listarMedicos(req, res) {
                     }
                 });
             });
-            datos.foto = medico.foto; // Mantener la foto existente
+            datos.foto = medicoExistente.foto; // Mantener la foto existente
         }
     
         medicoModel.guardarMedico(datos, (result) => {

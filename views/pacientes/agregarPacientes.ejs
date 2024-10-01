@@ -4,46 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Paciente</title>
+    <link rel="stylesheet" href="/public/css/pacientes.css">
+    <!-- Agregar CSS de Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo adicional para la tabla */
+        .table {
+            width: 800px; /* Establecer ancho de la tabla */
+            margin: 0 auto; /* Centrar la tabla en la página */
+        }
+    </style>
 </head>
 <body>
-    <h1>Complete los campos con sus datos</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>DNI</th>
-                <th>Edad</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>Obra Social</th>
-                <th>N° Afiliado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container-fluid contenedor-agregar-paciente contenedor">
+        <h1 class="mb-4 text-center">Agregar Paciente</h1>
+        <table class="table table-striped tabla-agregar">
+            <thead>
                 <tr>
-                    <td><input id="nombre" placeholder="Ingrese el nombre"></td>
-                    <td><input id="dni" placeholder="Ingrese su DNI"></td>
-                    <td><input id="edad" placeholder="Ingrese su edad"></td>
-                    <td><input id="email" placeholder="Ingrese el email"></td>
-                    <td><input id="telefono" placeholder="Ingrese el telefono"></td>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Edad</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Obra Social</th>
+                    <th>N° Afiliado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input id="nombre" class="form-control" placeholder="Ingrese el nombre"></td>
+                    <td><input id="dni" class="form-control" placeholder="Ingrese su DNI"></td>
+                    <td><input id="edad" class="form-control" placeholder="Ingrese su edad"></td>
+                    <td><input id="email" class="form-control" placeholder="Ingrese el email"></td>
+                    <td><input id="telefono" class="form-control" placeholder="Ingrese el teléfono"></td>
                     <td>
-                        <select id="id_obrasocial" required>
+                        <select id="id_obrasocial" class="form-control" required>
                             <option value="">Seleccione una obra social</option>
                             <% obrasSociales.forEach(function(obra) { %>
                                 <option value="<%= obra.id %>" <%= obra.id === paciente.id_obrasocial ? 'selected' : '' %>><%= obra.nombre %></option>
                             <% }); %>
                         </select>
                     </td>
-                    <td><input id="nro_afiliado" placeholder="Ingrese el número de afiliado"></td>
+                    <td><input id="nro_afiliado" class="form-control" placeholder="Ingrese el número de afiliado"></td>
                     <td>
-                        <button class="guardar">Guardar</button>
-                        <button><a href="/pacientes">Cancelar</a></button>
+                        <button class="btn btn-primary guardar">Guardar</button>
+                        <button class="btn btn-secondary"><a href="/pacientes" class="text-white">Cancelar</a></button>
                     </td>
                 </tr>
-        </tbody>
-    </table>
-    
+            </tbody>
+        </table>
+    </div>
+
     <script>
         const botonGuardar = document.querySelector(".guardar");
         botonGuardar.addEventListener("click", async () => {
@@ -85,5 +97,10 @@
             }
         });
     </script>
+
+    <!-- Agregar JS de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

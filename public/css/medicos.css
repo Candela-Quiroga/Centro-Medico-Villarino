@@ -130,8 +130,8 @@ body {
 /* Estilo para el contenedor fijo */
 .atajo-agregar {
     position: fixed;
-    bottom: 4%; 
-    right: 7%; 
+    bottom: 1%; 
+    right: 1%; 
     max-width: 300px;
     transition: opacity 0.3s ease; /* Suaviza la aparición/desaparición */
     opacity: 1; /* Comienza visible */
@@ -252,7 +252,8 @@ body {
     align-items: center;
     justify-content: center;
     width: 200px;
-    margin-top: 12%;
+    margin-top: 7%;
+    margin-bottom: 5%;
     background-color: var(--AZUL_CLARO);
     text-align: center;
     padding: 8px 10px;

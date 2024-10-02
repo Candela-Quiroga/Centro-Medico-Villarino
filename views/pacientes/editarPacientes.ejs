@@ -4,54 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Paciente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Enlace a Bootstrap -->
+    <link rel="stylesheet" href="/public/css/pacientes.css"> 
 </head>
 <body>
-    <h1>Editar Paciente</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>DNI</th>
-                <th>Edad</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>Obra Social</th>
-                <th>N° Afiliado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-                <tr>
-                    <td><input id="id" value="<%= paciente.id %>"></td>
-                    <td><input id="nombre" value="<%= paciente.nombre %>"></td>
-                    <td><input id="dni" value="<%= paciente.dni %>"></td>
-                    <td><input id="edad" value="<%= paciente.edad %>"></td>
-                    <td><input id="email" value="<%= paciente.email %>"></td>
-                    <td><input id="telefono" value="<%= paciente.telefono %>"></td>
-                    <td>
-                        <select id="id_obrasocial" name="id_obrasocial" required>
-                            <option value="">Seleccione una obra social</option>
-                            <% obrasSociales.forEach(function(obra) { %>
-                                <option value="<%= obra.id %>" <%= obra.id === paciente.id_obrasocial ? 'selected' : '' %>>
-                                    <%= obra.nombre %>
-                                </option>
-                            <% }); %>
-                        </select>
-                    </td>
-                    <td><input id="nro_afiliado" value="<%= paciente.nro_afiliado %>"></td>
-                    <td>
-                        <button class="guardar">Guardar</button>
-                        <button><a href="/pacientes">Cancelar</a></button>
-                    </td>
-                </tr>
-            
-        </tbody>
-    </table>
-    
+    <div class="container-fluid mt-5 contenedor">
+        <h1 class="text-center">Editar Paciente</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>DNI</th>
+                        <th>Edad</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>Obra Social</th>
+                        <th>N° Afiliado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input id="id" class="form-control-plaintext" value="<%= paciente.id %>" readonly></td>
+                        <td><input id="nombre" class="form-control" value="<%= paciente.nombre %>"></td>
+                        <td><input id="dni" class="form-control" value="<%= paciente.dni %>"></td>
+                        <td><input id="edad" class="form-control" value="<%= paciente.edad %>"></td>
+                        <td><input id="email" class="form-control" value="<%= paciente.email %>"></td>
+                        <td><input id="telefono" class="form-control" value="<%= paciente.telefono %>"></td>
+                        <td>
+                            <select id="id_obrasocial" name="id_obrasocial" class="form-control" required>
+                                <option value="">Seleccione una obra social</option>
+                                <% obrasSociales.forEach(function(obra) { %>
+                                    <option value="<%= obra.id %>" <%= obra.id === paciente.id_obrasocial ? 'selected' : '' %>>
+                                        <%= obra.nombre %>
+                                    </option>
+                                <% }); %>
+                            </select>
+                        </td>
+                        <td><input id="nro_afiliado" class="form-control" value="<%= paciente.nro_afiliado %>"></td>
+                        <td>
+                            <button class="btn btn-primary guardar">Guardar</button>
+                            <button class="btn btn-secondary">
+                                <a href="/pacientes" style="text-decoration: none; color: inherit;">Cancelar</a>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script>
         const botonGuardar = document.querySelector(".guardar");
-        botonGuardar.addEventListener("click", async()=>{
+        botonGuardar.addEventListener("click", async () => {
             const pacienteNombre = document.querySelector("#nombre").value;
             const pacienteDNI = document.querySelector("#dni").value;
             const pacienteEdad = document.querySelector("#edad").value;
@@ -61,7 +68,7 @@
             const pacienteNro_afiliado = document.querySelector("#nro_afiliado").value;
             
             const datos = {
-                id: <%=paciente.id%>,
+                id: <%= paciente.id %>,
                 nombre: pacienteNombre,
                 dni: pacienteDNI,
                 edad: pacienteEdad,
@@ -70,20 +77,21 @@
                 id_obrasocial: pacienteId_obrasocial,
                 nro_afiliado: pacienteNro_afiliado,
             };
+
             const results = await fetch('/pacientes/editar/<%= paciente.id %>', {
                 method: 'POST',
                 body: JSON.stringify(datos),
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
+            });
 
             const data = await results.json();
-            if (data.success == true){
+            if (data.success) {
                 location.href = "/pacientes";
                 console.log(data);
             } else {
-                alert ("Hubo un problema con los datos");
+                alert("Hubo un problema con los datos");
             }
         });
     </script>

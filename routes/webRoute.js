@@ -20,4 +20,7 @@ router.get('/coberturas', webController.mostrarCoberturas);
 //ruta a contacto
 router.get('/contacto', webController.mostrarContacto);
 
+//ruta a Pedir Turno
+router.get('/pedirTurno', webController.mostrarPedirTurno);
+
 module.exports = router;

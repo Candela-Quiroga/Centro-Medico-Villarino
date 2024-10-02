@@ -1,41 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Médico Villarino</title>
-    <link rel="stylesheet" href="./css/style.css">
+<!--HEAD-->
+<%- include('../commons/head-web') %>
 
-    <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-    <!--Iconos de Font Awesome-->
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
-
-    <!--Incluimos librería Swiper de JS para carruseles-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-</head>
 <body>
 
-  <header class="sombra">
-    <div class="logo"></div>
+    <!-- Menú de navegación -->
+    <%- include('../commons/menu-web') %>
 
-    <nav>
-        <ul>
-            <li><a href="/home">Inicio</a></li>
-            <li><a href="/nosotros">Nosotros</a></li>
-            <li><a href="#">Profesionales</a></li>
-            <li><a href="#">Coberturas</a></li>
-            <li><a href="/contacto">Contacto</a></li>
-        </ul>
-    </nav>
-
-
-    <a href="#" class="menu-pedir-turno boton">Pedir Turno</a>
-    
-</header>
     <section class="pedir-turno">
     <h1>AGENDÁ TU TURNO ONLINE</h1>
     </section>
@@ -90,45 +62,7 @@
     </section>
 
 
-    <footer>
-        
-      <div class="container-footer">
-          <div class="logo-redes">
-              <div class="logo-footer">
-                  <img src="img/Logo Blanco.png">
-          </div>
-          <div class="redes-footer">
-             <!-- <h3 class="titulo-seguinos">Seguinos</h3> -->
-              <div class="iconos-redes">
-                  <a href="https://www.instagram.com/centromedicovillarino?igsh=bnhsYXR4eDh5eW91" target="blank" class="icono-red instagram">
-                      <i class="fa-brands fa-instagram"></i>
-                  </a>
-                  <a href="https://www.facebook.com/profile.php?id=61557067552824" target="blank" class="icono-red facebook">
-                      <i class="fa-brands fa-facebook-f"></i>
-                  </a>
-                  <a href="https://wa.me/2346426515" target="blank" class="icono-red WhatsApp">
-                      <i class="fa-brands fa-whatsapp"></i>
-                  </a>
-              </div>
-
-          </div>
-      </div>
-          <div class="info-general">
-              <h3 class="titulo-footer">Centro Médico Villarino</h3>
-              <div class="texto">
-                  <p>Nos dedicamos a brindar atención médica de calidad a nuestros pacientes. Contamos con un equipo de profesionales altamente capacitados y una amplia variedad de servicios médicos para cuidar de tu salud. ¡Te esperamos!</p>
-                  <p><i class="fa-regular fa-location-dot"></i> Dirección:Lamadrid 29, Chivilcoy, Bs As</p>
-                  
-              </div>
-          </div>
-          <div class="contacto-footer">
-              <h3 class="titulo-footer">Contactanos</h3>
-              <p><a href="https://wa.me/2346426515" target="blank" class="link-contacto"><i class="fa-brands fa-whatsapp"></i> WhatsApp:2346 426515</a></p>
-              <p><i class="fa-regular fa-phone"></i> Teléfono:2346 426515</p>
-              <p><a href="mailto:centromedicovillarino@gmail.com" class="link-contacto"><i class="fa-regular fa-envelope"></i> Email:centromedicovillarino@gmail.com</a></p>
-              
-          </div>
-        
-      </div>
-  </footer>
+    <!--FOOTER-->
+    <%- include('../commons/footer-web') %>
+    
 </body>

@@ -10,8 +10,8 @@
     <body>
         <h1>Editar usuarios</h1>
         <div class="container">
-            <p id="usuario_id"><%=usuario.id%></p>
             <div>
+                
                 <label>Nombre</label>
                 <input id="usuario_nombre" value="<%= usuario.nombre %>">
 
@@ -23,18 +23,18 @@
 
                 <label>Categoria</label>
                 <select id="usuario_categoria"> 
-                    <% categorias.forEach((category) => { %>
-                        <option value="<%= category.id %>" <%= (category.id == usuario.id_categoriaPermiso) ? 'selected' : '' %> >
+                    <% categorias.forEach(function(category) { %>
+                        <option value="<%= category.id %>" <%= (category.id === usuario.categoria) ? 'selected' : '' %> >
                             <%= category.nombre %>
                         </option>
                     <% }) %>
                 </select>            
-                <button class="guardar">Guardar Usuario</button>
+                <button type="button" class="btn-guardar" id="guardar">Guardar Usuario</button>
                 <a href="/usuarios">Cancelar</a>
             </div>
         </div>
         <script>
-            const botonGuardar = document.querySelector(".guardar");
+            const botonGuardar = document.querySelector("#guardar");
 
             const usuarioNombre = document.querySelector("#usuario_nombre");
             const usuarioEmail = document.querySelector("#usuario_email");
@@ -54,25 +54,25 @@
                     return;
                 }
 
-                const results = await fetch(`/usuario/editar/${usuario.id}`, {
-                    method: 'PUT',
+                const results = await fetch(`/usuario/editar/<%= usuario.id %>`, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json' 
                     },
                     body: JSON.stringify({
-                        usuario_nombre: usuarioNombre.value,
-                        usuario_email: usuarioEmail.value,
-                        usuario_password: usuarioPassword.value,
-                        usuario_categoria: usuarioCategoria.value
+                        nombre: usuarioNombre.value,
+                        email: usuarioEmail.value,
+                        password: usuarioPassword.value,
+                        categoria: usuarioCategoria.value
                     })
                 });
 
-                const data = await result.json();
-                if (data.success) { //si toda la acutalización es correcta, 
-                    alert ("Usuario guardado correctamente"); //avisa que lo fue
-                    location.href = "/usuarios";  //volve al inicio
-                } else { //si la actualización fue incorrecta
-                    alert ("No se pudieron actualizar los valores"); //envia una alerta que lo fue
+                const data = await results.json();
+                if (data.success) { 
+                    alert ("Usuario guardado correctamente"); 
+                    location.href = "/usuarios";  
+                } else { 
+                    alert ("No se pudieron actualizar los valores"); 
                 }
             });
         </script>

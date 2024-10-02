@@ -9,6 +9,7 @@
     <%- include('../commons/head')%> <!--El guion medio permite que siempre que estamos incluyendo el archivo, traiga el html completo-->
     <body>
         <div class="container">
+            <h1>Listar Usuarios</h1>
             <table>
                 <thead>
                     <tr>
@@ -20,34 +21,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% usuarios.forEach((user) => { %>
+                    <% usuarios.forEach(function(user) { %>
                         <tr>
-                            <td><%- user.id %></td>
-                            <td><%- user.nombre %></td>
-                            <td><%- user.email %></td>
-                            <td><%- user.categoria %></td>
+                            <td><%= user.id %></td>
+                            <td><%= user.nombre %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.categoria %></td>
                             <td>
-                                <button><a href="/usuario/editar/<%= user.id%>">Editar Usuario</a></button>
+                                <button class="btn-editar"><a href="/usuario/editar/<%= user.id%>">Editar Usuario</a></button>
                                 <button class="borrarUsuario" data-id="<%= user.id %>">Eliminar Usuario</button>
                             </td>
                         </tr>
-                    <% }) %>   
+                    <% }); %>   
                 </tbody>
             </table>
-            <a href="/usuario/agregar/0">Crear Usuario</a> <!--Aca creo el usuario de cero, aparece un boton para crearlo-->
+            <div id="btn-agregar" class="btn-agregar"><a href="/usuario/agregar/0">Crear Usuario</a></div> <!--Aca creo el usuario de cero, aparece un boton para crearlo-->
         </div>
+
         <script>
             document.querySelectorAll('.borrarUsuario').forEach(button => {
             button.addEventListener('click', async() => {
                 const userId = button.getAttribute('data-id');
                 if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-                    const response = await fetch(`/usuarios/eliminar/${userId}`, {
+                    const response = await fetch(`/usuario/eliminar/${userId}`, {
                         method: 'DELETE'
-                    });
+                    });     
                     location.reload(); 
                 }
             });
         });
         </script>
+
     </body>
 </html>

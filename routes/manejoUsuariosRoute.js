@@ -17,7 +17,7 @@ router.post('/usuario/agregar/0', manejoUsuariosController.guardarUsuario); //Gu
 
 //ruta actualizar usuario
 router.get('/usuario/editar/:id', manejoUsuariosController.editarUsuario); //Obtener 
-router.put('/usuario/editar/:id', manejoUsuariosController.guardarUsuario); //Guardar editado. PUT significa insertar, reemplazar si ya existe
+router.post('/usuario/editar/:id', manejoUsuariosController.guardarUsuario); //Guardar editado. PUT significa insertar, reemplazar si ya existe
 
 //ruta borrar usuario
 router.delete('/usuario/eliminar/:id', manejoUsuariosController.eliminarUsuario); //Eliminar

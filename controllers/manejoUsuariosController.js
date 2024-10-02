@@ -2,13 +2,10 @@
 //acá va todo lo relacionado con el ABML 
 
 const UsuarioModel = require('../models/usuarioModel');
-const CategoriaModel = require('../models/categoriaModel');
+const usuarioModel = new UsuarioModel();
 
 const bcrypt = require('bcrypt'); //para el hash de las contraseñas
 const rondas = 10; //cantidad de veces que se aplica el hash
-
-const usuarioModel = new UsuarioModel();
-const categoriaModel = new CategoriaModel();
 
 class ManejoUsuarioController {
 
@@ -26,14 +23,15 @@ class ManejoUsuarioController {
 
     async crearUsuario(req, res){
         try {
-            const categorias = await categoriaModel.listar();
+            const categoria = await usuarioModel.listarCategoria();
             const usuario = usuarioModel.obtenerUsuarioBase();
             res.render("usuarios/crearUsuario", {
+                user: {id: 0},
                 usuario: usuario,
-                categorias: categorias
+                categorias: categoria
             });
         } catch (err) {
-            console.error("Error creando el usuario:", err);
+            console.error("Error creando el usuario: ", err);
             res.status(500).send("Error creando el usuario.");
         }
     }
@@ -49,10 +47,13 @@ class ManejoUsuarioController {
                     resolve(usuario);
                 });
             });
-            const categorias = await categoriaModel.listar();
+            console.log('Usuario obtenido:', usuario);
+
+            const categoria = await usuarioModel.listarCategoria();
+
             res.render("usuarios/editarUsuario", {
                 usuario: usuario,
-                categorias: categorias
+                categorias: categoria
             });
         } catch (err) {
             console.error("Error cargando  el usuario:", err);
@@ -61,16 +62,9 @@ class ManejoUsuarioController {
     }
 
     async guardarUsuario(req, res){
-        const datos = {
-            id: req.params.id, 
-            nombre: req.body.usuario_nombre,
-            email: req.body.usuario_email,
-            password: req.body.usuario_password,
-            id_categoriaPermiso: req.body.usuario_categoria
-        };
-        console.log(req.body);
-        
-        if (!datos.nombre || !datos.email || !datos.password || !datos.id_categoriaPermiso) {
+        const datos = req.body; 
+        console.log(datos);
+        if (!datos.nombre || !datos.email || !datos.password || !datos.categoria) {
             return res.status(400).json({
                 success: false,
                 message: "Todos los campos son obligatorios."
@@ -79,7 +73,7 @@ class ManejoUsuarioController {
 
         try {
             datos.password = await bcrypt.hash(datos.password, rondas); // Hashear la contraseña
-            if (datos.id == 0) {
+            if (datos.id === undefined || datos.id == 0) {
                 usuarioModel.crear(datos, (err, result) => {
                     if (err || !result) {
                         return res.status(500).json({ 
@@ -93,17 +87,18 @@ class ManejoUsuarioController {
                     });
                 });
             } else {
-                usuarioModel.actualizar(datos, (err, result) => {
-                    if (err || !result) {
+                usuarioModel.actualizar(datos, (result) => {
+                    if (!result) {
                         return res.status(500).json({ 
                             success: false, 
                             message: "Error al actualizar el usuario." 
                         });
-                    }
-                    res.status(200).json({ 
-                        success: true, 
-                        message: "El usuario se actualizó correctamente." 
-                    });
+                    } else {
+                        res.status(200).json({ 
+                            success: true, 
+                            message: "El usuario se actualizó correctamente." 
+                        });
+                    }   
                 });
             }
         } catch (err) {
@@ -114,11 +109,12 @@ class ManejoUsuarioController {
 
     async eliminarUsuario(req, res) {
         const id = req.params.id;
-        usuarioModel.eliminar(id, (err, result) => {
-            if (err || !result) {
+        usuarioModel.eliminar(id, (result) => {
+            if (!result) {
                 return res.status(500).send("Error al eliminar el usuario.");
+            } else{
+                res.redirect('/usuarios');
             }
-            res.redirect('/usuarios');
         });
     }
 }

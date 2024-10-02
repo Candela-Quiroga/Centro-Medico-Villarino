@@ -9,7 +9,7 @@
 <%- include('../commons/head')%>
 <body>
     <h1>Insertar Usuario</h1>
-    <form id=" crearUsuarioForm"> 
+    <div class=" crearUsuarioForm"> 
         <div> 
             <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" id="usuario_nombre" required><br>
@@ -18,7 +18,7 @@
             <input type="email" name="email" id="usuario_email" autocomplete="new-email" required><br>
 
             <label for="password">Contraseña:</label>
-            <input type="password" name="password" id="usuario_password" autocomplete="new-password" required><br>
+            <input type="password" name="password" id="usuario_password" autocomplete="new-password" ><br>
 
             <label for="categoria">Categoría:</label>
             <select id="usuario_categoria"> 
@@ -32,7 +32,7 @@
             <button type="submit" class="guardar">Guardar</button> 
             <a href="/usuarios">Cancelar</a>
         </div>
-    </form> 
+    </div> 
 
     <script>
         const botonGuardar = document.querySelector(".guardar");
@@ -43,21 +43,18 @@
             const usuarioPassword = document.querySelector("#usuario_password").value;
             const usuarioCategoria = document.querySelector("#usuario_categoria").value;
 
-            const datos = {
-                nombre: usuarioNombre,
-                email: usuarioEmail,
-                password: usuarioPassword,
-                categoria: usuarioCategoria
-            };
-
             const results = await fetch('/usuario/agregar/0', {
                 method: 'POST',
+                body: JSON.stringify({
+                    "nombre": usuarioNombre,
+                    "email": usuarioEmail,
+                    "password": usuarioPassword,
+                    "categoria": usuarioCategoria,
+                }),  
                 headers: {
-                    'Content-Type': 'application/json' 
-                },
-                body: JSON.stringify(datos)  
+                    'content-type': 'application/json'
+                }
             });
-            console.log(datos);
 
             const data = await results.json();
             if (data.success) {

@@ -9,8 +9,7 @@ class PacienteModel{
             nombre: '',
             email: '',
             telefono: '',
-            id_obrasocial: '',
-            nro_afiliado: ''
+            id_obrasocial: ''
         }
     }
 
@@ -28,8 +27,7 @@ class PacienteModel{
                 pacientes.edad AS edad,
                 pacientes.email AS email, 
                 pacientes.telefono AS telefono,
-                obras_sociales.nombre AS obra_social,
-                pacientes.nro_afiliado
+                obras_sociales.nombre AS obra_social
             FROM pacientes
             LEFT JOIN obras_sociales ON pacientes.id_obrasocial = obras_sociales.id
         `;
@@ -56,8 +54,8 @@ class PacienteModel{
 
     async guardarPaciente(datos, callback){
         if(datos.id == 0){
-            let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial, nro_afiliado) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado], async (err, results) => {
+            let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial) VALUES (?, ?, ?, ?, ?, ?)`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial], async (err, results) => {
 
                 if (err) {
                     console.error(err);
@@ -67,8 +65,8 @@ class PacienteModel{
                 }
         });
         } else {
-            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ?, nro_afiliado= ? WHERE id = ?`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.nro_afiliado, datos.id], async (err, results)=>{
+            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ? WHERE id = ?`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.id], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);

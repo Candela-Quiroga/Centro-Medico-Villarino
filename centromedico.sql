@@ -300,18 +300,17 @@ CREATE TABLE `pacientes` (
   `edad` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
-  `id_obrasocial` int(11) NOT NULL,
-  `nro_afiliado` varchar(255) NOT NULL
+  `id_obrasocial` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pacientes`
 --
 
-INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `edad`, `email`, `telefono`, `id_obrasocial`, `nro_afiliado`) VALUES
-(1, 'Junior Alexander', 94222538, 21, 'junioracuna@gmail.com', '2324652338', 28, '0'),
-(2, 'Camila Mazzaro', 44555666, 22, 'camimazzaro@gmail.com', '23246687656', 8, '123456789'),
-(3, 'agus', 11, 45, 'agus@gmail.com', '2324652338', 2, '654');
+INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `edad`, `email`, `telefono`, `id_obrasocial`) VALUES
+(1, 'Junior Alexander', 94222538, 21, 'junioracuna@gmail.com', '2324652338', 28),
+(2, 'Camila Mazzaro', 44555666, 22, 'camimazzaro@gmail.com', '23246687656', 8),
+(3, 'agus', 11, 45, 'agus@gmail.com', '2324652338', 2);
 
 -- --------------------------------------------------------
 
@@ -324,17 +323,18 @@ CREATE TABLE `turnos` (
   `id_medico` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
   `fecha_hora` datetime NOT NULL,
-  `motivo` varchar(255) NOT NULL
+  `motivo` varchar(255) NOT NULL,
+  `id_estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 --
 -- Volcado de datos para la tabla `turnos`
 --
 
-INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `motivo`) VALUES
-(1, 1, 1, '0000-00-00 00:00:00', 'Dolor de pata'),
-(2, 5, 2, '0000-00-00 00:00:00', 'Dolor de cabeza'),
-(3, 3, 1, '0000-00-00 00:00:00', 'asdad'),
-(4, 7, 3, '0000-00-00 00:00:00', 'asdasd');
+INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `motivo`, `id_estado`) VALUES
+(1, 1, 1, '0000-00-00 00:00:00', 'Dolor de pata', 1),
+(2, 5, 2, '0000-00-00 00:00:00', 'Dolor de cabeza', 2),
+(3, 3, 1, '0000-00-00 00:00:00', 'Malestar estomacal', 3),
+(4, 7, 3, '0000-00-00 00:00:00', 'Mareos', 4);
 
 -- --------------------------------------------------------
 
@@ -369,9 +369,39 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 (12, 'Jane Doe', 'janedoe@gmail.com', '', 3),
 (13, 'Analía López', 'analíalopez@gmail.com', '', 3);
 
+
+--
+-- Estructura de la tabla `historia_clinica`
+--
+
+CREATE TABLE `historia_clinica`(
+  `id` INT(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `nro_afiliado` varchar(255) NOT NULL,
+  `sexo` varchar(255) NOT NULL,
+  `fecha_de_nacimiento` date NOT NULL,
+  `edad` int(11) NOT NULL,
+  `domicilio` varchar(255) NOT NULL,
+  `motivo_de_consulta` varchar(255) NOT NULL,
+  `antecedentes_personales` varchar(255) NOT NULL,
+  `medicacion_actual` varchar(255) NOT NULL,
+  `examen_clinico` varchar(255) NOT NULL,
+  `diagnostico` varchar(255) NOT NULL,
+  `tratamiento` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 --
 -- Índices para tablas volcadas
 --
+
+
+--
+-- Indices de la tabla `estado_turno`
+--
+ALTER TABLE `estado_turno`
+ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `categoria_permiso`

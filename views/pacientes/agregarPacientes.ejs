@@ -27,7 +27,6 @@
                     <th>Email</th>
                     <th>Teléfono</th>
                     <th>Obra Social</th>
-                    <th>N° Afiliado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -46,7 +45,6 @@
                             <% }); %>
                         </select>
                     </td>
-                    <td><input id="nro_afiliado" class="form-control" placeholder="Ingrese el número de afiliado"></td>
                     <td>
                         <button class="btn btn-primary guardar">Guardar</button>
                         <button class="btn btn-secondary"><a href="/pacientes" class="text-white">Cancelar</a></button>
@@ -66,7 +64,6 @@
             const pacienteEmail = document.querySelector("#email").value;
             const pacienteTelefono = document.querySelector("#telefono").value;
             const pacienteId_obrasocial = document.querySelector("#id_obrasocial").value;
-            const pacienteNro_afiliado = document.querySelector("#nro_afiliado").value;
             
             const datos = {
                 id: <%= paciente.id %>,
@@ -76,7 +73,6 @@
                 email: pacienteEmail,
                 telefono: pacienteTelefono,
                 id_obrasocial: pacienteId_obrasocial,
-                nro_afiliado: pacienteNro_afiliado,
             };
 
             console.log(datos);

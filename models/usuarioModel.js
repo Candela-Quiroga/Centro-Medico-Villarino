@@ -64,7 +64,7 @@ class UsuarioModel{
     
     actualizar(datos, callback) {        
         let sql = "UPDATE usuarios SET nombre = ?, email = ?, password = ?, id_categoriaPermiso = ? WHERE id = ?";
-        conx.query(sql, [datos.nombre, datos.email, datos.password, datos.id_categoriaPermiso, datos.id], async (err, results) => {
+        conx.query(sql, [datos.nombre, datos.email, datos.password, datos.categoria, datos.id], async (err, results) => {
             if (err) {
                 console.error(err);
                 return callback(null);

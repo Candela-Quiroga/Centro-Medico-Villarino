@@ -60,6 +60,7 @@
                         'Content-Type': 'application/json' 
                     },
                     body: JSON.stringify({
+                        id: "<%= usuario.id %>",
                         nombre: usuarioNombre.value,
                         email: usuarioEmail.value,
                         password: usuarioPassword.value,

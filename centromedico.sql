@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-09-2024 a las 04:39:02
+-- Tiempo de generación: 03-10-2024 a las 01:58:54
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -80,6 +80,51 @@ INSERT INTO `especialidades` (`id`, `nombre_especialidad`) VALUES
 (5, 'Cirugía General'),
 (6, 'Clínica Médica'),
 (7, 'Nutrición');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_turno`
+--
+
+CREATE TABLE `estado_turno` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_turno`
+--
+
+INSERT INTO `estado_turno` (`id`, `nombre`) VALUES
+(1, 'libre'),
+(2, 'en proceso'),
+(3, 'reservado'),
+(4, 'completado'),
+(5, 'cancelado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historia_clinica`
+--
+
+CREATE TABLE `historia_clinica` (
+  `id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `nro_afiliado` varchar(255) NOT NULL,
+  `sexo` varchar(255) NOT NULL,
+  `fecha_de_nacimiento` date NOT NULL,
+  `edad` int(11) NOT NULL,
+  `domicilio` varchar(255) NOT NULL,
+  `id_turno` int(11) NOT NULL,
+  `antecedentes_personales` varchar(255) NOT NULL,
+  `medicacion_actual` varchar(255) NOT NULL,
+  `examen_clinico` varchar(255) NOT NULL,
+  `diagnostico` varchar(255) NOT NULL,
+  `tratamiento` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -245,6 +290,29 @@ INSERT INTO `medicos_obrassociales` (`id`, `id_medico`, `id_obraSocial`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `medicos_practicas`
+--
+
+CREATE TABLE `medicos_practicas` (
+  `id` int(11) NOT NULL,
+  `id_medico` int(11) NOT NULL,
+  `id_practica` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `medicos_practicas`
+--
+
+INSERT INTO `medicos_practicas` (`id`, `id_medico`, `id_practica`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 2),
+(4, 2, 4),
+(5, 1, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `obras_sociales`
 --
 
@@ -315,6 +383,28 @@ INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `edad`, `email`, `telefono`, `id
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `practicas`
+--
+
+CREATE TABLE `practicas` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `practicas`
+--
+
+INSERT INTO `practicas` (`id`, `nombre`) VALUES
+(1, 'Práctica ej 1'),
+(2, 'Práctica ej 2'),
+(3, 'Práctica ej 3'),
+(4, 'Práctica ej 4'),
+(5, 'Práctica ej 5');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `turnos`
 --
 
@@ -326,12 +416,13 @@ CREATE TABLE `turnos` (
   `motivo` varchar(255) NOT NULL,
   `id_estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Volcado de datos para la tabla `turnos`
 --
 
 INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `motivo`, `id_estado`) VALUES
-(1, 1, 1, '0000-00-00 00:00:00', 'Dolor de pata', 1),
+(1, 1, 1, '0000-00-00 00:00:00', 'Dolor de pata', 4),
 (2, 5, 2, '0000-00-00 00:00:00', 'Dolor de cabeza', 2),
 (3, 3, 1, '0000-00-00 00:00:00', 'Malestar estomacal', 3),
 (4, 7, 3, '0000-00-00 00:00:00', 'Mareos', 4);
@@ -355,53 +446,23 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermiso`) VALUES
-(1, 'Esteban Mazzaro', 'mazzaroesteban@gmail.com', '', 2),
-(2, 'Gustavo Iralde', 'iraldegustavo@gmail.com', '', 2),
-(3, 'Julio Sosa', 'sosajulio@gmail.com', '', 2),
-(4, 'Rodrigo Zalabardo', 'zalabardorodrigo@gmail.com', '', 2),
-(5, 'Jorge Biffis', 'biffisjorge@gmail.com', '', 2),
-(6, 'Pablo Urga', 'urgapablo@gmail.com', '', 2),
-(7, 'Magdalena Bauschen', 'bauschenmagdalena@gmail.com', '', 2),
-(8, 'Junior Acuña', 'acuñajunior@gmail.com', '', 1),
-(9, 'Camila Mazzaro', 'camilamazzaro90@gmail.com', '', 1),
-(10, 'Giuliana Raschia', 'giulianaraschia@gmail.com', '', 1),
-(11, 'Candela Quiroga', 'candelaquiroga@gmail.com', '', 1),
-(12, 'Jane Doe', 'janedoe@gmail.com', '', 3),
-(13, 'Analía López', 'analíalopez@gmail.com', '', 3);
-
-
---
--- Estructura de la tabla `historia_clinica`
---
-
-CREATE TABLE `historia_clinica`(
-  `id` INT(11) NOT NULL,
-  `fecha` date NOT NULL,
-  `id_paciente` int(11) NOT NULL,
-  `nro_afiliado` varchar(255) NOT NULL,
-  `sexo` varchar(255) NOT NULL,
-  `fecha_de_nacimiento` date NOT NULL,
-  `edad` int(11) NOT NULL,
-  `domicilio` varchar(255) NOT NULL,
-  `motivo_de_consulta` varchar(255) NOT NULL,
-  `antecedentes_personales` varchar(255) NOT NULL,
-  `medicacion_actual` varchar(255) NOT NULL,
-  `examen_clinico` varchar(255) NOT NULL,
-  `diagnostico` varchar(255) NOT NULL,
-  `tratamiento` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+(1, 'Esteban Mazzaro', 'mazzaroesteban@gmail.com', '1234', 2),
+(2, 'Gustavo Iralde', 'iraldegustavo@gmail.com', '1234', 2),
+(3, 'Julio Sosa', 'sosajulio@gmail.com', '1234', 2),
+(4, 'Rodrigo Zalabardo', 'zalabardorodrigo@gmail.com', '1234', 2),
+(5, 'Jorge Biffis', 'biffisjorge@gmail.com', '1234', 2),
+(6, 'Pablo Urga', 'urgapablo@gmail.com', '1234', 2),
+(7, 'Magdalena Bauschen', 'bauschenmagdalena@gmail.com', '1234', 2),
+(8, 'Junior Acuña', 'acuñajunior@gmail.com', '1234', 1),
+(9, 'Camila Mazzaro', 'camilamazzaro90@gmail.com', '1234', 1),
+(10, 'Giuliana Raschia', 'giulianaraschia@gmail.com', '1234', 1),
+(11, 'Candela Quiroga', 'candelaquiroga@gmail.com', '1234', 1),
+(12, 'Jane Doe', 'janedoe@gmail.com', '1234', 3),
+(13, 'Analía López', 'analíalopez@gmail.com', '1234', 3);
 
 --
 -- Índices para tablas volcadas
 --
-
-
---
--- Indices de la tabla `estado_turno`
---
-ALTER TABLE `estado_turno`
-ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `categoria_permiso`
@@ -423,6 +484,12 @@ ALTER TABLE `especialidades`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `estado_turno`
+--
+ALTER TABLE `estado_turno`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `medicos`
 --
 ALTER TABLE `medicos`
@@ -439,6 +506,12 @@ ALTER TABLE `medicos_obrassociales`
   ADD KEY `id_obraSocial` (`id_obraSocial`);
 
 --
+-- Indices de la tabla `medicos_practicas`
+--
+ALTER TABLE `medicos_practicas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `obras_sociales`
 --
 ALTER TABLE `obras_sociales`
@@ -450,6 +523,12 @@ ALTER TABLE `obras_sociales`
 ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_obrasocial` (`id_obrasocial`);
+
+--
+-- Indices de la tabla `practicas`
+--
+ALTER TABLE `practicas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `turnos`
@@ -504,19 +583,19 @@ ALTER TABLE `medicos_obrassociales`
 -- AUTO_INCREMENT de la tabla `obras_sociales`
 --
 ALTER TABLE `obras_sociales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `turnos`
 --
 ALTER TABLE `turnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

@@ -18,95 +18,40 @@
     </div>
 
    <!-- Contenedor para el select -->
-    <div class="select-container">
-        <div class="select-cobertura">
-            <select id="cobertura" name="cobertura" required size="5">
-             <!--a cada opcion se le pone como value el id que tienen asignados en la BD-->
-              <option value="" selected>Ninguna</option>
-              <option value="1">JERARQUICOS SALUD</option>
-              <option value="2">PODER JUDICIAL</option>
-              <option value="3">LA PEQUEÑA FAMILIA</option>
-              <option value="4">SANCOR SALUD</option>
-              <option value="5">CASA</option>
-              <option value="6">OSPEPBA/option>
-              <option value="7">DASMI</option>
-              <option value="8">IOMA</option>
-              <option value="9">OSFATLYF</option>
-              <option value="10">OSDE</option>
-              <option value="11">OSPE</option>
-              <option value="12">SWISS MEDICAL</option>
-              <option value="13">GALENO</option>
-              <option value="14">MEDIFÉ</option>
-              <option value="15">CENTRO MÉDICO PUEYRREDÓN</option>
-              <option value="16">OSPF</option>
-              <option value="17">COMEI</option>
-              <option value="18">OSPIP</option>
-              <option value="19">OSPTV</option>
-              <option value="20">COLEGIO DE ESCRIBANOS</option>
-              <option value="21">OSPEGYPE</option>
-              <option value="22">AMEBPBA</option>
-              <option value="23">OSDOP</option>
-              <option value="24">OSSEG</option>
-              <option value="25">OSPEDYC</option>
-              <option value="26">SIS</option>
-              <option value="27">OSALARA</option>
-
-            </select>
+   <div class="select-container">
+    <div class="select-cobertura">
+        <select id="cobertura" name="cobertura" required size="5">
+            <!-- Se renderizan las opciones dinámicamente desde la base de datos -->
+            <option value="" selected>Ninguna</option>
+            <% if (obrasSociales && obrasSociales.length > 0) { %>
+                <% obrasSociales.forEach(function(obra) { %>
+                    <option value="<%= obra.id %>"><%= obra.nombre %></option>
+                <% }); %>
+            <% } else { %>
+                <option disabled>No hay obras sociales disponibles en este momento</option>
+            <% } %>
+        </select>
         </div>
     </div>
     <div class="container-medicos" id="medicos">
-        
-        <div class="tarjeta-medico">
-            <img src="/public/img/medico-1.png" alt="Nombre del Médico" class="medico-foto">
-            <h2 class="medico-nombre">Esteban Mazzaro</h2>
-            <p class="medico-especialidad">Especialidad: Oftalmología</p>
-            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
-            <button class="medico-contacto">Pedir turno</button>
-        </div>
-        <div class="tarjeta-medico">
-            <img src="/public/img/medico-2.png" alt="Nombre del Médico" class="medico-foto">
-            <h2 class="medico-nombre">Magdalena Bauschen</h2>
-            <p class="medico-especialidad">Especialidad: Oftalmología</p>
-            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
-            <button class="medico-contacto">Pedir turno</button>
-        </div>
-        <div class="tarjeta-medico">
-            <img src="/public/img/medico-3.png" alt="Nombre del Médico" class="medico-foto">
-            <h2 class="medico-nombre">Jorge Biffis</h2>
-            <p class="medico-especialidad">Especialidad: Oftalmología</p>
-            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
-            <button class="medico-contacto">Pedir turno</button>
-        </div>
-        <div class="tarjeta-medico">
-            <img src="/public/img/medico-4.png" alt="Nombre del Médico" class="medico-foto">
-            <h2 class="medico-nombre">Julio Sosa</h2>
-            <p class="medico-especialidad">Especialidad: Oftalmología</p>
-            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
-            <button class="medico-contacto">Pedir turno</button>
-        </div>
-        <div class="tarjeta-medico">
-            <img src="/public/img/medico-5.png" alt="Nombre del Médico" class="medico-foto">
-            <h2 class="medico-nombre">Pablo Urga</h2>
-            <p class="medico-especialidad">Especialidad: Oftalmología</p>
-            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
-            <button class="medico-contacto">Pedir turno</button>
-        </div>
-        <div class="tarjeta-medico">
-            <img src="/public/img/medico-1.png" alt="Nombre del Médico" class="medico-foto">
-            <h2 class="medico-nombre">Rodrigo Zalabardo</h2>
-            <p class="medico-especialidad">Especialidad: Oftalmología</p>
-            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
-            <button class="medico-contacto">Pedir turno</button>
-        </div>
-        <div class="tarjeta-medico">
-            <img src="/public/img/medico-3.png" alt="Nombre del Médico" class="medico-foto">
-            <h2 class="medico-nombre">Gustavo Iralde</h2>
-            <p class="medico-especialidad">Especialidad: Oftalmología</p>
-            <p class="medico-horario">Horario:Lunes a viernes 8:00 a 14:00 hs</p>
-            <button class="medico-contacto">Pedir turno</button>
-        </div> 
-    
+        <!-- Se traen los médicos y su info de la BD  -->
+        <% if (medicos && medicos.length > 0) { %>
+            <% medicos.forEach(function(medico) { %>
+                <div class="tarjeta-medico">
+
+                    <img src="<%= medico.foto %>" alt="Foto de <%= medico.nombre_medico %>" class="medico-foto">
+                    <h2 class="medico-nombre"><%= medico.nombre_medico %></h2>
+                    <p class="medico-especialidad">Especialidad: <%= medico.nombre_especialidad %></p>
+                    <p class="medico-descripcion">Descripción: <%= medico.descripcion %></p>
+                    <button class="medico-contacto">Pedir turno</button>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <!-- Mensaje si no hay médicos disponibles -->
+            <p>No hay médicos disponibles en este momento.</p>
+        <% } %>
     </div>
+    
     <div class="container-obrassociales">
         <img src="/public/img/Obras-sociales.png">
     </div>

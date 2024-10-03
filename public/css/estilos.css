@@ -1221,7 +1221,10 @@ option {
     width: 250px; 
     background-color: var(--VERDE_AGUA); 
     transition: transform 0.2s; 
-    height: 450px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .tarjeta-medico :hover {
@@ -1231,8 +1234,8 @@ option {
 
 .medico-foto {
     width: 100%; 
-    height: 250px; 
-    object-fit: cover; 
+    height: 260px; 
+    object-fit: contain; /* para que no se recorten las imagenes*/
     border-radius: 10px; 
 }
 
@@ -1250,21 +1253,29 @@ option {
 
 .medico-especialidad,
 .medico-cobertura,
-.medico-horario {
+.medico-descripcion {
     font-family: 'Montserrat', sans-serif; 
     color: white; 
-    font-weight: 200;
+    font-weight: 300;
     font-size: 15px;
 }
 
 .medico-contacto {
-    background-color: var(--AZUL_OSCURO);
+    background-color:var(--AZUL_OSCURO);
     font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
     color: white; 
-    border-radius: 10px;
+    border: none;
+    outline: none;
+    border-radius: 25px 0 25px 0;
     padding: 10px;
-    cursor: pointer;  
+    cursor: pointer; 
+    margin:0 auto;
+    width: 150px;
+
 }
+    
 
 .medico-contacto:hover {
     background-color: #1e8b7e; 

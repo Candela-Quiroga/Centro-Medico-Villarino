@@ -26,7 +26,7 @@
                     <!--contenedor del texto que aparece sobre la primer imagen-->
                     <div class="carrusel-bienvenida-texto">
                         <h2>Bienvenidos al Centro <br> Médico Villarino</h2>
-                        <p>Encontranos en Lamadrid 29, Chivilcoy (Bs. As.)</p>
+                        <p class="bienvenida-encontranos">Encontranos en Lamadrid 29, Chivilcoy (Bs. As.)</p>
     
                         <div class="horario-atencion">
                             <i class="fa-regular fa-clock-nine"></i><!--icono reloj-->
@@ -69,7 +69,7 @@
 
         <div class="nosotros-textos">
             <h3>Quienes Somos</h3>
-            <p>Somos un Centro Médico que se encuentra en la <br> ciudad de Chivilcoy, desde el año 2009. Tenemos <br> uavnlksnblkbnlnblnsnls.</p>
+            <p>Somos un <strong>Centro Médico</strong> que se encuentra en la <br> ciudad de Chivilcoy, desde el año 2009. <br><br> Desde entonces, brindamos la atención médica de <br> máxima calidad de la zona, equipados de profesionales médicos <br> <strong>100% dedicados</strong> a la salud de sus pacientes.</p>
             <a class="boton sombra" href="">Más Información</a>
         </div>
 
@@ -78,7 +78,7 @@
 
     <!--SECCIÓN SERVICIOS ----------------------------------->
 
-    <section class="servicios">
+    <section class="seccion-servicios">
 
         <h3>Servicios</h3>
 
@@ -130,59 +130,109 @@
 
     <!--SECCIÓN PROFESIONALES-->
 
-<!-- <section class="seccion-profesionales">
-    <swiper-container class="mySwiper" pagination="true" effect="coverflow" grab-cursor="true" centered-slides="true"
-    slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
-    coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
-        <swiper-slide>
-            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-            <h5>Nombre Médico</h5>
-            <p>Especialidad</p>
-            <a href="">Pedir Turno</a>
-        </swiper-slide>
-        <swiper-slide>
-            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-            <h5>Nombre Médico</h5>
-            <p>Especialidad</p>
-            <a href="">Pedir Turno</a>
-        </swiper-slide>
-        <swiper-slide>
-            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-            <h5>Nombre Médico</h5>
-            <p>Especialidad</p>
-            <a href="">Pedir Turno</a>
-        </swiper-slide>
-        <swiper-slide>
-            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-            <h5>Nombre Médico</h5>
-            <p>Especialidad</p>
-            <a href="">Pedir Turno</a>
-        </swiper-slide>
-        <swiper-slide>
-            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-            <h5>Nombre Médico</h5>
-            <p>Especialidad</p>
-            <a href="">Pedir Turno</a>
-        </swiper-slide>
-        <swiper-slide>
-            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-            <h5>Nombre Médico</h5>
-            <p>Especialidad</p>
-            <a href="">Pedir Turno</a>
-        </swiper-slide>
-        <swiper-slide>
-            <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-            <h5>Nombre Médico</h5>
-            <p>Especialidad</p>
-            <a href="">Pedir Turno</a>
-        </swiper-slide>
-    </swiper-container> -->
+    <section class="seccion-profesionales">
+        <h3>Profesionales</h3>
+        <div class="swiper carrusel-medicos">
+            <div class="swiper-wrapper">
+                <!-- Renderizo los médicos desde la base de datos -->
+                <% if (medicos && medicos.length > 0) { %>
+                    <% medicos.forEach(function(medico) { %>
+                        <div class="swiper-slide">
+                            <div class="medico-card">
+                                <div class="contenedor-img sombra">
+                                    <img src="<%= medico.foto %>" alt="Foto de <%= medico.nombre_medico %>">
+                                </div>
+                        
+                                <h4><%= medico.nombre_medico %></h4>
+                                <p><%= medico.nombre_especialidad %></p>
+                                <a href="#">Pedir Turno</a>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No hay médicos disponibles en este momento.</p>
+                <% } %>
+            </div>
+        
+            <!-- Paginación -->
+            <div class="swiper-pagination"></div>
 
-    <!-- Paginación -->
-    <!-- <div class="swiper-pagination"></div>
-
-</section> -->
+            <!-- Controles de navegación -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        
+    </section>
     
+    <!--OBRAS SOCIALES-->
+    <div class="container-obrassociales">
+        <img src="/public/img/Obras-sociales.png">
+    </div>
+
+    <!--PEDIR TURNO - BANNER -->
+    <section class="inicio-pedir-turno">
+        <div>
+            <h4>Pedir Turno Online</h4>
+            <a class="boton" href="">Haciendo clic acá</a>
+        </div>
+    </section>
+
+    <!--NOVEDADES-->
+    <section class="seccion-novedades">
+        <h3>Novedades</h3>
+        <div class="tarjetas">
+            <div class="tarjeta">
+                <img src="/public/img/centro-img-frente.webp" alt="Descripción de la imagen 1">
+                <div class="contenido-noticia">
+                    <p class="fecha">Fecha: 01/10/2024</p>
+                    <h4>Título de la Noticia 1</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+                </div>
+            </div>
+            <div class="tarjeta">
+                <img src="/public/img/centro-img-frente.webp" alt="Descripción de la imagen 2">
+                <div class="contenido-noticia">
+                    <p class="fecha">Fecha: 30/09/2024</p>
+                    <h4>Título de la Noticia 2</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+                </div>
+            </div>
+            <div class="tarjeta">
+                <img src="/public/img/centro-img-frente.webp" alt="Descripción de la imagen 3">
+                <div class="contenido-noticia">
+                    <p class="fecha">Fecha: 29/09/2024</p>
+                    <h4>Título de la Noticia 3</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!--Contactanos - mapa -->
+    <div class="container-mapa">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d818.0726713749121!2d-60.02252270000001!3d-34.89915399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bea534817abb7f%3A0x6d1a9c6534364092!2sConsultorio%20Medico%20Villarino!5e0!3m2!1ses!2sar!4v1725455908050!5m2!1ses!2sar" 
+            width="400" 
+            height="300">
+        </iframe> <!-- Para traer páginas externas usamos iframe -->
+        <div class="container-info">
+            <h2>Información del Centro</h2>
+            <div class="item-info">
+                <i class="fa-regular fa-location-dot"></i>
+                <p><strong>Dirección</strong> <br>Lamadrid 29, Chivilcoy, Bs As </p>
+            </div>
+            <div class="item-info">
+                <i class="fa-regular fa-phone"></i>
+                <p><strong>Teléfono</strong><br>2346 426515</p>
+            </div>
+            <div class="item-info">
+                <i class="fa-regular fa-envelope"></i>
+                <p><strong>Email</strong><br>centromedicovillarino@gmail.com</p>
+            </div>
+            
+        </div>
+    </div>
 
     <!--FOOTER-->
     <%- include('../commons/footer-web') %>
@@ -191,6 +241,7 @@
     <!--Incluimos librería de JS llamada Swiper, para carruseles-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+    
     <!--Activamos librería Swiper-->
     <script>
         var swiper = new Swiper('.swiper', {
@@ -221,6 +272,34 @@
                 }
             }
         });
+
+        // Configuración del carrusel de médicos
+        var swiperMedicos = new Swiper('.carrusel-medicos', {
+            slidesPerView: 3, //para que se vean 3 slides en cada página
+            centeredSlides: true,
+            spaceBetween: 10,
+            loop: true, // Hacer el carrusel infinito, para que siempre se agreguen los médicos nuevos
+            pagination: {
+                el: '.carrusel-medicos .swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.carrusel-medicos .swiper-button-next',
+                prevEl: '.carrusel-medicos .swiper-button-prev',
+            },
+            breakpoints: {
+                // Ajustes responsive
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+            }
+        });
+
     </script>
 
 </body>

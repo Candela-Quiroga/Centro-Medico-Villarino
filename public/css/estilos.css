@@ -39,7 +39,7 @@ body, html {
 }
 
 h3{
-    font-size: 40px;
+    font-size: 2.5em;
     color: var(--AZUL_OSCURO);
     margin-bottom: 0;
 }
@@ -52,22 +52,29 @@ h3{
 
 
 header {
-    height: 60px;
+    height: 50px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
     margin: 0;
-    position: sticky;
+    position: fixed; /* Cambia a fixed para que se mantenga en la parte superior */
     top: 0;
     left: 0;
     z-index: 1000;
-    background: white;
+    background: white; /* Fondo original */
+    transition: top 0.3s; /* Suaviza la transición del top */
+}
+
+/* Si quieres ocultar el header */
+.hidden {
+    top: -100px; /* Oculta el header fuera de la vista */
 }
 
 header .logo {
     width: 20%;
-    height: 60px;
+    height: 55px;
     background-image: url('/public/img/logo-header.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -91,12 +98,20 @@ header nav ul li a {
     width: 3%;
     position: relative;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--AZUL_OSCURO);
     cursor: pointer;
     padding: 5px 10px;
     transition: color 0.3s ease-in-out; /* Para suavizar la transición del color */
+}
+
+header nav ul li a.active::after {
+    width: 100%; /* Mantiene la línea activa al ancho del enlace */
+}
+
+header nav ul li a.active {
+    color: var(--AZUL_CLARO); /* Cambia el color del enlace activo */
 }
 
 header nav ul li a::after {
@@ -119,21 +134,20 @@ header nav ul li a:hover {
 }
 
 
+
 .menu-pedir-turno {
     color: white;
     margin-right: 50px;
-    width: 110px;
-    background: var(--AZUL_CLARO); /* degradado del header */
+    width: 7%;
+    background: var(--DEGRADADO); /* degradado del header */
     transition: all .9s;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
 }
 
 header .menu-pedir-turno:hover {
     background: var(--VERDE_AGUA); /* degradado del header */
-}
-
-header.menu-pedir-turno a {
-    color: white;
-    text-decoration: none;
 }
 
 
@@ -141,6 +155,7 @@ header.menu-pedir-turno a {
 /* INICIO - CARRUSEL DE BIENVENIDA ----- */
 
 .bienvenida {
+    padding-top: 40px;
     height: 700px;
     background: var(--DEGRADADO); /* Color de fondo para que se note la forma */
     position: relative;
@@ -198,6 +213,7 @@ header.menu-pedir-turno a {
 .carrusel-bienvenida .carrusel-bienvenida-texto h2 {
     font-size: 40px;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0;
 }
 
 .carrusel-bienvenida .carrusel-bienvenida-texto .horario-atencion { /*para que el ícono del reloj quede al lado del texto de horarios*/
@@ -206,6 +222,9 @@ header.menu-pedir-turno a {
     gap: 8px;
 }
 
+.carrusel-bienvenida .carrusel-bienvenida-texto .bienvenida-encontranos{
+    margin-bottom: 8px;
+}
 .carrusel-bienvenida .carrusel-bienvenida-texto .horario-atencion p{
     margin: 0;
 }
@@ -213,9 +232,10 @@ header.menu-pedir-turno a {
 .carrusel-bienvenida .carrusel-bienvenida-texto a{
     background: white;
     color: var(--AZUL_OSCURO);
-    width: 150px;
-    margin-top: 5%;
+    width: max-content;
+    margin-top: 10%;
     transition: all .5s;
+    font-size: 27px ;
 }
 
 .carrusel-bienvenida .carrusel-bienvenida-texto a:hover{
@@ -239,12 +259,12 @@ header.menu-pedir-turno a {
 /*INICIO - SECCIÓN NOSOTROS ---------------*/
 
 .seccion-nosotros{
-    margin-top: 150px;
-    margin-bottom: 60px;
+    margin: 0 auto;
+    padding: 60px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 80%;
 }
 
 .seccion-nosotros .nosotros-foto{
@@ -255,10 +275,11 @@ header.menu-pedir-turno a {
     height: 500px;
 }
 
-.seccion-nosotros-textos{
+.seccion-nosotros .nosotros-textos{
     display: flex;
     justify-content: left;
     flex-direction: column;
+    width: 50%;
 }
 
 .seccion-nosotros .nosotros-textos a{
@@ -276,54 +297,54 @@ header.menu-pedir-turno a {
 
 /*SECCIÓN SERVICIOS ----------------------------------------------*/
 
-.servicios{
+.seccion-servicios{
     width: 80%;
     text-align: center;
     margin: 0 auto;
 }
 
-.servicios .servicios-container{
+.seccion-servicios .servicios-container{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 40px;
 }
 
-.servicios .servicios-container article{
+.seccion-servicios .servicios-container article{
     flex: 1 1 calc(25% - 20px); /* Cada artículo ocupa el 25% del ancho menos el espacio del gap */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.servicios .servicios-container article h5{
+.seccion-servicios .servicios-container article h5{
     font-size: 20px;
     margin-bottom: 40px;
     color: var(--AZUL_OSCURO);
 }
 
-.servicios .servicios-container article div{
+.seccion-servicios .servicios-container article div{
     border-radius: 25px 0;
     width: 130px;
     height: 100px;
     align-content: center;
 }
 
-.servicios .servicios-container article div i{
+.seccion-servicios .servicios-container article div i{
     font-size: 40px;
     color: white;
 }
 
-.servicios .servicios-container article .serv-1{
+.seccion-servicios .servicios-container article .serv-1{
     background: #64e9dc;
 }
-.servicios .servicios-container article .serv-2{
+.seccion-servicios .servicios-container article .serv-2{
     background: var(--VERDE_AGUA);
 }
-.servicios .servicios-container article .serv-3{
+.seccion-servicios .servicios-container article .serv-3{
     background: var(--AZUL_CLARO);
 }
-.servicios .servicios-container article .serv-4{
+.seccion-servicios .servicios-container article .serv-4{
     background: var(--AZUL_OSCURO);
 }
 
@@ -332,23 +353,215 @@ header.menu-pedir-turno a {
 
 /*INICIO - SECCIÓN PROFESIONALES*/
 
+.seccion-profesionales {
+    padding: 10px 0 60px 0; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+    height: auto;
+    background: var(--DEGRADADO);
+    align-items: center;
+    margin-top: 60px;
+}
 
-.swiper-container {
-    width: 100%;
-    padding-top: 50px;
-    padding-bottom: 50px;
+.seccion-profesionales h3 {
+    color: white;
+    margin-top: 50px;
+    font-weight: 600;
+}
+
+.carrusel-medicos {
+    width: 90%; 
+    height: 610px;
+}
+
+.carrusel-medicos .swiper-wrapper {
+    display: flex; 
+    align-items: center;
 }
 
 .swiper-slide {
-    background-position: center;
-    background-size: cover;
-    width: 300px;
-    height: 300px;
+    display: flex;
+    justify-content: center;
+    margin: 0 5px; /* Margen horizontal entre las tarjetas */
 }
 
-/* NOSOTROS.EJS */
+.medico-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 550px; 
+    width: 400px;
+}
+
+.medico-card .contenedor-img {
+    width: 95%;
+    height: 75%; 
+    margin-bottom: 15px;
+    border: 4px solid var(--VERDE_AGUA);
+    border-radius: 2em 0;
+}
+
+.medico-card .contenedor-img img {
+    object-fit: contain; 
+    width: 95%; 
+    height: 100%; 
+}
+
+.medico-card h4 {
+    font-size: 1.8em; 
+    margin: 4px 0;
+    color: white;
+    font-weight: 600;
+}
+
+.medico-card p {
+    font-size: 1em; /* Tamaño de fuente ajustado */
+    color: white;
+    margin: 0 0 20px 0; /* Espaciado inferior ajustado */
+}
+
+.medico-card a {
+    width: 30%;
+    display: inline-block;
+    padding: 8px 15px; /* Tamaño del botón ajustado */
+    background-color: var(--VERDE_AGUA);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all .3s;
+    text-align: center;
+}
+
+.medico-card a:hover {
+    background-color: var(--AZUL_CLARO);
+}
+
+/* Estilos para las tarjetas laterales */
+.swiper-slide:not(.swiper-slide-active) .medico-card {
+    transform: scale(0.8);
+    filter: blur(2px);
+    opacity: 0.6;
+}
+
+
+.carrusel-medicos .swiper-button-next,
+.carrusel-medicos .swiper-button-prev {
+    color: #007bff;
+}
+
+.carrusel-medicos .swiper-pagination {
+    bottom: 10px !important;
+}
+
+.swiper-pagination-bullet {
+    background: #007bff;
+    opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+    background: #0056b3;
+    opacity: 1;
+}
+
+
+/*Inicio - pedir turno*/
+
+.inicio-pedir-turno{
+    background: url('/public/img/centromedico.jpg');
+    width: 100%;
+    height: 300px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+
+.inicio-pedir-turno div{
+    width: 50%;
+    height: auto;
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.inicio-pedir-turno div h4{
+    margin: 0;
+    font-size: 2em;
+    color: var(--AZUL_OSCURO);
+}
+
+.inicio-pedir-turno div a{
+    width: max-content;
+    background-color: var(--AZUL_CLARO);
+    color: white;
+    transition: all .3s;
+}
+
+.inicio-pedir-turno div a:hover{
+    background-color: var(--VERDE_AGUA);
+}
+
+
+/*INICIO - Novedades*/
+
+.seccion-novedades {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.seccion-novedades .tarjetas {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5%;
+}
+
+.seccion-novedades .tarjetas .tarjeta {
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    width: 30%; 
+    height: 450px;
+    margin: 10px; 
+}
+
+.seccion-novedades .tarjetas .tarjeta img {
+    width: 100%; /* Imagen al 100% del ancho de la tarjeta */
+    height: 56%; 
+}
+
+.seccion-novedades .tarjetas .tarjeta .contenido-noticia {
+    padding: 15px; /* Espaciado interno */
+}
+
+.seccion-novedades .tarjetas .tarjeta .contenido-noticia .fecha {
+    color: #666; /* Color de texto para la fecha */
+    font-size: 14px; /* Tamaño de fuente */
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+.seccion-novedades .tarjetas .tarjeta .contenido-noticia p{
+    color: #333;
+}
+
+/* ---------------------------------- NOSOTROS.EJS ------------------------------*/
 .nosotros {
-    padding: 20px;
+    padding: 80px 20px 20px 20px;
 }
 
 .container-imagen {
@@ -556,20 +769,21 @@ header.menu-pedir-turno a {
 /*MAPA*/ 
 .container-mapa {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background-color: var(--VERDE_AGUA);
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 900px;
-    margin: 50px auto;
+    width: 80%;
+    margin: 30px auto;
+    gap: 100px;
 }
 
 .container-mapa iframe {
     flex:1;
     max-width: 60%;
-    height: 300px;
+    height: 400px;
     border: none;
 }
 
@@ -577,6 +791,28 @@ header.menu-pedir-turno a {
     flex:1;
     padding-left: 20px;
     color: var(--AZUL_OSCURO);
+    width: 40%;
+    display: flex;
+    justify-content: right;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.container-info .item-info{
+    display: flex;
+    gap: 1.2em;
+    align-items: center;
+}
+
+.container-info .item-info i{
+    font-size: 20px;
+    background-color: var(--AZUL_OSCURO);
+    padding: 13px;
+    border-radius: 10px 0;
+    color: white;
+    font-weight: 300 !important;
+    width: 1em;
+    text-align: center;
 }
 
 /*PEDIRTURNO.EJS*/
@@ -888,13 +1124,14 @@ option {
     font-size: 25px;
 }
 
-/* COBERTURAS.EJS */
+/* --------------------- COBERTURAS.EJS -------------------------------*/
 
 .container-coberturas {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px; 
+    padding-top: 80px;
 }
 
 

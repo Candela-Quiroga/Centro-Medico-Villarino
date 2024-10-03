@@ -3,7 +3,7 @@
 
     <nav>
         <ul>
-            <li><a href="#">Inicio</a></li>
+            <li><a href="/">Inicio</a></li>
             <li><a href="/nosotros">Nosotros</a></li>
             <li><a href="/profesionales">Profesionales</a></li>
             <li><a href="/coberturas">Coberturas</a></li>
@@ -15,3 +15,39 @@
     <a href="#" class="menu-pedir-turno boton">Pedir Turno</a>
     
 </header>
+
+<!--Para que el header al scrollear para abajo desaparezca -->
+<script>
+    let lastScrollY = window.scrollY; // Almacena la última posición de scroll
+    const header = document.querySelector('header'); // Selecciona el header
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > lastScrollY) {
+            // Si se está desplazando hacia abajo
+            header.classList.add('hidden'); // Oculta el header
+        } else {
+            // Si se está desplazando hacia arriba
+            header.classList.remove('hidden'); // Muestra el header
+        }
+        lastScrollY = window.scrollY; // Actualiza la última posición de scroll
+    });
+</script>
+
+
+<!--Para que la página active quede subrayada-->
+<script>
+    // Obtener la URL actual
+    const currentLocation = window.location.pathname;
+
+    // Obtener todos los enlaces
+    const navLinks = document.querySelectorAll('header nav ul li a');
+
+    navLinks.forEach(link => {
+        // Comprobar si el href del enlace coincide con la URL actual
+        if (link.getAttribute('href') === currentLocation || 
+            (currentLocation === '/' && link.getAttribute('href') === '/home.html')) { // Para manejar el caso del home
+            link.classList.add('active'); // Agregar clase active al enlace actual
+        }
+    });
+</script>
+

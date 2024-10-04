@@ -57,13 +57,53 @@
     <script>
         const botonGuardar = document.querySelector(".guardar");
         botonGuardar.addEventListener("click", async () => {
-            const pacienteNombre = document.querySelector("#nombre").value;
-            const pacienteDNI = document.querySelector("#dni").value;
-            const pacienteEdad = document.querySelector("#edad").value;
-            const pacienteEmail = document.querySelector("#email").value;
-            const pacienteTelefono = document.querySelector("#telefono").value;
+            const pacienteNombre = document.querySelector("#nombre").value.trim();
+            const pacienteDNI = document.querySelector("#dni").value.trim();
+            const pacienteEdad = document.querySelector("#edad").value.trim();
+            const pacienteEmail = document.querySelector("#email").value.trim();
+            const pacienteTelefono = document.querySelector("#telefono").value.trim();
             const pacienteId_obrasocial = document.querySelector("#id_obrasocial").value;
-            
+
+            let errores = [];
+
+            // Validar nombre
+            if (pacienteNombre === "") {
+                errores.push("El nombre no puede estar vacío.");
+            }
+
+            // Validar DNI (solo números)
+            if (!/^\d+$/.test(pacienteDNI)) {
+                errores.push("El DNI debe contener solo números.");
+            }
+
+            // Validar edad (debe ser un número positivo)
+            if (!/^\d+$/.test(pacienteEdad) || pacienteEdad <= 0) {
+                errores.push("La edad debe ser un número positivo.");
+            }
+
+            // Validar email (formato correcto, sin espacios, sin 'ñ', y con dominios válidos)
+            const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/; // Permite cualquier dominio que termine en .com
+            if (!emailRegex.test(pacienteEmail) || pacienteEmail.includes('ñ')) {
+                errores.push("El correo electrónico es inválido, contiene espacios o contiene caracteres no permitidos. Corrobore el dominio. EJ: @gmail.com, @hotmail.com, @yahoo.com, etc.");
+            }
+
+            // Validar teléfono (solo números, espacios o guiones)
+            if (!/^[\d\s\-]+$/.test(pacienteTelefono)) {
+                errores.push("El teléfono debe contener solo números.");
+            }
+
+            // Validar que haya seleccionado una obra social
+            if (!pacienteId_obrasocial) {
+                errores.push("Debe seleccionar una obra social. De no tener alguna selecciona 'Ninguna de las anteriores'.");
+            }
+
+            // Mostrar errores si existen
+            if (errores.length > 0) {
+                alert(errores.join("\n"));
+                return;
+            }
+
+            // Si todo es válido, enviamos los datos
             const datos = {
                 id: <%= paciente.id %>,
                 nombre: pacienteNombre,

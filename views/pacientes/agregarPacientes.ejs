@@ -56,15 +56,58 @@
 
     <script>
         const botonGuardar = document.querySelector(".guardar");
-        botonGuardar.addEventListener("click", async () => {
-            console.log("Botón Guardar clickeado");
-            const pacienteNombre = document.querySelector("#nombre").value;
-            const pacienteDNI = document.querySelector("#dni").value;
-            const pacienteEdad = document.querySelector("#edad").value;
-            const pacienteEmail = document.querySelector("#email").value;
-            const pacienteTelefono = document.querySelector("#telefono").value;
+
+        botonGuardar.addEventListener("click", async (e) => {
+            e.preventDefault(); // Evita el envío automático del formulario
+
+            const pacienteNombre = document.querySelector("#nombre").value.trim();
+            const pacienteDNI = document.querySelector("#dni").value.trim();
+            const pacienteEdad = document.querySelector("#edad").value.trim();
+            const pacienteEmail = document.querySelector("#email").value.trim();
+            const pacienteTelefono = document.querySelector("#telefono").value.trim();
             const pacienteId_obrasocial = document.querySelector("#id_obrasocial").value;
-            
+
+            // Validaciones del lado del cliente
+            let errores = [];
+
+            // Validar nombre
+            if (pacienteNombre === "") {
+                errores.push("El nombre no puede estar vacío.");
+            }
+
+            // Validar DNI (solo números)
+            if (!/^\d+$/.test(pacienteDNI)) {
+                errores.push("El DNI debe contener solo números.");
+            }
+
+            // Validar edad (debe ser un número positivo)
+            if (!/^\d+$/.test(pacienteEdad) || pacienteEdad <= 0) {
+                errores.push("La edad debe ser un número positivo.");
+            }
+
+            // Validar email con dominios correctos, sin espacios y sin la 'ñ'
+            const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/;
+            if (!emailRegex.test(pacienteEmail) || pacienteEmail.includes('ñ')) {
+                errores.push("El correo electrónico es inválido, contiene espacios o caracteres no permitidos. Corrobore el dominio. EJ: @gmail.com, @hotmail.com, @yahoo.com, etc.");
+            }
+
+            // Validar teléfono (solo números y opcionalmente el uso de guiones o espacios)
+            if (!/^[\d\s\-]+$/.test(pacienteTelefono)) {
+                errores.push("El teléfono debe contener solo números, espacios o guiones.");
+            }
+
+            // Validar que haya seleccionado una obra social
+            if (!pacienteId_obrasocial) {
+                errores.push("Debe seleccionar una obra social. De no tener alguna selecciona 'Ninguna de las anteriores'.");
+            }
+
+            // Mostrar errores si existen
+            if (errores.length > 0) {
+                alert(errores.join("\n"));
+                return;
+            }
+
+            // Si todo es válido, enviamos los datos
             const datos = {
                 id: <%= paciente.id %>,
                 nombre: pacienteNombre,
@@ -75,9 +118,7 @@
                 id_obrasocial: pacienteId_obrasocial,
             };
 
-            console.log(datos);
-
-            const results = await fetch('/pacientes/agregar/0', {
+            const results = await fetch('/pacientes/editar/<%= paciente.id %>', {
                 method: 'POST',
                 body: JSON.stringify(datos),
                 headers: {
@@ -86,7 +127,7 @@
             });
 
             const data = await results.json();
-            if (data.success === true) {
+            if (data.success) {
                 location.href = "/pacientes";
             } else {
                 alert("Hubo un problema con los datos");

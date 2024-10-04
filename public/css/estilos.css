@@ -816,85 +816,326 @@ header .menu-pedir-turno:hover {
 }
 
 /*PEDIRTURNO.EJS*/
-.pedir-turno h1 {
+.container-pasoUno {
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: white; 
+    width: 1000px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    margin-top: 80px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px;
+}
+
+.container-pasoUno h1 {
     text-align: center;
     margin-top: 20px;
     font-weight: 700;
-    color: white;
-    background: var(--DEGRADADO);
+    color: var(--AZUL_OSCURO);
 }
 
-.container-filtros {
-    width: 100%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 30px;
-    background-color: var(--VERDE_AGUA);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+.diagrama-proceso {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.paso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circulo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.circulo.verde {
+    background-color: #1abc9c;
+}
+
+.flecha {
+    width: 30px;
+    height: 2px;
+    background-color: gray;
+    margin: 0 -5px; /* Para acercar las flechas a los círculos */
+}
+
+.flecha:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid gray;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    position: absolute;
+    left: -5px; 
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+.selects {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap:20px;
-    height:300px;
-    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
+    margin-top: 30px;
 }
 
 .filtros {
-    display: flex;
-    flex-direction: column;
-    flex:1;
-    margin-top:-10px;
+    flex: 1;
+    margin-right: 10px; 
+}
+
+.filtros:last-child {
+    margin-right: 0; /* Sin margen derecho en el último select */
 }
 
 label {
     font-weight: 600;
     font-size: 18px;
     color: #2c3e50;
-    text-align: center;
+    margin-bottom: 5px; 
+    display: block; 
 }
 
-
-.filtros select, 
-.filtros input[type="date"] {
+.filtros select {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-    box-shadow: inset 0 1px 3px var(--AZUL_OSCURO);
-    transition: border-color 0.3s;
-    width: 100%;
-    box-sizing: border-box;
     border-radius: 20px;
-    font-family: 'Montserrat', sans-serif;
+    background-color: white;
+    width: 100%;
 }
 
-select:focus, input[type="date"]:focus {
-    border-color: #3498db;
-    outline: none;
+.medico {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
 }
 
-.btn-enviar {
+.medico-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.foto-medico {
+    width: 80px; 
+    height: 80px;
+    border-radius: 50%; 
+    margin-right: 15px; 
+}
+
+.detalles h3 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--AZUL_OSCURO);
+}
+
+.detalles p {
+    margin: 5px 0;
+    color: #7f8c8d; 
+}
+
+.turnos-disponibles {
+    display: flex;
+    flex-wrap: wrap; 
+    margin-left: 20px; 
+}
+
+.turno {
+    width: 60px; 
+    height: 60px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white; 
+}
+
+.disponible {
+    background-color: var(--VERDE_AGUA)
+}
+
+.no-disponible {
+    background-color: gray; 
+    text-decoration: line-through; /* Tachar el texto */
+}
+
+.boton-siguiente {
     padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: var(--AZUL_CLARO); 
-    border: none;
-    border-radius: 4px;
+    font-size: 18px;
+    border: 2px solid var(--AZUL_OSCURO);
+    border-radius: 25px 0 25px 0;
+    background:white;
+    color: var(--AZUL_OSCURO);
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px; 
+    display: block; 
+    margin: 20px auto 0; 
+    transition: background-color 0.3s; 
+    width: 200px;
     font-family: 'Montserrat', sans-serif;
-    font-weight:600;
 }
 
-.btn-enviar:hover {
-    background-color: var(--AZUL_OSCURO); 
+.boton-siguiente:hover {
+    background-color: #16a085; 
+    color: white;
 }
 
-option {
+/* PASO DOS*/
+.container-pasoDos {
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: white;
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 60px;
+}
+
+.container-pasoDos h1 {
+    color: var(--AZUL_OSCURO);
+    text-align: center;
+}
+
+.contenedor-detalle-formulario {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.columna-izquierda {
+    flex: 1;
+    margin-right: 30px;
+}
+
+.detalle-medico {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-medico h2 {
+    color: var(--AZUL_OSCURO);
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.detalle-medico p {
+    color: black;
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.modificar-fecha {
+    background-color: var(--VERDE_AGUA);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.info-medico {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.info-medico p{
+    color: #7f8c8d ;
+}
+
+.foto-medico {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.detalles-medico {
+    color: black;
+}
+
+.detalles-medico h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.columna-derecha {
+    flex: 1.5;
+}
+
+.formulario-grupo {
+    margin-bottom: 15px;
+    padding-right:20px;
+}
+
+.formulario-grupo label {
+    font-weight: 600;
     font-size: 16px;
+    color: var(--AZUL_OSCURO);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.formulario-grupo input{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+
+}
+
+.formulario-grupo select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.boton-confirmar {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: 2px solid var(--AZUL_OSCURO);
+    border-radius: 25px 0 25px 0;
+    background:white;
+    color: var(--AZUL_OSCURO);
+    font-weight: bold;
+    cursor: pointer;
+    display: block; 
+    margin: 20px auto 0; 
+    transition: background-color 0.3s; 
+    width: 200px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.boton-confirmar:hover {
+    background-color: var(--VERDE_AGUA);
+    color: white;
 }
 
 /*Contacto.ejs*/

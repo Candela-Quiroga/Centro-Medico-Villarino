@@ -33,9 +33,8 @@ class MedicoController {
     }
 
 
-// Obtengo un médico por su ID y lo muestro en un formulario para editar
-
-async editarMedico(req, res) {
+    // Obtengo un médico por su ID y lo muestro en un formulario para editar
+    async editarMedico(req, res) {
     const id = req.params.id; //obtenemos el id del médico a editar
     
     try {
@@ -105,6 +104,21 @@ async editarMedico(req, res) {
             }
         });
     }   
+
+
+    //Obtener médicos por obra social
+    async obtenerMedicosPorObraSocial(req, res) {
+        const obraSocialId = req.params.obraSocialId;
+
+        try {
+            medicoModel.obtenerMedicosPorObraSocial(obraSocialId, (medicos) => {
+                res.json(medicos);
+            });
+        } catch (error) {
+            console.error('Error al obtener médicos por obra social:', error);
+            res.status(500).json({ error: 'Error al obtener médicos' });
+        }
+    }
 }
 
 module.exports = MedicoController;

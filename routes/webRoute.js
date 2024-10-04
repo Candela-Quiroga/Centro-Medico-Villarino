@@ -4,6 +4,9 @@ const router = express.Router();
 const WebController = require('../controllers/webController');
 const webController = new WebController();
 
+const MedicoController = require('../controllers/medicoController');
+const medicoController = new MedicoController();
+
 
 //rutas redirección a home
 router.get('/',webController.mostrarHome);
@@ -22,5 +25,8 @@ router.get('/contacto', webController.mostrarContacto);
 
 //ruta a Pedir Turno
 router.get('/pedirTurno', webController.mostrarPedirTurno);
+
+//Obtener médicos por obra social
+router.get('/medicos/por-obra-social/:obraSocialId', medicoController.obtenerMedicosPorObraSocial);
 
 module.exports = router;

@@ -54,6 +54,25 @@ class MedicoModel {
         });
     }
 
+    obtenerMedicosPorObraSocial(obraSocialId, callback) {
+        const query = `
+            SELECT medicos.*, usuarios.nombre AS nombre_medico, especialidades.nombre_especialidad as nombre_especialidad
+            FROM medicos
+            JOIN medicos_obrassociales ON medicos.id = medicos_obrassociales.id_medico
+            JOIN especialidades ON medicos.id_especialidad = especialidades.id
+            JOIN usuarios ON medicos.id_usuario = usuarios.id
+            WHERE medicos_obrassociales.id_obraSocial = ?`;
+
+        conx.query(query, [obraSocialId], (error, results) => {
+            if (error) {
+                console.error('Error al obtener médicos por obra social:', error);
+                callback([]);
+            } else {
+                callback(results);
+            }
+        });
+    }
+
     //guardar un nuevo médico en la base de datos, o guardar datos actualizados en el formulario de editar médico
     async guardarMedico(datos, callback) {
 

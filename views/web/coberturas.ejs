@@ -65,9 +65,9 @@
     <div class="container-datosCentro">
         <img src="/public/img/centro-img-frente.webp">
         <div class="datos-centro">
-            <p><i class="fa-regular fa-location-dot"></i>Dirección:Lamadrid 29,Chivilcoy,Bs As</p>
-            <p><i class="fa-regular fa-phone"></i>Teléfono: 2346-426515</p>
-            <p><i class="fa-regular fa-envelope"></i>Email: centromedicovillarino@gmail.com</p>
+            <p><i class="fa-regular fa-location-dot"></i>Lamadrid 29,Chivilcoy,Bs As</p>
+            <p><i class="fa-regular fa-phone"></i>2346-426515</p>
+            <p><i class="fa-regular fa-envelope"></i>centromedicovillarino@gmail.com</p>
 
             <div class=container-seguinos>
                 <h2>¡Seguinos en nuestras redes!</h2>
@@ -88,6 +88,34 @@
 
     <!--FOOTER-->
     <%- include('../commons/footer-web') %>
+
+    <script>
+        document.getElementById('cobertura').addEventListener('change', function() {
+            const obraSocialId = this.value;
+    
+            fetch(`/medicos/por-obra-social/${obraSocialId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const medicosContainer = document.getElementById('medicos');
+                    medicosContainer.innerHTML = ''; // Limpiar el contenedor de médicos
+    
+                    if (data.length > 0) {
+                        data.forEach(medico => {
+                            medicosContainer.innerHTML += `
+                                <div class="tarjeta-medico">
+                                    <img src="${medico.foto}" alt="Foto de ${medico.nombre_medico}" class="medico-foto">
+                                    <h2 class="medico-nombre">${medico.nombre_medico}</h2>
+                                    <p class="medico-especialidad">Especialidad: ${medico.nombre_especialidad}</p>
+                                    <p class="medico-descripcion">Descripción: ${medico.descripcion}</p>
+                                    <button class="medico-contacto">Pedir turno</button>
+                                </div>`;
+                        });
+                    } else {
+                        medicosContainer.innerHTML = '<p>No hay médicos disponibles para esta obra social.</p>';
+                    }
+                });
+        });
+    </script>    
     
 </body>
 </html>

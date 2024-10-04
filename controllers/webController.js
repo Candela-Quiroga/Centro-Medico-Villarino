@@ -65,9 +65,40 @@ class WebController{
     }
 
     //Mostrar pagina "Pedir Turno"
-    mostrarPedirTurno(req,res){
-        res.render('web/pedirTurno', {title: 'Pedir Turno'});
+    // Mostrar página "Pedir Turno"
+    // Mostrar página "Pedir Turno"
+    // Mostrar página "Pedir Turno"
+    async mostrarPedirTurno(req, res) {
+        try {
+            // Llamar a listarMedicos
+            medicoModel.listarMedicos((medicos) => {
+                // Llamar a obtenerObrasSociales
+                pacienteModel.obtenerObrasSociales((obrasSociales) => {
+                    // Llamar a listarEspecialidades
+                    medicoModel.listarEspecialidades()
+                        .then((especialidades) => {
+                            // Renderizar la vista de pedir turno, pasando los médicos, las obras sociales y las especialidades
+                            res.render('web/pedirTurno', {
+                                title: 'Pedir Turno',
+                                medicos: medicos,
+                                obrasSociales: obrasSociales,
+                                especialidades: especialidades
+                            });
+                        })
+                        .catch((especialidadesError) => {
+                            console.error('Error al obtener especialidades:', especialidadesError);
+                            res.status(500).send('Error al cargar especialidades');
+                        });
+                });
+            });
+        } catch (error) {
+            console.error('Error al obtener datos para la página de pedir turno:', error);
+            res.status(500).send('Error al cargar la página de pedir turno');
+        }
     }
+
+
+
 
 
 }

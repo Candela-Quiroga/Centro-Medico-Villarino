@@ -34,32 +34,29 @@
 
       <div class="selects">
           <div class="filtros">
-              <label for="obra-social">Cobertura:</label>
-              <select id="obra-social">
-                  <option value="">Seleccionar</option>
-                  <option value="obra1">IOMA</option>
-                  <option value="obra2">OSDE</option>
-                  <option value="obra3">OSPE</option>
-              </select>
+            <label for="obra-social">Selecciona una Obra Social:</label>
+            <select id="obra-social" name="obra-social">
+                <% obrasSociales.forEach(obra => { %>
+                    <option value="<%= obra.id %>"><%= obra.nombre %></option>
+                <% }) %>
+            </select>
           </div>
   
           <div class="filtros">
-              <label for="especialidad">Especialidad:</label>
-              <select id="especialidad">
-                  <option value="">Seleccionar</option>
-                  <option value="cardiologia">Cardiología</option>
-                  <option value="oftalmologia">Oftalmología</option>
-                  <option value="dermatologia">Dermatología</option>
-              </select>
+            <label for="especialidad">Selecciona una Especialidad:</label>
+            <select id="especialidad" name="especialidad">
+                <% especialidades.forEach(especialidad => { %>
+                    <option value="<%= especialidad.id %>"><%= especialidad.nombre_especialidad %></option>
+                <% }) %>
+            </select>
           </div>
   
           <div class="filtros">
-              <label for="medico">Médico:</label>
-              <select id="medico">
-                  <option value="">Seleccionar</option>
-                  <option value="medico1">Dr. Esteban Mazzaro</option>
-                  <option value="medico2">Dra. Magdalena Bauschen</option>
-                  <option value="medico3">Dr. Jorge Biffis</option>
+              <label for="medico">Selecciona un Médico:</label>
+              <select id="medico" name="medico">
+                  <% medicos.forEach(medico => { %>
+                      <option value="<%= medico.id %>"><%= medico.nombre_medico %></option>
+                  <% }) %>
               </select>
           </div>
       </div>
@@ -148,13 +145,12 @@
     <div class="columna-derecha">
       <form action="/confirmacion" method="POST">
         <div class="formulario-grupo">
-          <label for="obra-social">Obra Social</label>
-          <select id="obra-social" name="obraSocial" required>
-            <option value="OSDE">OSDE</option>
-            <option value=" IOMA">IOMA</option>
-            <option value="Swiss Medical">Swiss Medical</option>
-            <option value="OSPE">OSPE</option>
-          </select>
+          <label for="obra-social">Selecciona una Obra Social:</label>
+            <select id="obra-social" name="obra-social">
+                <% obrasSociales.forEach(obra => { %>
+                    <option value="<%= obra.id %>"><%= obra.nombre %></option>
+                <% }) %>
+            </select>
         </div>
 
         <div class="formulario-grupo">

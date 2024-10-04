@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2024 a las 01:58:54
+-- Tiempo de generación: 05-10-2024 a las 00:23:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -129,6 +129,20 @@ CREATE TABLE `historia_clinica` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `horarios`
+--
+
+CREATE TABLE `horarios` (
+  `id` int(11) NOT NULL,
+  `id_medico` int(11) DEFAULT NULL,
+  `dia_semana` enum('Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo') DEFAULT NULL,
+  `hora_inicio` time DEFAULT NULL,
+  `hora_fin` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `medicos`
 --
 
@@ -138,7 +152,9 @@ CREATE TABLE `medicos` (
   `id_especialidad` int(11) NOT NULL,
   `telefono` varchar(255) NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
-  `descripcion` varchar(255) DEFAULT NULL
+  `descripcion` varchar(255) DEFAULT NULL,
+  `id_medicoPracticas` int(11) NOT NULL,
+  `id_horarios` int (11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -146,10 +162,10 @@ CREATE TABLE `medicos` (
 --
 
 INSERT INTO `medicos` (`id`, `id_usuario`, `id_especialidad`, `telefono`, `foto`, `descripcion`) VALUES
-(1, 1, 1, '2346 656140', '/public\\uploads\\1727403341051.png', 'Oftalmología y Guardia Oftalmológica'),
+(1, 1, 1, '2346 656140', '/public\\uploads\\1727930283779.png', 'Oftalmología y Guardia Oftalmológica'),
 (2, 2, 3, '2346 536788', '/public\\uploads\\1727403408752.png', 'Cardiología y Electrofisiología, Colocación de Marcapasos y Holter'),
 (3, 3, 2, '2346 456140', '/public\\uploads\\1727403449216.png', 'Neurocirugía y Tratamiento del Dolor'),
-(4, 4, 4, '2346 778354', '/public\\uploads\\1727403523304.png', 'Cirugía Ginecológica y Mastología, Cirugía Videolaparoscópica e Histeroscopia'),
+(4, 4, 4, '2346 778354', '/public\\uploads\\1727930326844.png', 'Cirugía Ginecológica y Mastología, Cirugía Videolaparoscópica e Histeroscopia'),
 (5, 5, 5, '2346 954140', '/public\\uploads\\1727403561703.png', 'Cirugía General'),
 (6, 6, 6, '2346 656140', '/public\\uploads\\1727403588528.png', 'Clínica Médica'),
 (7, 7, 7, '2346 656140', '/public\\uploads\\1727403607008.png', 'Nutrición');
@@ -465,6 +481,20 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 --
 
 --
+-- Indices de la tabla `medico_praticas`
+--
+ALTER TABLE `medico_practicas`
+ADD PRIMARY KEY (`id`);
+ADD KEY `id_practicas` (`id_practicas`);
+
+--
+-- Indices de la tabla `practicas`
+--
+ALTER TABLE `practicas`
+ADD PRIMARY KEY
+ADD KEY
+
+--
 -- Indices de la tabla `categoria_permiso`
 --
 ALTER TABLE `categoria_permiso`
@@ -490,12 +520,20 @@ ALTER TABLE `estado_turno`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `medicos`
 --
 ALTER TABLE `medicos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_especialidad` (`id_especialidad`);
+  ADD KEY `id_medicoPracticas` (`id_medicoPracticas`);
+  ADD KEY `id_horario` (`id_horario`);
 
 --
 -- Indices de la tabla `medicos_obrassociales`
@@ -510,6 +548,7 @@ ALTER TABLE `medicos_obrassociales`
 --
 ALTER TABLE `medicos_practicas`
   ADD PRIMARY KEY (`id`);
+  ADD KEY `id_practicas` (`id_practicas`);
 
 --
 -- Indices de la tabla `obras_sociales`
@@ -523,6 +562,7 @@ ALTER TABLE `obras_sociales`
 ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_obrasocial` (`id_obrasocial`);
+  ADD KEY `id_historiaClinica` (`id_historiaClinica`);
 
 --
 -- Indices de la tabla `practicas`
@@ -537,6 +577,7 @@ ALTER TABLE `turnos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_medico` (`id_medico`),
   ADD KEY `id_paciente` (`id_paciente`);
+  ADD KEY `id_estadoTurno` (`id_estadoTurno`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -566,6 +607,12 @@ ALTER TABLE `disponibilidad_medicos`
 --
 ALTER TABLE `especialidades`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `medicos`

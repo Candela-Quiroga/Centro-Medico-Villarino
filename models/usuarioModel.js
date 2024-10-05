@@ -42,7 +42,15 @@ class UsuarioModel{
     }
 
     listar(callback) {
-        const sql = "SELECT * FROM usuarios";
+        let sql = `
+            SELECT 
+                usuarios.id, 
+                usuarios.nombre, 
+                usuarios.email, 
+                categoria_permiso.nombre AS categoria
+            FROM usuarios
+            JOIN categoria_permiso ON usuarios.id_categoriaPermiso = categoria_permiso.id
+        `;
         conx.query(sql, (err, results) => {
             if (err) {
                 return callback(err, null);

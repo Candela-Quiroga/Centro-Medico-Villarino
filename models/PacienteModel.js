@@ -52,6 +52,19 @@ class PacienteModel{
         });
     }
 
+    async obtenerPacientePorDNI(dni, callback){
+        let sql = `SELECT * FROM pacientes WHERE dni = ?`;
+        conx.query(sql, [dni], async (err, results) => {
+            console.log(err);
+            console.log(results);
+            if (results.length === 0) {
+                callback(null);
+            } else {
+                callback(results[0]);
+            }
+        });
+    }
+
     async guardarPaciente(datos, callback){
         if(datos.id == 0){
             let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial) VALUES (?, ?, ?, ?, ?, ?)`;

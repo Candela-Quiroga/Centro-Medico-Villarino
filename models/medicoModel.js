@@ -1,5 +1,7 @@
 // models/medicoModel.js
 const conx = require('../database/db');
+const TurnoModel = require('../models/turnoModel');
+const turnoModel = new TurnoModel();
 
 class MedicoModel {
 
@@ -37,7 +39,6 @@ class MedicoModel {
             callback(results);
         });
     }
-    
 
     //para obtener los datos de un médico en específico
     async obtenerMedico(id, callback) {
@@ -102,8 +103,6 @@ class MedicoModel {
         }
     }
 
-    
-
     //eliminar un médico de la base de datos
     async eliminarMedico(id, callback) {
         let sql = `DELETE FROM medicos WHERE id = ?`;
@@ -132,7 +131,6 @@ class MedicoModel {
         });
     }
 
-
     //listado de todos los usuarios
     async listarUsuarios() {
         let sql = `SELECT usuarios.id, usuarios.nombre 
@@ -150,7 +148,39 @@ class MedicoModel {
             });
         });
     }
-    
+
+    //listado de médicos
+    async obtenerMedicosConTurnosPorFiltros(filtros, callback) {
+        let sql = `
+            SELECT 
+                medicos.*, 
+                usuarios.nombre AS nombre_medico, 
+                especialidades.nombre_especialidad
+            FROM medicos
+            JOIN usuarios ON medicos.id_usuario = usuarios.id
+            JOIN especialidades ON medicos.id_especialidad = especialidades.id
+            WHERE EXISTS(SELECT T.* FROM turnos T WHERE fecha_hora LIKE ?)
+        `;
+
+        // Con el WHERE EXISTS nos aseguramos de que realmente el medico tenga un turno en esa fecha
+        // Cuestion de directamente no mostrar medicos que no atienden...
+
+        let paramsSql = [`%${filtros.fecha}%`];
+
+        conx.query(sql, paramsSql, async (err, results) => {
+            if (err) {
+                console.error(err);
+                return callback([]);
+            }
+
+            // Ademas de devolver el medico, también devolvemos todos los turnos de ese medico
+            for (const medico of results) {
+                medico.turnos = await turnoModel.obtenerTurnoPorMedicoYFecha(medico.id, filtros.fecha);
+            }
+
+            callback(results);
+        });
+    }
 
 }
 

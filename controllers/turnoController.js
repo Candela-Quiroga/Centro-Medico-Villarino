@@ -103,7 +103,6 @@ class TurnoController {
             res.status(500).send("Error al cargar la información");
         });
     }
-
     
     //funcion para eliminar turnos
     async eliminarTurno(req, res) {
@@ -147,6 +146,59 @@ class TurnoController {
         doc.text(`Hora: ${turno.Hora}`);
         doc.text(`Motivo: ${turno.Motivo}`);
         doc.end();
+    }
+
+    async confirmarTurno(req, res) {
+        const { id_turno, id_obra_social, nombre, apellido, dni, telefono, correo } = req.body;
+
+        // Primer paso, validar si el turno realmente puede cambiar de estado a confirmado
+        turnoModel.obtenerTurno(id_turno, (turno) => {
+
+            if (turno.id_paciente != 0 || turno.id_estado != 1) {
+                res.json({
+                    "mensaje": "El turno ya se encuentra confirmado por otra persona, por favor seleccione otro horario"
+                });
+            }
+
+            // Paso 2, verificamos si el cliente ya existe
+            // SI ya existe, lo actualizamos con los nuevos datos (capaz cambio el telefono oo email)
+            // Si no existe, lo creamos
+            pacienteModel.obtenerPacientePorDNI(dni, (paciente) => {
+                // Como ya tenemos una funcion que guarda al paciente, solamente le pasamos el objeto que realmente deberia ir
+                var pacienteObjeto = {
+                    nombre: nombre,
+                    apellido: apellido,
+                    dni: dni,
+                    email: correo,
+                    telefono: telefono,
+                    // La edad habria que hacer que llegue por los dato,s ya que ahora no se manda
+                    edad: 0,
+                    id_obrasocial: id_obra_social,
+                    // En este caso le decimos, si no existe el paciente, id 0, y si existe, traeme el id que ya existe
+                    id: (paciente === null) ? 0 : paciente.id
+                }
+                
+                // Creamos o actualizamos el paciente en la DB
+                pacienteModel.guardarPaciente(pacienteObjeto, (datos) => {
+                    // Si el paciente ya existia, usamos el id existente, si no, el id que acabamos de ingresar
+                    const idClienteActualizado = pacienteObjeto.id || datos.insertId;
+
+                    turnoModel.confirmarTurno(id_turno, idClienteActualizado, (resultado) => {
+
+                        if (resultado === null) {
+                            res.json({
+                                "mensaje": "Hubo un error confirmado el turno. Contactese con un administrador"
+                            });
+                        }
+
+                        res.json({
+                            "success": true
+                        });
+                    })
+                })
+            })
+
+        });
     }
 };
 

@@ -920,6 +920,15 @@ label {
     width: 100%;
 }
 
+.filtros input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: white;
+    width: 90%;
+}
+
 .medico {
     display: flex;
     align-items: center;
@@ -970,6 +979,12 @@ label {
 
 .disponible {
     background-color: var(--VERDE_AGUA)
+}
+
+.turno[data-idturno].selected {box-shadow: 0px 0px 5px 1px black;}
+
+.turno[data-idturno]:hover{
+    cursor: pointer;
 }
 
 .no-disponible {
@@ -1805,3 +1820,5 @@ footer .contacto-footer .link-contacto:hover {
 footer .contacto-footer .link-contacto i {
     margin-right: 8px;
 }
+
+.ocultar{display: none;}

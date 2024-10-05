@@ -10,182 +10,462 @@
 
      <!--primer paso-->
 
-     <div class="container-pasoUno">
+    <div class="container-pasoUno">
       <h1>Datos del Turno</h1>
 
       <!-- Diagrama de Proceso -->
       <div class="diagrama-proceso">
           <div class="paso">
-              <div class="circulo">1</div>
-              <span>Datos del turno</span>
+            <div class="circulo verde">1</div>
+            <span>Seleccion del turno</span>
           </div>
           <div class="flecha"></div>
           <div class="paso">
-              <div class="circulo">2</div>
-              <span>Datos personales</span>
-          </div>
-          <div class="flecha"></div>
-          <div class="paso">
-              <div class="circulo">3</div>
-              <span>Revisión y confirmación</span>
+            <div class="circulo">2</div>
+            <span>Revision y confirmación</span>
           </div>
       </div>
       
-
       <div class="selects">
-          <div class="filtros">
-            <label for="obra-social">Selecciona una Obra Social:</label>
-            <select id="obra-social" name="obra-social">
-                <% obrasSociales.forEach(obra => { %>
-                    <option value="<%= obra.id %>"><%= obra.nombre %></option>
-                <% }) %>
-            </select>
-          </div>
-  
-          <div class="filtros">
-            <label for="especialidad">Selecciona una Especialidad:</label>
-            <select id="especialidad" name="especialidad">
-                <% especialidades.forEach(especialidad => { %>
-                    <option value="<%= especialidad.id %>"><%= especialidad.nombre_especialidad %></option>
-                <% }) %>
-            </select>
-          </div>
-  
-          <div class="filtros">
-              <label for="medico">Selecciona un Médico:</label>
-              <select id="medico" name="medico">
-                  <% medicos.forEach(medico => { %>
-                      <option value="<%= medico.id %>"><%= medico.nombre_medico %></option>
-                  <% }) %>
-              </select>
-          </div>
-      </div>
 
-      <div class="medico">
-          <div class="medico-info">
-              <img src="/public/img/medico-1.png" alt="Dr.Gustavo Iralde" class="foto-medico">
-              <div class="detalles">
-                  <h3>Dr. Gustavo Iralde</h3>
-                  <p>Especialidad: Cardiología</p>
-                  <p>Descripción: Especialista en enfermedades cardíacas, con más de 10 años de experiencia.</p>
-              </div>
-          </div>
-          <div class="turnos-disponibles">
-              <div class="turno disponible">09:00</div>
-              <div class="turno no-disponible">10:00</div>
-              <div class="turno disponible">11:00</div>
-              <div class="turno disponible">12:00</div>
-              <div class="turno no-disponible">14:00</div>
-          </div>
-      </div>
-      <div class="medico">
-          <div class="medico-info">
-              <img src="/public/img/medico-3.png" alt="Dr.Esteban Mazzaro" class="foto-medico">
-              <div class="detalles">
-                  <h3>Dr. Esteban Mazzaro</h3>
-                  <p>Especialidad: Oftalmología</p>
-                  <p>Descripción: Especialista en oftalmología, con más de 10 años de experiencia.</p>
-              </div>
-          </div>
-          <div class="turnos-disponibles">
-              <div class="turno disponible">09:00</div>
-              <div class="turno no-disponible">10:00</div>
-              <div class="turno disponible">11:00</div>
-              <div class="turno disponible">12:00</div>
-              <div class="turno no-disponible">14:00</div>
-          </div>
-      </div>
-      <button class="boton-siguiente">Siguiente</button>
-  </div>
-  
-  
-  <!--Segundo paso-->
-<div class="container-pasoDos">
-  <h1>Datos Personales</h1>
-  
-  <!-- Diagrama de Proceso -->
-  <div class="diagrama-proceso">
-    <div class="paso">
-        <div class="circulo">1</div>
-        <span>Datos del turno</span>
-    </div>
-    <div class="flecha"></div>
-    <div class="paso">
-        <div class="circulo">2</div>
-        <span>Datos personales</span>
-    </div>
-    <div class="flecha"></div>
-    <div class="paso">
-        <div class="circulo">3</div>
-        <span>Revisión y confirmación</span>
-    </div>
-</div>
- 
-  <div class="contenedor-detalle-formulario">
-    <!--Detalles del médico -->
-    <div class="columna-izquierda">
-      <div class="detalle-medico">
-        <h2>Fecha</h2>
-        <p>Viernes 4 de octubre, 09:15</p>
-        <button class="modificar-fecha">Modificar fecha</button>
-        
-        <h2>Médico</h2>
-        <div class="info-medico">
-          <img src="/public/img/medico-1.png" alt="Dr. Gustavo Iralde" class="foto-medico">
-          <div class="detalles-medico">
-            <h3>Dr. Gustavo Iralde</h3>
-            <p>Especialidad: Cardiólogo</p>
-            <p>Descripcion: Especialista en enfermedades cardíacas, con más de 10 años de experiencia </p>
-          </div>
+        <div class="filtros">
+          <label for="fecha">Fecha del turno:</label>
+          <input type="date" id="fecha">
         </div>
-      </div>
-    </div>
-    
-    <!-- datos del cliente -->
-    <div class="columna-derecha">
-      <form action="/confirmacion" method="POST">
-        <div class="formulario-grupo">
+        <!--
+        <div class="filtros">
           <label for="obra-social">Selecciona una Obra Social:</label>
-            <select id="obra-social" name="obra-social">
-                <% obrasSociales.forEach(obra => { %>
-                    <option value="<%= obra.id %>"><%= obra.nombre %></option>
-                <% }) %>
+          <select id="obra-social" name="obra-social">
+          </select>
+        </div>-->
+
+        <div class="filtros">
+          <label for="especialidad">Selecciona una Especialidad:</label>
+          <select id="especialidad" name="especialidad">
+          </select>
+        </div>
+
+        <div class="filtros">
+            <label for="medico">Selecciona un Médico:</label>
+            <select id="medico" name="medico">
             </select>
         </div>
+      </div>
 
-        <div class="formulario-grupo">
-          <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" name="nombre" required>
-        </div>
-
-        <div class="formulario-grupo">
-          <label for="apellido">Apellido:</label>
-          <input type="text" id="apellido" name="apellido" required>
-        </div>
-
-        <div class="formulario-grupo">
-          <label for="dni">DNI:</label>
-          <input type="text" id="dni" name="dni" required>
-        </div>
-
-        <div class="formulario-grupo">
-          <label for="telefono">Teléfono:</label>
-          <input type="tel" id="telefono" name="telefono" required>
-        </div>
-
-        <div class="formulario-grupo">
-          <label for="correo">Correo electrónico:</label>
-          <input type="email" id="correo" name="correo" required>
-        </div>
-
-        <button type="submit" class="boton-confirmar">Confirmar Turno</button>
-      </form>
+      <div class="medicos">
+        <p>Seleccione una fecha para ver los medicos disponibles</p>
+      </div>
+      <button class="boton-siguiente boton-siguiente-paso-1">Siguiente</button>
     </div>
-  </div>
-</div>
   
+  
+    <!--Segundo paso-->
+    <div class="container-pasoDos ocultar">
+      <h1>Datos Personales</h1>
+      
+      <!-- Diagrama de Proceso -->
+      <div class="diagrama-proceso">
+        <div class="paso">
+          <div class="circulo">1</div>
+          <span>Seleccion del turno</span>
+        </div>
+        <div class="flecha"></div>
+        <div class="paso">
+          <div class="circulo verde">2</div>
+          <span>Revision y confirmación</span>
+        </div>
+      </div>
+    
+      <div class="contenedor-detalle-formulario">
+        <!--Detalles del médico -->
+        <div class="columna-izquierda">
+          <div class="detalle-medico">
+            <h2>Fecha</h2>
+            <p>Viernes 4 de octubre, 09:15</p>
+            <h2>Médico</h2>
+            <div class="info-medico">
+              <img src="/public/img/medico-1.png" alt="Dr. Gustavo Iralde" class="foto-medico">
+              <div class="detalles-medico">
+                <h3>Dr. Gustavo Iralde</h3>
+                <p>Especialidad: Cardiólogo</p>
+                <p>Descripcion: Especialista en enfermedades cardíacas, con más de 10 años de experiencia </p>
+              </div>
+            </div>
+          </div>
+
+          <button class="modificar-fecha">Modificar datos</button>
+          
+        </div>
+        
+        <!-- datos del cliente -->
+        <div class="columna-derecha">
+          <div>
+            <div class="formulario-grupo">
+              <label for="obra-social">Selecciona una Obra Social:</label>
+                <select id="obra-social" name="obra-social">
+                </select>
+            </div>
+
+            <div class="formulario-grupo">
+              <label for="nombre">Nombre:</label>
+              <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="formulario-grupo">
+              <label for="apellido">Apellido:</label>
+              <input type="text" id="apellido" name="apellido" required>
+            </div>
+
+            <div class="formulario-grupo">
+              <label for="dni">DNI:</label>
+              <input type="text" id="dni" name="dni" required>
+            </div>
+
+            <div class="formulario-grupo">
+              <label for="telefono">Teléfono:</label>
+              <input type="tel" id="telefono" name="telefono" required>
+            </div>
+
+            <div class="formulario-grupo">
+              <label for="correo">Correo electrónico:</label>
+              <input type="email" id="correo" name="correo" required>
+            </div>
+
+            <button class="boton-confirmar">Confirmar Turno</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--FOOTER-->
     <%- include('../commons/footer-web') %>
+
+    <script>
+      // Inputs
+      const fechaInput = document.querySelector("#fecha");
+      const obraSocialSelect = document.querySelector("#obra-social");
+      const especialidadSelect = document.querySelector("#especialidad");
+      const medicoSelect = document.querySelector("#medico");
+
+      // Contenedores
+      const medicosContrainer = document.querySelector(".medicos");
+      const detalleMedicoPasoDos = document.querySelector(".detalle-medico");
+
+      // Botones
+      const botonSiguientePasoUno = document.querySelector(".boton-siguiente-paso-1");
+      const botonAtrasPasoDos = document.querySelector(".modificar-fecha");
+      const pasoUno = document.querySelector(".container-pasoUno");
+      const pasoDos = document.querySelector(".container-pasoDos");
+
+      // Confirmar turno
+      const confirmarTurno = document.querySelector(".boton-confirmar");
+      confirmarTurno.addEventListener("click", confirmarTurnoBaseDatos);
+
+      // Ir a paso 2
+      botonSiguientePasoUno.addEventListener("click", irAPasoDos);
+      // Ir a paso 1
+      botonAtrasPasoDos.addEventListener("click", irAPasoUno);
+
+      // Busca los medicos en la base de datos
+      fechaInput.addEventListener("change", obtenerMedicosPorFiltros);
+
+      // Con los medicos ya cargados en la base de datos, los filtra a partir de window.medico
+      especialidadSelect.addEventListener("change", cambiarEspecialidad);
+      medicoSelect.addEventListener("change", cargarMedicosEnLaPagina);
+
+      async function obtenerMedicosPorFiltros() {
+        const fecha = fechaInput.value;
+
+        // Si el usuario no pone una fecha valida...
+        if (fecha === "" || fecha === "0000-00-00") {
+          medicosContrainer.innerHTML = "<p>Seleccione una fecha para ver los medicos disponibles</p>";
+          return false;
+        }
+
+        const resultado = await fetch('obtenerDatosDeTurnosPorFiltros', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "fecha": fecha
+          })
+        });
+
+        const medicos = await resultado.json();
+        // La variable window actua como variable global, entonces lo que hacemos es guardar la ultima busqueda
+        // Para despues poder filtrar por demas cosas a traves de JavaScript en diferentes contextos de la app
+        // Y no llamar varias veces al mismo fetch
+        window.medicos = medicos;
+
+        // No se encontraron medicos para esa fecha
+        if (medicos.length === 0) {
+          medicosContrainer.innerHTML = "<p>No se encontraron medicos disponibles para esa fecha</p>";
+          return false;
+        }
+        
+        // Creamos los selects dependiendo los medicos elegidos
+        cargarSelectEspecialidades();
+        cargarSelectMedicos();
+
+        // Limpiamos el contenedor anterior para que no nos queden datos o mensajes basura
+        cargarMedicosEnLaPagina();
+      }
+
+      function cargarMedicosEnLaPagina() {
+        limpiarTurnoSeleccionado();
+        medicosContrainer.innerHTML = "";
+
+        // Buscamos los filtros actuales
+        const id_especialidad_seleccionado = especialidadSelect.value;
+        const id_medico_seleccionado = medicoSelect.value;
+
+        window.medicos.forEach(medico => {
+
+          // Si hay un id_especialidad_seleccionado, filtramos por ese especialidad
+          if (id_especialidad_seleccionado != 0 && id_especialidad_seleccionado != medico.id_especialidad) {
+            return false;
+          }
+
+          // Si hay un id_medico seleccionado, filtramos por ese medico
+          if (id_medico_seleccionado != 0 && id_medico_seleccionado != medico.id) {
+            return false;
+          }          
+
+          medicosContrainer.innerHTML += construirHTMLMedico(medico);
+        });
+      }
+
+      function cambiarEspecialidad() {
+        cargarSelectMedicos();
+        cargarMedicosEnLaPagina();
+      }
+
+      function construirHTMLMedico(medico) {
+        // Armamos el HTML de turnos a partir de esta variable
+        let turnos = "";
+        medico.turnos.forEach(turno => {
+
+          // Obtenemos solo la hora a partir de la fecha
+          let objetoFecha = new Date(turno.fecha_hora);
+          let textoFecha = objetoFecha.toTimeString();
+          let hora = textoFecha.split(' ')[0].substr(0, 5);
+          
+          // Vamos a validar si el turno realmente esta disponible
+          if (turno.id_estado === 1 && turno.id_paciente === 0) {
+            turnos += `<div onclick="seleccionarTurno(${turno.id})" data-fecha="${turno.fecha_hora}" data-idmedico="${turno.id_medico}" data-idturno="${turno.id}" class="turno disponible">${hora}</div>`;
+          } else {
+            turnos += `<div class="turno no-disponible">${hora}</div>`;
+          }
+
+        });
+
+        return `<div class="medico">
+            <div class="medico-info">
+                <img src="${medico.foto}" alt="${medico.nombre_medico}" class="foto-medico">
+                <div class="detalles">
+                    <h3>${medico.nombre_medico}</h3>
+                    <p>Especialidad: ${medico.nombre_especialidad}</p>
+                    <p>Descripción: ${medico.descripcion}</p>
+                </div>
+            </div>
+            <div class="turnos-disponibles">
+              ${turnos}
+            </div>
+        </div>`;
+      }
+
+      function cargarSelectEspecialidades() {
+        limpiarTurnoSeleccionado();
+        // Limpiamos el select de especialidades por si quedaron datos basura
+        especialidadSelect.innerHTML = `<option value="0">Seleccione</option>`;
+
+        let especialidades = [];
+        
+        window.medicos.forEach(medico => {
+          // Si la obra social no esta cargada ya en el select...
+          if (!especialidades.includes(medico.id_especialidad)) {
+            especialidades.push(medico.id_especialidad);
+            especialidadSelect.innerHTML += `<option value="${medico.id_especialidad}">${medico.nombre_especialidad}</option>`;
+          }
+
+        });
+      }
+
+      function cargarSelectMedicos() {
+        limpiarTurnoSeleccionado();
+        // Limpiamos el select de medicos por si quedaron datos basura
+        medicoSelect.innerHTML = `<option value="0">Seleccione</option>`;
+        
+        const id_especialidad_seleccionado = especialidadSelect.value;
+
+        window.medicos.forEach(medico => {
+          // Si hay un id_especialidad_seleccionado, filtramos por ese especialidad
+          if (id_especialidad_seleccionado != 0 && id_especialidad_seleccionado != medico.id_especialidad) {
+            return false;
+          }
+
+          medicoSelect.innerHTML += `<option value="${medico.id}">${medico.nombre_medico}</option>`;
+        });
+      }
+      
+      // Funcion encargada de seleccionar un turno 
+      function seleccionarTurno(id) {
+        limpiarTurnoSeleccionado();
+
+        const turnoSeleccionado = document.querySelector(`.turno[data-idturno="${id}"]`);
+
+        if (turnoSeleccionado === null) {
+          alert ("Hubo un error al seleccionar su turno");
+          // Para utilizar en otras funciones...
+          window.id_turno_seleccionado = 0;
+          return false;
+        }
+
+        const idMedicoSeleccionado = turnoSeleccionado.getAttribute("data-idmedico");
+        const fechaHoraSeleccionada = turnoSeleccionado.getAttribute("data-fecha");
+
+        armarTarjetaPasoDos(idMedicoSeleccionado, fechaHoraSeleccionada);
+
+        window.id_turno_seleccionado = id;
+        turnoSeleccionado.classList.add("selected");
+      }
+
+      // Funcion encargada de limpiar un turno seleccionado
+      // ¿Cuando se usaria? Cuando se cambien los filtros
+      function limpiarTurnoSeleccionado() {
+        const turnos = document.querySelectorAll(".turno[data-idturno]");
+
+        turnos.forEach(turno => {
+          turno.classList.remove("selected");
+        });
+
+        window.id_turno_seleccionado = 0;        
+      }
+    
+      function irAPasoUno() {
+        pasoUno.classList.remove("ocultar");
+        pasoDos.classList.add("ocultar");
+      }
+
+      function irAPasoDos() {
+        // Verificamos si efectivamente puede ir al paso 2
+        if (window.id_turno_seleccionado === undefined || window.id_turno_seleccionado === 0) {
+          alert ("Por favor seleccione un turno");
+          return false;
+        }
+
+        pasoUno.classList.add("ocultar");
+        pasoDos.classList.remove("ocultar");
+      }
+    
+      function armarTarjetaPasoDos(id_medico, fecha) {
+        let medicoSeleccionado = "";
+
+        window.medicos.forEach(medico => {
+          if (medico.id == id_medico) {
+            medicoSeleccionado = medico;
+          }
+        });
+
+        detalleMedicoPasoDos.innerHTML = `
+            <h2>Fecha</h2>
+            <p>${fecha} PONER FECHA CORRECTA</p>
+            <h2>Médico</h2>
+            <div class="info-medico">
+              <img src="${medicoSeleccionado.foto}" alt="${medicoSeleccionado.nombre_medico}" class="foto-medico">
+              <div class="detalles-medico">
+                <h3>${medicoSeleccionado.nombre_medico}</h3>
+                <p>Especialidad: ${medicoSeleccionado.nombre_especialidad}</p>
+                <p>Descripcion: ${medicoSeleccionado.descripcion}</p>
+              </div>
+            </div>          
+        `;
+      }
+    
+      async function confirmarTurnoBaseDatos() {
+        // Comprobacion para que el usuario no haga dos veces click
+        //if (window.estaEnviandoTurno === 1) return;
+        window.estaEnviandoTurno = 1;
+
+        const id_turno = window.id_turno_seleccionado;
+
+        if (id_turno === 0) {
+          alert("Hubo un error al seleccionar el turno, por favor vuelva a intentarlo en unos minutos...");
+          // Si hay un error, el usuario tiene que poder hacer click en el boton
+          window.estaEnviandoTurno = 0;
+          return false;
+        }
+
+        const obraSocialValor = document.querySelector("#obra-social").value ?? 0;
+        const nombreValor = document.querySelector("#nombre").value;
+        const apellidoValor = document.querySelector("#apellido").value;
+        const dniValor = document.querySelector("#dni").value;
+        const telefonoValor = document.querySelector("#telefono").value;
+        const correoValor = document.querySelector("#correo").value;
+
+        if (nombreValor === "") {
+          alert ("Por favor ingrese su nombre");
+          // Si hay un error, el usuario tiene que poder hacer click en el boton
+          window.estaEnviandoTurno = 0;
+          return false;
+        }
+
+        if (apellidoValor === "") {
+          alert ("Por favor ingrese su apellido");
+          // Si hay un error, el usuario tiene que poder hacer click en el boton
+          window.estaEnviandoTurno = 0;
+          return false;
+        }
+
+        if (dniValor === "") {
+          alert ("Por favor ingrese su dni");
+          // Si hay un error, el usuario tiene que poder hacer click en el boton
+          window.estaEnviandoTurno = 0;
+          return false;
+        }
+
+        if (telefonoValor === "") {
+          alert ("Por favor ingrese su telefono");
+          // Si hay un error, el usuario tiene que poder hacer click en el boton
+          window.estaEnviandoTurno = 0;
+          return false;
+        }
+
+        if (correoValor === "") {
+          alert ("Por favor ingrese su correo electronico");
+          // Si hay un error, el usuario tiene que poder hacer click en el boton
+          window.estaEnviandoTurno = 0;
+          return false;
+        }
+
+        const resultado = await fetch('/turnos/confirmar', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "id_turno": id_turno,
+            "id_obra_social": obraSocialValor,
+            "nombre": nombreValor,
+            "apellido": apellidoValor,
+            "dni": dniValor,
+            "telefono": telefonoValor,
+            "correo": correoValor
+          })
+        });
+
+        const data = await resultado.json();
+
+        if (data.success) {
+          alert ("Su turno se ha confirmado correctamente");
+          location.reload();
+        } else {
+          // Si hay un error, el usuario tiene que poder hacer click en el boton
+          window.estaEnviandoTurno = 0;
+          alert(data.mensaje);
+        }
+      }
+    </script>
     
 </body>

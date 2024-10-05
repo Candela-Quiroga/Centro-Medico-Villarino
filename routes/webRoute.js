@@ -26,6 +26,9 @@ router.get('/contacto', webController.mostrarContacto);
 //ruta a Pedir Turno
 router.get('/pedirTurno', webController.mostrarPedirTurno);
 
+//ruta a Pedir Turno
+router.post('/obtenerDatosDeTurnosPorFiltros', webController.cargarDatosTurno);
+
 //Obtener médicos por obra social
 router.get('/medicos/por-obra-social/:obraSocialId', medicoController.obtenerMedicosPorObraSocial);
 

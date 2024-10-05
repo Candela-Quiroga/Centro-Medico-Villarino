@@ -36,7 +36,6 @@ class WebController{
     }
 
     //Mostrar pagina coberturas
-
     async mostrarCoberturas(req, res) {
         try {
             // Llamar a listarMedicos y obtenerObrasSociales en paralelo
@@ -57,50 +56,33 @@ class WebController{
         }
     }
 
-
-
     //Mostrar pagina contacto
     mostrarContacto(req,res){
         res.render('web/contacto', {title: 'Contacto'});
     }
 
     //Mostrar pagina "Pedir Turno"
-    // Mostrar página "Pedir Turno"
-    // Mostrar página "Pedir Turno"
-    // Mostrar página "Pedir Turno"
     async mostrarPedirTurno(req, res) {
-        try {
-            // Llamar a listarMedicos
-            medicoModel.listarMedicos((medicos) => {
-                // Llamar a obtenerObrasSociales
-                pacienteModel.obtenerObrasSociales((obrasSociales) => {
-                    // Llamar a listarEspecialidades
-                    medicoModel.listarEspecialidades()
-                        .then((especialidades) => {
-                            // Renderizar la vista de pedir turno, pasando los médicos, las obras sociales y las especialidades
-                            res.render('web/pedirTurno', {
-                                title: 'Pedir Turno',
-                                medicos: medicos,
-                                obrasSociales: obrasSociales,
-                                especialidades: especialidades
-                            });
-                        })
-                        .catch((especialidadesError) => {
-                            console.error('Error al obtener especialidades:', especialidadesError);
-                            res.status(500).send('Error al cargar especialidades');
-                        });
-                });
-            });
-        } catch (error) {
-            console.error('Error al obtener datos para la página de pedir turno:', error);
-            res.status(500).send('Error al cargar la página de pedir turno');
-        }
+        // Como no se sabe que datos va a elegir el usuario, obligatoriamente tenemos que crear la web
+        // Sin ningun dato, e ir cargandolo de a poco a medida de que el usuario seleccione datos
+        res.render('web/pedirTurno', {
+            title: 'Pedir Turno'
+        });
     }
 
+    //Devuelve los medicos, obra sociales y especialidades disponibles con los filtros elegidos
+    async cargarDatosTurno(req, res) {
+        try {
 
+            medicoModel.obtenerMedicosConTurnosPorFiltros(req.body, (medicos) => {
+                res.json(medicos);
+            });
 
-
-
+        } catch (error) {
+            console.error('Error al obtener datos para la página de coberturas:', error);
+            res.status(500).send('Error al cargar la página de coberturas');
+        }     
+    }
 }
 
 module.exports = WebController;

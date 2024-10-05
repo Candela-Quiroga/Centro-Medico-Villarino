@@ -90,7 +90,35 @@ class TurnoModel{
             }
         });
     }
-    
+
+    async obtenerTurnoPorMedicoYFecha(id_medico, fecha){
+        return new Promise((resolve, reject) => {
+            let sql = `SELECT * FROM turnos WHERE id_medico = ? and fecha_hora LIKE ?`;
+            conx.query(sql, [id_medico, `%${fecha}%`], async (err, results) => {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                }
+
+                resolve(results);
+            });
+        });
+    }
+
+    async confirmarTurno(id_turno, id_cliente, callback){
+        const ID_ESTADO_CONFIRMADO = 3;
+
+        let sql = `UPDATE turnos SET id_paciente = ?, id_estado = ? WHERE id = ?`;
+
+        conx.query(sql, [id_cliente, ID_ESTADO_CONFIRMADO, id_turno], async (err, results)=>{
+            if (err) {
+                console.error(err);
+                callback(null);
+            } else {
+                callback(results);
+            }
+        });
+    }
 }
 
 module.exports = TurnoModel;

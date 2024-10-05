@@ -532,7 +532,7 @@ ALTER TABLE `medicos`
   ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_especialidad` (`id_especialidad`),
   ADD KEY `id_medicoPracticas` (`id_medicoPracticas`),
-  ADD KEY `id_horario` (`id_horario`);
+  ADD KEY `id_horarios` (`id_horarios`);
 
 --
 -- Indices de la tabla `medicos_obrassociales`

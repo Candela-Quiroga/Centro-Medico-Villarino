@@ -312,14 +312,14 @@ INSERT INTO `medicos_obrassociales` (`id`, `id_medico`, `id_obraSocial`) VALUES
 CREATE TABLE `medicos_practicas` (
   `id` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
-  `id_practica` int(11) NOT NULL
+  `id_practicas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `medicos_practicas`
 --
 
-INSERT INTO `medicos_practicas` (`id`, `id_medico`, `id_practica`) VALUES
+INSERT INTO `medicos_practicas` (`id`, `id_medico`, `id_practicas`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 2),
@@ -481,7 +481,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 --
 
 --
--- Indices de la tabla `medico_praticas`
+-- Indices de la tabla `medico_practicas`
 --
 ALTER TABLE `medicos_practicas`
 ADD PRIMARY KEY (`id`),
@@ -491,8 +491,7 @@ ADD KEY `id_practicas` (`id_practicas`);
 -- Indices de la tabla `practicas`
 --
 ALTER TABLE `practicas`
-ADD PRIMARY KEY
-ADD KEY
+ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `categoria_permiso`

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insertar Usuario</title>
 </head>
-<%- include('../commons/head')%>
 <body>
     <h1>Insertar Usuario</h1>
     <div class=" crearUsuarioForm"> 
@@ -15,7 +14,7 @@
             <input type="text" name="nombre" id="usuario_nombre" required><br>
 
             <label for="email">Email:</label>
-            <input type="email" name="email" id="usuario_email" autocomplete="new-email" required><br>
+            <input type="email" name="email" id="usuario_email" autocomplete="new-email" required minlength="8"><br>
 
             <label for="password">Contraseña:</label>
             <input type="password" name="password" id="usuario_password" autocomplete="new-password" ><br>

@@ -312,14 +312,15 @@ INSERT INTO `medicos_obrassociales` (`id`, `id_medico`, `id_obraSocial`) VALUES
 CREATE TABLE `medicos_practicas` (
   `id` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
-  `id_practica` int(11) NOT NULL
+  `id_practicas` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `medicos_practicas`
 --
 
-INSERT INTO `medicos_practicas` (`id`, `id_medico`, `id_practica`) VALUES
+INSERT INTO `medicos_practicas` (`id`, `id_medico`, `id_practicas`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 2),
@@ -384,7 +385,8 @@ CREATE TABLE `pacientes` (
   `edad` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
-  `id_obrasocial` int(11) NOT NULL
+  `id_obrasocial` int(11) NOT NULL,
+  `id_historiaClinica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -430,14 +432,14 @@ CREATE TABLE `turnos` (
   `id_paciente` int(11) NOT NULL,
   `fecha_hora` datetime NOT NULL,
   `motivo` varchar(255) NOT NULL,
-  `id_estado` int(11) NOT NULL
+  `id_estadoTurno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `turnos`
 --
 
-INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `motivo`, `id_estado`) VALUES
+INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `motivo`, `id_estadoTurno`) VALUES
 (1, 1, 1, '0000-00-00 00:00:00', 'Dolor de pata', 4),
 (2, 5, 2, '0000-00-00 00:00:00', 'Dolor de cabeza', 2),
 (3, 3, 1, '0000-00-00 00:00:00', 'Malestar estomacal', 3),
@@ -481,18 +483,17 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 --
 
 --
--- Indices de la tabla `medico_praticas`
+-- Indices de la tabla `medicos_practicas`
 --
-ALTER TABLE `medico_practicas`
-ADD PRIMARY KEY (`id`);
+ALTER TABLE `medicos_practicas`
+ADD KEY `id_medico` (`id_medico`),
 ADD KEY `id_practicas` (`id_practicas`);
 
 --
 -- Indices de la tabla `practicas`
 --
 ALTER TABLE `practicas`
-ADD PRIMARY KEY
-ADD KEY
+ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `categoria_permiso`
@@ -531,9 +532,9 @@ ALTER TABLE `horarios`
 ALTER TABLE `medicos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_especialidad` (`id_especialidad`);
-  ADD KEY `id_medicoPracticas` (`id_medicoPracticas`);
-  ADD KEY `id_horario` (`id_horario`);
+  ADD KEY `id_especialidad` (`id_especialidad`),
+  ADD KEY `id_medicoPracticas` (`id_medicoPracticas`),
+  ADD KEY `id_horarios` (`id_horarios`);
 
 --
 -- Indices de la tabla `medicos_obrassociales`
@@ -543,12 +544,6 @@ ALTER TABLE `medicos_obrassociales`
   ADD KEY `id_medico` (`id_medico`),
   ADD KEY `id_obraSocial` (`id_obraSocial`);
 
---
--- Indices de la tabla `medicos_practicas`
---
-ALTER TABLE `medicos_practicas`
-  ADD PRIMARY KEY (`id`);
-  ADD KEY `id_practicas` (`id_practicas`);
 
 --
 -- Indices de la tabla `obras_sociales`
@@ -561,14 +556,8 @@ ALTER TABLE `obras_sociales`
 --
 ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_obrasocial` (`id_obrasocial`);
+  ADD KEY `id_obrasocial` (`id_obrasocial`),
   ADD KEY `id_historiaClinica` (`id_historiaClinica`);
-
---
--- Indices de la tabla `practicas`
---
-ALTER TABLE `practicas`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `turnos`
@@ -576,7 +565,7 @@ ALTER TABLE `practicas`
 ALTER TABLE `turnos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_medico` (`id_medico`),
-  ADD KEY `id_paciente` (`id_paciente`);
+  ADD KEY `id_paciente` (`id_paciente`),
   ADD KEY `id_estadoTurno` (`id_estadoTurno`);
 
 --

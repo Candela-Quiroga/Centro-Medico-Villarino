@@ -484,7 +484,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 -- Indices de la tabla `medico_praticas`
 --
 ALTER TABLE `medicos_practicas`
-ADD PRIMARY KEY (`id`);
+ADD PRIMARY KEY (`id`),
 ADD KEY `id_practicas` (`id_practicas`);
 
 --
@@ -531,8 +531,8 @@ ALTER TABLE `horarios`
 ALTER TABLE `medicos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_especialidad` (`id_especialidad`);
-  ADD KEY `id_medicoPracticas` (`id_medicoPracticas`);
+  ADD KEY `id_especialidad` (`id_especialidad`),
+  ADD KEY `id_medicoPracticas` (`id_medicoPracticas`),
   ADD KEY `id_horario` (`id_horario`);
 
 --
@@ -547,7 +547,7 @@ ALTER TABLE `medicos_obrassociales`
 -- Indices de la tabla `medicos_practicas`
 --
 ALTER TABLE `medicos_practicas`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
   ADD KEY `id_practicas` (`id_practicas`);
 
 --
@@ -561,7 +561,7 @@ ALTER TABLE `obras_sociales`
 --
 ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_obrasocial` (`id_obrasocial`);
+  ADD KEY `id_obrasocial` (`id_obrasocial`),
   ADD KEY `id_historiaClinica` (`id_historiaClinica`);
 
 --
@@ -576,7 +576,7 @@ ALTER TABLE `practicas`
 ALTER TABLE `turnos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_medico` (`id_medico`),
-  ADD KEY `id_paciente` (`id_paciente`);
+  ADD KEY `id_paciente` (`id_paciente`),
   ADD KEY `id_estadoTurno` (`id_estadoTurno`);
 
 --

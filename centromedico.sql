@@ -483,7 +483,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 --
 -- Indices de la tabla `medico_praticas`
 --
-ALTER TABLE `medico_practicas`
+ALTER TABLE `medicos_practicas`
 ADD PRIMARY KEY (`id`);
 ADD KEY `id_practicas` (`id_practicas`);
 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de HH.CC.</title>
+    <link rel="stylesheet" href="/public/css/pacientes.css">
+
+    <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!--Boostrap para dar estilos a las tablas e inputs-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container contenedor-listado-pacientes mt-5 contenedor">
+        <h1 class="text-center mb-4">Listado de HH.CC.</h1>
+
+        <div class="mb-3">
+            <a class="btn btn-agregar" href="/historiasclinicas/agregar/0">Agregar Historia Clinica</a>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Paciente</th>
+                    <th>Nro de afiliado</th>
+                    <th>Sexo</th>
+                    <th>Nacimiento</th>
+                    <th>Edad</th>
+                    <th colspan="3">Domicilio</th>
+                    <th>Turno</th>
+                    <th>Antecedentes Personales</th>
+                    <th>Medicacion Actual</th>
+                    <th>Examen Clinico</th>
+                    <th>Diagnistico</th>
+                    <th>Tratamiento</th>
+                    <th>Acciones</th>
+                </tr>
+                    <!-- Subcolumnas de Domicilio -->
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Calle</th>
+                    <th>Altura</th>
+                    <th>Ciudad</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% historiaClinica.forEach(function(historiaClinica) { %>
+                    <tr>
+                        <td><%= historiaClinica.id %></td>
+                        <% let date = new Date(historiaClinica.fecha) %>
+                        <td><%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %></td>
+                        <td><%= historiaClinica.nombre_paciente %></td>
+                        <th><%= historiaClinica.nro_afiliado %></th>
+                        <th><%= historiaClinica.sexo %></th>
+                        <% let date2 = new Date(historiaClinica.fecha_de_nacimiento) %>
+                        <td><%= date2.getDate() %> / <%= date2.getMonth()+1 %> / <%= date2.getFullYear() %></td>
+                        <td><%= historiaClinica.edad %></td>
+                        <td><%= historiaClinica.calle %></td>
+                        <td><%= historiaClinica.altura %></td>
+                        <td><%= historiaClinica.ciudad %></td>
+                        <td><%= historiaClinica.id_turno %></td>
+                        <td><%= historiaClinica.antecedentes_personales %></td>
+                        <td><%= historiaClinica.medicacion_actual %></td>
+                        <td><%= historiaClinica.examen_clinico %></td>
+                        <td><%= historiaClinica.diagnostico %></td>
+                        <td><%= historiaClinica.tratamiento %></td>
+                        <td>
+                            <a class="btn btn-sm btn-editar" href="/historiasclinicas/editar/<%= historiaClinica.id %>">Editar</a>
+                            <button class="btnEliminar btn btn-sm btn-eliminar" data-id="<%= historiaClinica.id %>">Eliminar</button>
+                            <button class="btnImprimir btn btn-sm btn-imprimir" data-id="<%= historiaClinica.id %>">Imprimir</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.querySelectorAll('.btnEliminar').forEach(button => {
+            button.addEventListener('click', async() => {
+                const pacienteId = button.getAttribute('data-id');
+                if (confirm('¿Estás seguro de que deseas eliminar esta H.C.?')) {
+                    const response = await fetch(`/historiasclinicas/eliminar/${pacienteId}`, {
+                        method: 'DELETE'
+                    });
+                    location.reload(); // Recargar la página después de eliminar
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

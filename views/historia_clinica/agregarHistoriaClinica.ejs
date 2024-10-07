@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Historia Clinica</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Enlace a Bootstrap -->
+    <link rel="stylesheet" href="/public/css/pacientes.css"> 
+</head>
+<body>
+    <div class="container-fluid mt-5 contenedor">
+        <h1 class="text-center">Agregar Historia Clinica</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Paciente</th>
+                        <th>Nro de afiliado</th>
+                        <th>Sexo</th>
+                        <th>Nacimiento</th>
+                        <th>Edad</th>
+                        <th>Calle</th>
+                        <th>Altura</th>
+                        <th>Ciudad</th>
+                        <th>Turno</th>
+                        <th>Antecedentes Personales</th>
+                        <th>Medicacion Actual</th>
+                        <th>Examen Clinico</th>
+                        <th>Diagnistico</th>
+                        <th>Tratamiento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="date" id="fecha" readonly></td>                        
+                        <td>
+                            <select id="id_paciente">
+                                <% pacientes.forEach(paciente => { %>
+                                    <option value="<%= paciente.id %>"><%= paciente.nombre %></option>
+                                <% }) %>
+                            </select>
+                        </td>
+                        <td><input id="nro_afiliado" placeholder="" ></td>
+                        <td><input id="sexo" placeholder="" ></td>
+                        <% let date = new Date(historiaClinica.fecha_de_nacimiento) %>
+                        <td><input type="date" id="fecha_de_nacimiento" value="<%= date.getFullYear() %>-<%= (date.getMonth()+1).toString().padStart(2, '0') %>-<%= date.getDate().toString().padStart(2, '0') %>"></td>                        
+                        <td><input id="edad" placeholder=""></td>
+                        <td><input id="calle" placeholder="(Domicilio)" ></td>
+                        <td><input id="altura" placeholder="(Domicilio)" ></td>
+                        <td><input id="ciudad" placeholder="(Domicilio)" ></td>
+                        <td><input id="id_turno" placeholder=""></td>
+                        <td><input id="antecedentes_personales" placeholder=""></td>
+                        <td><input id="medicacion_actual" placeholder=""></td>
+                        <td><input id="examen_clinico" placeholder=""></td>
+                        <td><input id="diagnostico" placeholder="Diagnostico"></td>
+                        <td><input id="tratamiento" placeholder="Tratamiento"></td>
+                        
+                        <td>
+                            <button class="btn btn-primary guardar">Guardar</button>
+                            <button class="btn btn-secondary">
+                                <a href="/historiasclinicas" style="text-decoration: none; color: inherit;">Cancelar</a>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+
+        // Establece la fecha actual en el campo de fecha al cargar la página
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const fechaInput = document.getElementById('fecha');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = (today.getMonth() + 1).toString().padStart(2, '0');
+            const day = today.getDate().toString().padStart(2, '0');
+            fechaInput.value = `${year}-${month}-${day}`;
+        });
+
+        const botonGuardar = document.querySelector(".guardar");
+        botonGuardar.addEventListener("click", async () => {
+            const historiaClinicaFecha = document.querySelector("#fecha").value.trim();
+            const historiaClinicaId_paciente = document.querySelector("#id_paciente").value.trim();
+            const historiaClinicaNro_afiliado = document.querySelector("#nro_afiliado").value.trim();
+            const historiaClinicaSexo = document.querySelector("#sexo").value.trim();
+            const historiaClinicaFecha_de_nacimiento = document.querySelector("#fecha_de_nacimiento").value.trim();
+            const historiaClinicaEdad = document.querySelector("#edad").value.trim();
+            const historiaClinicaCalle = document.querySelector("#calle").value.trim();
+            const historiaClinicaAltura = document.querySelector("#altura").value.trim();
+            const historiaClinicaCiudad = document.querySelector("#ciudad").value.trim();
+            const historiaClinicaId_turno = document.querySelector("#id_turno").value.trim();
+            const historiaClinicaAntecendentes_personales = document.querySelector("#antecedentes_personales").value.trim();
+            const historiaClinicaMedicacion_actual = document.querySelector("#medicacion_actual").value.trim();
+            const historiaClinicaExamen_clinico = document.querySelector("#examen_clinico").value.trim();
+            const historiaClinicaDiagnostico = document.querySelector("#diagnostico").value.trim();
+            const historiaClinicaTratamiento = document.querySelector("#tratamiento").value.trim();
+
+
+            // Si todo es válido, enviamos los datos
+            const datos = {
+                id: <%= historiaClinica.id %>,
+                fecha:historiaClinicaFecha,
+                id_paciente:historiaClinicaId_paciente,
+                nro_afiliado:historiaClinicaNro_afiliado,
+                sexo:historiaClinicaSexo,
+                fecha_de_nacimiento:historiaClinicaFecha_de_nacimiento,
+                edad:historiaClinicaEdad,
+                calle:historiaClinicaCalle,
+                altura:historiaClinicaAltura,
+                ciudad:historiaClinicaCiudad,
+                id_turno:historiaClinicaId_turno,
+                antecedentes_personales:historiaClinicaAntecendentes_personales,
+                medicacion_actual:historiaClinicaMedicacion_actual,
+                examen_clinico:historiaClinicaExamen_clinico,
+                diagnostico:historiaClinicaDiagnostico,
+                tratamiento:historiaClinicaTratamiento
+            };
+
+            const results = await fetch('/historiasclinicas/agregar/<%= historiaClinica.id %>', {
+                method: 'POST',
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await results.json();
+            if (data.success) {
+                location.href = "/historiasclinicas";
+                console.log(data);
+            } else {
+                alert("Hubo un problema con los datos");
+            }
+        });
+    </script>
+</body>
+</html>

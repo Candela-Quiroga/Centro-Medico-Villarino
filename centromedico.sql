@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2024 a las 00:23:19
+-- Tiempo de generación: 07-10-2024 a las 20:45:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -117,7 +117,9 @@ CREATE TABLE `historia_clinica` (
   `sexo` varchar(255) NOT NULL,
   `fecha_de_nacimiento` date NOT NULL,
   `edad` int(11) NOT NULL,
-  `domicilio` varchar(255) NOT NULL,
+  `calle` varchar(255) NOT NULL,
+  `altura` int(11) NOT NULL,
+  `ciudad` varchar(255) NOT NULL,
   `id_turno` int(11) NOT NULL,
   `antecedentes_personales` varchar(255) NOT NULL,
   `medicacion_actual` varchar(255) NOT NULL,
@@ -125,6 +127,15 @@ CREATE TABLE `historia_clinica` (
   `diagnostico` varchar(255) NOT NULL,
   `tratamiento` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `historia_clinica`
+--
+
+INSERT INTO `historia_clinica` (`id`, `fecha`, `id_paciente`, `nro_afiliado`, `sexo`, `fecha_de_nacimiento`, `edad`, `calle`, `altura`, `ciudad`, `id_turno`, `antecedentes_personales`, `medicacion_actual`, `examen_clinico`, `diagnostico`, `tratamiento`) VALUES
+(1, '2024-10-07', 1, '321654', 'Masculino', '2003-03-15', 21, 'Inmigrantes', 447, 'Suipacha', 1, 'Asesino Serial', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.'),
+(2, '2024-10-07', 2, '654654654', 'Femenino', '2002-09-26', 22, 'Av. Villarino', 1234, 'Chivilcoy', 2, 'Prófuga', 'Ninguna', 'Se resiste', 'En espera', 'Ninguno'),
+(3, '2024-10-07', 3, '321321', 'Masculino', '2001-01-18', 23, 'Inmigrantes', 447, 'Suipacha', 1, 'Prófugo', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.');
 
 -- --------------------------------------------------------
 
@@ -154,21 +165,21 @@ CREATE TABLE `medicos` (
   `foto` varchar(255) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   `id_medicoPracticas` int(11) NOT NULL,
-  `id_horarios` int (11) NOT NULL
+  `id_horarios` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `medicos`
 --
 
-INSERT INTO `medicos` (`id`, `id_usuario`, `id_especialidad`, `telefono`, `foto`, `descripcion`) VALUES
-(1, 1, 1, '2346 656140', '/public\\uploads\\1727930283779.png', 'Oftalmología y Guardia Oftalmológica'),
-(2, 2, 3, '2346 536788', '/public\\uploads\\1727403408752.png', 'Cardiología y Electrofisiología, Colocación de Marcapasos y Holter'),
-(3, 3, 2, '2346 456140', '/public\\uploads\\1727403449216.png', 'Neurocirugía y Tratamiento del Dolor'),
-(4, 4, 4, '2346 778354', '/public\\uploads\\1727930326844.png', 'Cirugía Ginecológica y Mastología, Cirugía Videolaparoscópica e Histeroscopia'),
-(5, 5, 5, '2346 954140', '/public\\uploads\\1727403561703.png', 'Cirugía General'),
-(6, 6, 6, '2346 656140', '/public\\uploads\\1727403588528.png', 'Clínica Médica'),
-(7, 7, 7, '2346 656140', '/public\\uploads\\1727403607008.png', 'Nutrición');
+INSERT INTO `medicos` (`id`, `id_usuario`, `id_especialidad`, `telefono`, `foto`, `descripcion`, `id_medicoPracticas`, `id_horarios`) VALUES
+(1, 1, 1, '2346 656140', '/public\\uploads\\1727930283779.png', 'Oftalmología y Guardia Oftalmológica', 0, 0),
+(2, 2, 3, '2346 536788', '/public\\uploads\\1727403408752.png', 'Cardiología y Electrofisiología, Colocación de Marcapasos y Holter', 0, 0),
+(3, 3, 2, '2346 456140', '/public\\uploads\\1727403449216.png', 'Neurocirugía y Tratamiento del Dolor', 0, 0),
+(4, 4, 4, '2346 778354', '/public\\uploads\\1727930326844.png', 'Cirugía Ginecológica y Mastología, Cirugía Videolaparoscópica e Histeroscopia', 0, 0),
+(5, 5, 5, '2346 954140', '/public\\uploads\\1727403561703.png', 'Cirugía General', 0, 0),
+(6, 6, 6, '2346 656140', '/public\\uploads\\1727403588528.png', 'Clínica Médica', 0, 0),
+(7, 7, 7, '2346 656140', '/public\\uploads\\1727403607008.png', 'Nutrición', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -312,8 +323,7 @@ INSERT INTO `medicos_obrassociales` (`id`, `id_medico`, `id_obraSocial`) VALUES
 CREATE TABLE `medicos_practicas` (
   `id` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
-  `id_practicas` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `id_practicas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -393,10 +403,10 @@ CREATE TABLE `pacientes` (
 -- Volcado de datos para la tabla `pacientes`
 --
 
-INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `edad`, `email`, `telefono`, `id_obrasocial`) VALUES
-(1, 'Junior Alexander', 94222538, 21, 'junioracuna@gmail.com', '2324652338', 28),
-(2, 'Camila Mazzaro', 44555666, 22, 'camimazzaro@gmail.com', '23246687656', 8),
-(3, 'agus', 11, 45, 'agus@gmail.com', '2324652338', 2);
+INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `edad`, `email`, `telefono`, `id_obrasocial`, `id_historiaClinica`) VALUES
+(1, 'Junior Alexander', 94222538, 21, 'junioracuna@gmail.com', '2324652338', 28, 0),
+(2, 'Camila Mazzaro', 44555666, 22, 'camimazzaro@gmail.com', '23246687656', 8, 0),
+(3, 'agus', 11, 45, 'agus@gmail.com', '2324652338', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -483,19 +493,6 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 --
 
 --
--- Indices de la tabla `medicos_practicas`
---
-ALTER TABLE `medicos_practicas`
-ADD KEY `id_medico` (`id_medico`),
-ADD KEY `id_practicas` (`id_practicas`);
-
---
--- Indices de la tabla `practicas`
---
-ALTER TABLE `practicas`
-ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `categoria_permiso`
 --
 ALTER TABLE `categoria_permiso`
@@ -518,6 +515,12 @@ ALTER TABLE `especialidades`
 -- Indices de la tabla `estado_turno`
 --
 ALTER TABLE `estado_turno`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `historia_clinica`
+--
+ALTER TABLE `historia_clinica`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -544,6 +547,13 @@ ALTER TABLE `medicos_obrassociales`
   ADD KEY `id_medico` (`id_medico`),
   ADD KEY `id_obraSocial` (`id_obraSocial`);
 
+--
+-- Indices de la tabla `medicos_practicas`
+--
+ALTER TABLE `medicos_practicas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_medico` (`id_medico`),
+  ADD KEY `id_practicas` (`id_practicas`);
 
 --
 -- Indices de la tabla `obras_sociales`
@@ -558,6 +568,12 @@ ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_obrasocial` (`id_obrasocial`),
   ADD KEY `id_historiaClinica` (`id_historiaClinica`);
+
+--
+-- Indices de la tabla `practicas`
+--
+ALTER TABLE `practicas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `turnos`
@@ -596,6 +612,12 @@ ALTER TABLE `disponibilidad_medicos`
 --
 ALTER TABLE `especialidades`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `historia_clinica`
+--
+ALTER TABLE `historia_clinica`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios`

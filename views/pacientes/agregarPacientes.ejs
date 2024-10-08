@@ -27,6 +27,10 @@
                     <th>Email</th>
                     <th>Teléfono</th>
                     <th>Obra Social</th>
+                    <th>Calle</th>
+                    <th>Altura</th>
+                    <th>Piso/Departamento</th>
+                    <th>Ciudad</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -45,6 +49,10 @@
                             <% }); %>
                         </select>
                     </td>
+                    <td><input id="calle" class="form-control" placeholder="Ingrese la calle"></td>
+                    <td><input id="altura" class="form-control" placeholder="Ingrese la altura"></td>
+                    <td><input id="piso_departamento" class="form-control" placeholder="Ingrese el piso y departamento"></td>
+                    <td><input id="id_ciudades" class="form-control" placeholder="Ingrese la ciudad"></td>
                     <td>
                         <button class="btn btn-primary guardar">Guardar</button>
                         <button class="btn btn-secondary"><a href="/pacientes" class="text-white">Cancelar</a></button>
@@ -66,6 +74,10 @@
             const pacienteEmail = document.querySelector("#email").value.trim();
             const pacienteTelefono = document.querySelector("#telefono").value.trim();
             const pacienteId_obrasocial = document.querySelector("#id_obrasocial").value;
+            const pacienteCalle = document.querySelector("#calle").value;
+            const pacienteAltura = document.querySelector("#altura").value;
+            const pacientePiso_departamento = document.querySelector("#piso_departamento").value;
+            const pacienteId_ciudades = document.querySelector("#id_ciudades").value;
 
             // Validaciones del lado del cliente
             let errores = [];
@@ -116,6 +128,10 @@
                 email: pacienteEmail,
                 telefono: pacienteTelefono,
                 id_obrasocial: pacienteId_obrasocial,
+                calle: pacienteCalle,
+                altura: pacienteAltura,
+                piso_departamento: pacientePiso_departamento,
+                id_ciudades: pacienteId_ciudades,
             };
 
             const results = await fetch('/pacientes/editar/<%= paciente.id %>', {

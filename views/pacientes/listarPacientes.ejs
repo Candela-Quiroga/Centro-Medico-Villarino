@@ -33,6 +33,10 @@
                     <th>Email</th>
                     <th>Telefono</th>
                     <th>Obra Social</th>
+                    <th>Calle</th>
+                    <th>Altura</th>
+                    <th>Piso/Departamento</th>
+                    <th>Ciudad</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -46,6 +50,11 @@
                         <td><%= pacientes.email %></td>
                         <td><%= pacientes.telefono %></td>
                         <td><%= pacientes.obra_social %></td>
+                        <td><%= pacientes.calle %></td>
+                        <td><%= pacientes.altura %></td>
+                        <td><%= pacientes.piso_departamento %></td>
+                        <td><%= pacientes.id_ciudades %></td>
+
                         <td>
                             <a class="btn btn-sm btn-editar" href="/pacientes/editar/<%= pacientes.id %>">Editar</a>
                             <button class="btnEliminar btn btn-sm btn-eliminar" data-id="<%= pacientes.id %>">Eliminar</button>

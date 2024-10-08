@@ -9,7 +9,8 @@ class PacienteModel{
             nombre: '',
             email: '',
             telefono: '',
-            id_obrasocial: ''
+            id_obrasocial: '',
+            id_ciudad:''
         }
     }
 
@@ -28,8 +29,14 @@ class PacienteModel{
                 pacientes.email AS email, 
                 pacientes.telefono AS telefono,
                 obras_sociales.nombre AS obra_social
+                direcciones.calle AS calle,
+                direcciones.altura AS altura,
+                direcciones.piso_departamento AD piso_departamento,
+                ciudades.nombre AS ciudad_nombre
             FROM pacientes
             LEFT JOIN obras_sociales ON pacientes.id_obrasocial = obras_sociales.id
+            LEFT JOIN ciudades ON pacientes.id_ciudades = ciudades.id
+            LEFT JOIN direcciones ON pacientes.id_direcciones = direcciones.id
         `;
         
         conx.query(sql, [], (err, results) => {
@@ -67,8 +74,8 @@ class PacienteModel{
 
     async guardarPaciente(datos, callback){
         if(datos.id == 0){
-            let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial) VALUES (?, ?, ?, ?, ?, ?)`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial], async (err, results) => {
+            let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial, id_ciudades) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.id_ciudades], async (err, results) => {
 
                 if (err) {
                     console.error(err);
@@ -78,8 +85,8 @@ class PacienteModel{
                 }
         });
         } else {
-            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ? WHERE id = ?`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.id], async (err, results)=>{
+            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ?, id_ciudades= ? WHERE id = ?`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.id_ciudades, datos.id], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);

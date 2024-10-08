@@ -154,7 +154,7 @@ class TurnoController {
         // Primer paso, validar si el turno realmente puede cambiar de estado a confirmado
         turnoModel.obtenerTurno(id_turno, (turno) => {
 
-            if (turno.id_paciente != 0 || turno.id_estado != 1) {
+            if (turno.id_paciente != null || turno.id_estadoTurno != 1) {
                 res.json({
                     "mensaje": "El turno ya se encuentra confirmado por otra persona, por favor seleccione otro horario"
                 });

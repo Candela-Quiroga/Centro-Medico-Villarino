@@ -74,8 +74,8 @@ class PacienteModel{
 
     async guardarPaciente(datos, callback){
         if(datos.id == 0){
-            let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial, id_ciudades) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.id_ciudades], async (err, results) => {
+            let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial) VALUES (?, ?, ?, ?, ?, ?)`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial], async (err, results) => {
 
                 if (err) {
                     console.error(err);
@@ -85,8 +85,8 @@ class PacienteModel{
                 }
         });
         } else {
-            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ?, id_ciudades= ? WHERE id = ?`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.id_ciudades, datos.id], async (err, results)=>{
+            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ? WHERE id = ?`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.id], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);

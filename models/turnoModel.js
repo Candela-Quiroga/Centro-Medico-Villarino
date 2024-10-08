@@ -108,7 +108,7 @@ class TurnoModel{
     async confirmarTurno(id_turno, id_cliente, callback){
         const ID_ESTADO_CONFIRMADO = 3;
 
-        let sql = `UPDATE turnos SET id_paciente = ?, id_estado = ? WHERE id = ?`;
+        let sql = `UPDATE turnos SET id_paciente = ?, id_estadoTurno = ? WHERE id = ?`;
 
         conx.query(sql, [id_cliente, ID_ESTADO_CONFIRMADO, id_turno], async (err, results)=>{
             if (err) {

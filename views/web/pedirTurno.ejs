@@ -253,7 +253,8 @@
           let hora = textoFecha.split(' ')[0].substr(0, 5);
           
           // Vamos a validar si el turno realmente esta disponible
-          if (turno.id_estado === 1 && turno.id_paciente === 0) {
+          console.log(turno.id_paciente);
+          if (turno.id_estadoTurno === 1 && turno.id_paciente == null) {
             turnos += `<div onclick="seleccionarTurno(${turno.id})" data-fecha="${turno.fecha_hora}" data-idmedico="${turno.id_medico}" data-idturno="${turno.id}" class="turno disponible">${hora}</div>`;
           } else {
             turnos += `<div class="turno no-disponible">${hora}</div>`;
@@ -398,12 +399,14 @@
           return false;
         }
 
-        const obraSocialValor = document.querySelector("#obra-social").value ?? 0;
+        let obraSocialValor = document.querySelector("#obra-social").value ?? null;
         const nombreValor = document.querySelector("#nombre").value;
         const apellidoValor = document.querySelector("#apellido").value;
         const dniValor = document.querySelector("#dni").value;
         const telefonoValor = document.querySelector("#telefono").value;
         const correoValor = document.querySelector("#correo").value;
+
+        if (obraSocialValor == "") obraSocialValor = null;
 
         if (nombreValor === "") {
           alert ("Por favor ingrese su nombre");
@@ -448,7 +451,7 @@
           body: JSON.stringify({
             "id_turno": id_turno,
             "id_obra_social": obraSocialValor,
-            "nombre": nombreValor,
+            "nombre": nombreValor + " " + apellidoValor,
             "apellido": apellidoValor,
             "dni": dniValor,
             "telefono": telefonoValor,

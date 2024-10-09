@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2024 at 12:17 PM
+-- Generation Time: Oct 09, 2024 at 02:08 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,33 +54,15 @@ CREATE TABLE `ciudades` (
   `codigo_postal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `direcciones`
+-- Dumping data for table `ciudades`
 --
 
-CREATE TABLE `direcciones` (
-  `id` int(11) NOT NULL,
-  `calle` varchar(255) NOT NULL,
-  `altura` int(11) NOT NULL,
-  `piso_departamento` varchar(255) DEFAULT NULL,
-  `id_ciudad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `disponibilidad_medicos`
---
-
-CREATE TABLE `disponibilidad_medicos` (
-  `id` int(11) NOT NULL,
-  `id_medico` int(11) NOT NULL,
-  `dia_semana` enum('Lunes','Martes','Miércoles','Jueves','Viernes','Sabado') NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `ciudades` (`id`, `nombre`, `codigo_postal`) VALUES
+(1, 'Chivilcoy', 6620),
+(2, 'Alberti', 6634),
+(3, 'Roque Perez', 7245),
+(4, 'Moquehua', 6625);
 
 -- --------------------------------------------------------
 
@@ -142,23 +124,38 @@ CREATE TABLE `historia_clinica` (
   `sexo` varchar(255) NOT NULL,
   `fecha_de_nacimiento` date NOT NULL,
   `edad` int(11) NOT NULL,
-  `id_direccion` int(11) NOT NULL,
-  `id_turno` int(11) NOT NULL,
+  `motivo` varchar(255) NOT NULL,
   `antecedentes_personales` varchar(255) NOT NULL,
   `medicacion_actual` varchar(255) NOT NULL,
   `examen_clinico` varchar(255) NOT NULL,
   `diagnostico` varchar(255) NOT NULL,
-  `tratamiento` varchar(255) NOT NULL
+  `tratamiento` varchar(255) NOT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
+  `id_ciudad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `historia_clinica`
 --
 
-INSERT INTO `historia_clinica` (`id`, `fecha`, `id_paciente`, `nro_afiliado`, `sexo`, `fecha_de_nacimiento`, `edad`, `id_direccion`, `id_turno`, `antecedentes_personales`, `medicacion_actual`, `examen_clinico`, `diagnostico`, `tratamiento`) VALUES
-(1, '2024-10-07', 1, '321654', 'Masculino', '2003-03-15', 21, 0, 1, 'Asesino Serial', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.'),
-(2, '2024-10-07', 2, '654654654', 'Femenino', '2002-09-26', 22, 0, 2, 'Prófuga', 'Ninguna', 'Se resiste', 'En espera', 'Ninguno'),
-(3, '2024-10-07', 3, '321321', 'Masculino', '2001-01-18', 23, 0, 1, 'Prófugo', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.');
+INSERT INTO `historia_clinica` (`id`, `fecha`, `id_paciente`, `nro_afiliado`, `sexo`, `fecha_de_nacimiento`, `edad`, `motivo`, `antecedentes_personales`, `medicacion_actual`, `examen_clinico`, `diagnostico`, `tratamiento`, `direccion`, `id_ciudad`) VALUES
+(0, '2024-10-07', 1, '321654', 'Masculino', '2003-03-15', 21, '', 'Asesino Serial', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', '', 2),
+(2, '2024-10-07', 2, '654654654', 'Femenino', '2002-09-26', 22, '', 'Prófuga', 'Ninguna', 'Se resiste', 'En espera', 'Ninguno', '', 1),
+(3, '2024-10-07', 3, '321321', 'Masculino', '2001-01-18', 23, '', 'Prófugo', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', '', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `horarios`
+--
+
+CREATE TABLE `horarios` (
+  `id` int(11) NOT NULL,
+  `id_medico` int(11) NOT NULL,
+  `dia_semana` enum('Lunes','Martes','Miércoles','Jueves','Viernes','Sabado','Domingo') NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `hora_fin` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -399,7 +396,6 @@ CREATE TABLE `pacientes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
   `dni` int(11) NOT NULL,
-  `edad` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
   `id_obrasocial` int(11) NOT NULL
@@ -409,10 +405,10 @@ CREATE TABLE `pacientes` (
 -- Dumping data for table `pacientes`
 --
 
-INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `edad`, `email`, `telefono`, `id_obrasocial`) VALUES
-(1, 'Junior Alexander', 94222538, 21, 'junioracuna@gmail.com', '2324652338', 28),
-(2, 'Camila Mazzaro', 44555666, 22, 'camimazzaro@gmail.com', '23246687656', 8),
-(3, 'agus', 11, 45, 'agus@gmail.com', '2324652338', 2);
+INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `email`, `telefono`, `id_obrasocial`) VALUES
+(1, 'Junior Alexander', 94222538, 'junioracuna@gmail.com', '2324652338', 28),
+(2, 'Camila Mazzaro', 44555666, 'camimazzaro@gmail.com', '23246687656', 8),
+(3, 'agus', 11, 'agus@gmail.com', '2324652338', 2);
 
 -- --------------------------------------------------------
 
@@ -447,7 +443,6 @@ CREATE TABLE `turnos` (
   `id_medico` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
   `fecha_hora` datetime NOT NULL,
-  `motivo` varchar(255) NOT NULL,
   `id_estadoTurno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -455,11 +450,11 @@ CREATE TABLE `turnos` (
 -- Dumping data for table `turnos`
 --
 
-INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `motivo`, `id_estadoTurno`) VALUES
-(1, 1, 1, '0000-00-00 00:00:00', 'Dolor de pata', 4),
-(2, 5, 2, '0000-00-00 00:00:00', 'Dolor de cabeza', 2),
-(3, 3, 1, '0000-00-00 00:00:00', 'Malestar estomacal', 3),
-(4, 7, 3, '0000-00-00 00:00:00', 'Mareos', 4);
+INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `id_estadoTurno`) VALUES
+(1, 1, 1, '0000-00-00 00:00:00', 4),
+(2, 5, 2, '0000-00-00 00:00:00', 2),
+(3, 3, 1, '0000-00-00 00:00:00', 3),
+(4, 7, 3, '0000-00-00 00:00:00', 4);
 
 -- --------------------------------------------------------
 
@@ -511,20 +506,6 @@ ALTER TABLE `ciudades`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `direcciones`
---
-ALTER TABLE `direcciones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_ciudad` (`id_ciudad`);
-
---
--- Indexes for table `disponibilidad_medicos`
---
-ALTER TABLE `disponibilidad_medicos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_medico` (`id_medico`);
-
---
 -- Indexes for table `especialidades`
 --
 ALTER TABLE `especialidades`
@@ -542,8 +523,14 @@ ALTER TABLE `estado_turno`
 ALTER TABLE `historia_clinica`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_paciente` (`id_paciente`),
-  ADD KEY `id_turno` (`id_turno`),
-  ADD KEY `id_direccion` (`id_direccion`);
+  ADD KEY `id_ciudad` (`id_ciudad`);
+
+--
+-- Indexes for table `horarios`
+--
+ALTER TABLE `horarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_medico` (`id_medico`);
 
 --
 -- Indexes for table `medicos`
@@ -618,19 +605,7 @@ ALTER TABLE `categoria_permiso`
 -- AUTO_INCREMENT for table `ciudades`
 --
 ALTER TABLE `ciudades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `direcciones`
---
-ALTER TABLE `direcciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `disponibilidad_medicos`
---
-ALTER TABLE `disponibilidad_medicos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `especialidades`
@@ -643,6 +618,12 @@ ALTER TABLE `especialidades`
 --
 ALTER TABLE `historia_clinica`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `horarios`
+--
+ALTER TABLE `horarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `medicos`
@@ -685,22 +666,17 @@ ALTER TABLE `usuarios`
 --
 
 --
--- Constraints for table `direcciones`
---
-ALTER TABLE `direcciones`
-  ADD CONSTRAINT `direcciones_ibfk_1` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudades` (`id`);
-
---
--- Constraints for table `disponibilidad_medicos`
---
-ALTER TABLE `disponibilidad_medicos`
-  ADD CONSTRAINT `disponibilidad_medicos_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`);
-
---
 -- Constraints for table `historia_clinica`
 --
 ALTER TABLE `historia_clinica`
-  ADD CONSTRAINT `historia_clinica_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id`);
+  ADD CONSTRAINT `historia_clinica_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id`),
+  ADD CONSTRAINT `historia_clinica_ibfk_2` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudades` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `horarios`
+--
+ALTER TABLE `horarios`
+  ADD CONSTRAINT `horarios_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`);
 
 --
 -- Constraints for table `medicos`
@@ -720,8 +696,8 @@ ALTER TABLE `medicos_obrassociales`
 -- Constraints for table `medicos_practicas`
 --
 ALTER TABLE `medicos_practicas`
-  ADD CONSTRAINT `medicos_practicas_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `medicos_practicas_ibfk_2` FOREIGN KEY (`id_practicas`) REFERENCES `practicas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `medicos_practicas_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`),
+  ADD CONSTRAINT `medicos_practicas_ibfk_2` FOREIGN KEY (`id_practicas`) REFERENCES `practicas` (`id`);
 
 --
 -- Constraints for table `pacientes`
@@ -735,7 +711,7 @@ ALTER TABLE `pacientes`
 ALTER TABLE `turnos`
   ADD CONSTRAINT `turnos_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`),
   ADD CONSTRAINT `turnos_ibfk_2` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id`),
-  ADD CONSTRAINT `turnos_ibfk_3` FOREIGN KEY (`id_estadoTurno`) REFERENCES `estado_turno` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `turnos_ibfk_3` FOREIGN KEY (`id_estadoTurno`) REFERENCES `estado_turno` (`id`);
 
 --
 -- Constraints for table `usuarios`

@@ -1163,8 +1163,9 @@ label {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 20px; 
-    height: 300px;
+    height: 500px;
     text-align: left;
+    margin-top: 60px;
 }
 
 .carrusel-contacto h1, .carrusel-contacto p {
@@ -1700,6 +1701,107 @@ label {
     text-decoration: none;
     font-size: 30px;
 }
+
+/*PROFESIONALES.EJS*/
+
+.container-profesionales {
+    background: var(--DEGRADADO);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; 
+    justify-content: space-between;
+    padding: 20px; 
+    width: 100%;
+    height: 700px;
+    box-sizing: border-box;
+    margin-bottom: 50px; 
+}
+
+.textos-profesionales {
+    width: 40%;
+    padding-right: 20px;
+    color: white;
+    text-align: left;
+    margin-top: 200px;
+    margin-left: 200px;
+}
+
+.textos-profesionales h1 {
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 50px;
+}
+
+.textos-profesionales p {
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+.linea {
+    width: 100%; 
+    height: 2px; 
+    background-color: white; 
+    margin: 10px 0; 
+}
+
+.imagen-profesionales {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end; 
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.imagen-profesionales img {
+    width: 100%;
+    height: auto; 
+    max-height: 100%; 
+    object-fit: cover; 
+    margin: 0;
+    padding: 0;
+
+    
+}
+
+.especialidades-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    margin-top: 30px;
+    flex-wrap: nowrap; 
+    overflow-x: auto; 
+}
+
+.especialidades-container article {
+    width: 60px; 
+    height: 70px; 
+    margin: 5px; 
+}
+
+.sombraProfesionales {
+    background-color: white;
+    padding: 5px;
+    border-radius: 25px 0 25px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sombraProfesionales i {
+    font-size: 30px; 
+    color: var(--AZUL_OSCURO); 
+}
+
+.especialidades-container article :hover {
+    background-color: var(--AZUL_OSCURO);
+    color: white;
+    cursor: pointer;
+}
+
 
 /*FOOTER*/
 footer {

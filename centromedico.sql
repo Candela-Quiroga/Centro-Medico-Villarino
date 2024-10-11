@@ -446,6 +446,8 @@ CREATE TABLE `turnos` (
   `id_estadoTurno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+ALTER TABLE `turnos` CHANGE `id_paciente` `id_paciente` INT(11) NULL;
+
 --
 -- Dumping data for table `turnos`
 --

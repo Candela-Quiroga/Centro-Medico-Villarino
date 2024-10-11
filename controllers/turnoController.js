@@ -1,4 +1,9 @@
 //importo el model para poder acceder a las funciones que interactuan con la bbdd
+const moment = require('moment');
+
+const HorarioModel = require('../models/horarioModel');
+const horarioModel = new HorarioModel();
+
 const TurnoModel = require('../models/turnoModel');
 const turnoModel = new TurnoModel();
 
@@ -7,6 +12,16 @@ const pacienteModel = new PacienteModel();
 
 const MedicoModel = require('../models/medicoModel');
 const medicoModel = new MedicoModel();
+
+const diasSpanish = {
+    "Monday": 'lunes',
+    "Tuesday": 'martes',
+    "Wednesday": 'miercoles',
+    "Thursday": 'jueves',
+    "Friday": 'viernes',
+    "Saturday": 'sabado',
+    "Sunday": 'domingo',
+}
 
 class TurnoController {
     //funcion para listar los turnos
@@ -199,6 +214,79 @@ class TurnoController {
             })
 
         });
+    }
+
+    async crearTurnosDesdeHorarios(req, res) {
+        //const { fechaDesde, fechaHasta } = req.query;
+
+        // Hardcodeo las fechas para hacer pruebas
+        const fechaDesde = '2024-10-11';
+        const fechaHasta = '2024-11-10';
+
+        const dateFechaDesde = moment(fechaDesde);
+        const datefechaHasta = moment(fechaHasta);
+        var fechaRecorrida = dateFechaDesde;
+
+        var turnosCreados = 0;
+
+        while (fechaRecorrida <= datefechaHasta) {
+            // En este momento fechaRecorrida va a equivaler a cada uno de los dias
+            // Que hay dentro de la fecha desde y fecha hasta, ej: fechaDesde: 2024-10-11, fechaHasta: 2024-10-13
+            // Fecha recorrida va a ser igual a: 2024-10-11, 2024-10-12, 2024-10-13
+            const nombreDia = fechaRecorrida.format("dddd"); // Ej Friday, Saturday, etc
+            const nombreDiaSpanish = diasSpanish[nombreDia]; // Ej Viernes, Sabado, etc
+            let diaDelAnio = fechaRecorrida.format("YYYY-MM-DD"); // Ej: 2024-10-11
+
+            const horarios = await horarioModel.obtenerHorariosPorDia(nombreDiaSpanish);
+            // Recorremos todos los horarios disponibles que haya en ese dia: ej Lunes hay horario de 10:00 a 13:00
+            for (let horario of horarios) {
+
+                let horarioDeInicio = moment(`${diaDelAnio} ${horario.hora_inicio}`);
+                let horarioDeFin = moment(`${diaDelAnio} ${horario.hora_fin}`);
+                let horaRecorrida = horarioDeInicio;
+
+                // Conseguimos todos los turnos que haya cada 15 minutos de cada horario
+                // Ej. si horarioDeInicio es 2024-10-11 10:00:00 y horarioDeFin es 2024-10-11 11:00:00
+                // Conseguimos 2024-10-11 10:15:00, 2024-10-11 10:30:00, 2024-10-11 10:45:00
+                while (horaRecorrida < horarioDeFin) {
+                    let fechaFormatoYmdHis = horaRecorrida.format("YYYY-MM-DD HH:mm:ss"); // Ej: 2024-10-11 10:15:00
+
+                    // Como este script se puede ejecutar infinitas veces, tenemos que ver que ya no haya un turno creado
+                    // Para esa fecha, para ese horario, y para ese medico...
+                    let existeTurnoParaEsaFechaYhora = await turnoModel.obtenerTurnoPorMedicoYFecha(
+                        horario.id_medico, 
+                        fechaFormatoYmdHis
+                    );
+
+                    // Si no existe el turno para esa fecha, lo creamos
+                    // Si ya existe, no hacemos nada para evitar errores
+                    if (existeTurnoParaEsaFechaYhora.length == 0) {
+                        console.log(`creando turno para fecha ${fechaFormatoYmdHis} para medico ${horario.id_medico}`);
+                        // Objeto para el nuevo turno
+                        let nuevoTurno = {
+                            id: 0,
+                            id_paciente: null,
+                            id_medico: horario.id_medico,
+                            fecha_hora: fechaFormatoYmdHis,
+                            id_estadoTurno: 1
+                        };
+
+                        turnoModel.guardarTurno(nuevoTurno, (turno) => {
+                            turnosCreados++;
+                        });
+                    }
+
+                    horaRecorrida.add(15, 'minutes');
+                }
+            }
+            // Aumentamos un día a fechaRecorrida para que siga el ciclo
+            fechaRecorrida = moment(fechaRecorrida).add(1, 'days');
+        }
+
+        res.json({
+            "error": 0,
+            "turnosCreados": turnosCreados
+        })
     }
 };
 

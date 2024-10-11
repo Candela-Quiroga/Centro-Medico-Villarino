@@ -11,6 +11,8 @@ const rutasPacientes = require('./routes/pacienteRoute');
 const rutasMedicos = require('./routes/medicosRoute');
 const rutasWeb = require('./routes/webRoute'); //importo rutas para home, nosotros, etc.
 const rutasHistoriaClinica = require('./routes/historiaClinicaRoute');
+const rutasHorarios = require('./routes/horariosRoute');
+
 
 //middleware
 app.use(session({
@@ -41,7 +43,8 @@ app.use('/', rutasTurnos);
 app.use('/', rutasPacientes);
 app.use('/', rutasMedicos);
 app.use('/', rutasWeb);
-app.use('/', rutasHistoriaClinica);
+app.use('/', rutasHistoriaClinica),
+app.use('/', rutasHorarios);
 
 //muestra el puerto que escucha el server
 app.listen(port, () => { 

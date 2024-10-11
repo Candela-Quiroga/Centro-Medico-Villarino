@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Horario</title>
+    <link rel="stylesheet" href="/public/css/horarios.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Íconos Font Awesome -->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+    <!-- SweetAlert CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container my-5 contenedor-agregar-horario">
+        <h1 class="text-center mb-4">Agregar Horario</h1>
+
+        <form>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Día de la Semana</th>
+                        <th>Hora de Inicio</th>
+                        <th>Hora de Fin</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-select" id="dia_semana" name="dia_semana">
+                                    <option value="Lunes">Lunes</option>
+                                    <option value="Martes">Martes</option>
+                                    <option value="Miércoles">Miércoles</option>
+                                    <option value="Jueves">Jueves</option>
+                                    <option value="Viernes">Viernes</option>
+                                    <option value="Sábado">Sábado</option>
+                                    <option value="Domingo">Domingo</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input class="form-control" id="hora_inicio" type="time" required>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input class="form-control" id="hora_fin" type="time" required>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-guardar guardar">Guardar</button>
+                            <button type="button" class="btn btn-cancelar">
+                                <a href="/medico/{{medicoId}}/horarios" class="text-decoration-none">Cancelar</a>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <div class="contenedor-volver-atras">
+            <i class="fa-solid fa-arrow-left"></i>
+            <a href="/medico/{{medicoId}}/horarios">Volver Atrás</a>
+        </div>
+        
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const botonGuardar = document.querySelector(".guardar");
+        
+        botonGuardar.addEventListener("click", async () => {
+            const diaSemana = document.querySelector("#dia_semana").value;
+            const horaInicio = document.querySelector("#hora_inicio").value;
+            const horaFin = document.querySelector("#hora_fin").value;
+
+            // Obtener el ID del médico de la URL
+            const pathParts = window.location.pathname.split('/');
+            const medicoId = pathParts[2]; // Toma el ID del médico de la ruta
+
+            const datos = {
+                dia_semana: diaSemana,
+                hora_inicio: horaInicio,
+                hora_fin: horaFin,
+                id_medico: medicoId,
+                id: 0 // Esto indica que estamos creando un nuevo horario
+            };
+
+            
+            const results = await fetch(`/medico/${medicoId}/horarios/agregar`, {
+                method: 'POST',
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+
+            const data = await results.json();
+            if (data.success === true) {
+                Swal.fire({
+                    title: 'Horario Guardado',
+                    text: 'El horario se guardó exitosamente',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = `/medico/${medicoId}/horarios`; // Redirige a la lista de horarios del médico
+                    }
+                });
+            } else {
+                alert("Hubo un problema con los valores");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -56,7 +56,15 @@ class HistoriaClinicaModel{
     }
 
     async obtenerHistoriaClinica(id, callback){
-        let sql = `SELECT * FROM historia_clinica WHERE id = ?`;
+        let sql = `SELECT 
+            historia_clinica.*, 
+            pacientes.nombre AS nombre_paciente, 
+            ciudades.nombre AS nombre_ciudad
+        FROM historia_clinica
+        LEFT JOIN pacientes ON historia_clinica.id_paciente = pacientes.id
+        LEFT JOIN ciudades ON historia_clinica.id_ciudad = ciudades.id
+        WHERE historia_clinica.id = ?
+        `;
         conx.query(sql, [id], async (err, results) => {
             if (results.length === 0) {
                 callback(this.obtenerHistoriaClinicaBase());

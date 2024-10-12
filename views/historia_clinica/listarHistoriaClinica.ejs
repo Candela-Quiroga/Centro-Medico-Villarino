@@ -67,8 +67,7 @@
                         <td>
                             <a class="btn btn-sm btn-editar" href="/historiasclinicas/editar/<%= historiaClinica.id %>">Editar</a>
                             <button class="btnEliminar btn btn-sm btn-eliminar" data-id="<%= historiaClinica.id %>">Eliminar</button>
-                            <button class="btnImprimir btn btn-sm btn-imprimir" data-id="<%= historiaClinica.id %>">Imprimir</button>
-                        </td>
+                            <a class="btn btn-sm btn-imprimir" href="/historiasclinicas/imprimir/<%= historiaClinica.id %>" target="_blank">Imprimir</a>                        </td>
                     </tr>
                 <% }); %>
             </tbody>

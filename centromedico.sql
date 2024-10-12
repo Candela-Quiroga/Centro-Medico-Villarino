@@ -131,8 +131,8 @@ CREATE TABLE `historia_clinica` (
   `examen_clinico` varchar(255) NOT NULL,
   `diagnostico` varchar(255) NOT NULL,
   `tratamiento` varchar(255) NOT NULL,
-  `direccion` varchar(255) DEFAULT NULL,
-  `id_ciudad` int(11) DEFAULT NULL
+  `direccion` varchar(255) NOT NULL,
+  `id_ciudad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

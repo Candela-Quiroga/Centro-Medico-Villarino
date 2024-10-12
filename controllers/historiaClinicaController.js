@@ -4,6 +4,8 @@ const PacienteModel = require('../models/pacienteModel');
 const pacienteModel = new PacienteModel();
 const CiudadesModel = require('../models/ciudadesModel');
 const ciudadesModel = new CiudadesModel();
+const PDFDocument = require('pdfkit');
+
 
 
 
@@ -132,7 +134,56 @@ class HistoriaClinicaController {
             res.redirect('/historiasclinicas'); // Redirige a la lista de historias clinicas tras eliminar
             }
         });
-    }    
+    }  
+    
+    async imprimirHistoriaClinica (req, res) {
+        try {
+            const historiaId = req.params.id;
+            const historiaClinica = await new Promise((resolve, reject) => {
+                historiaClinicaModel.obtenerHistoriaClinica(historiaId, (data) => {
+                    if (!data) reject(new Error('Historia Clínica no encontrada'));
+                    resolve(data);
+                });
+            });
+
+            if (!historiaClinica) {
+                return res.status(404).send('Historia Clínica no encontrada');
+            }
+
+            // Crear un nuevo documento PDF
+            const doc = new PDFDocument();
+            const filename = `Historia Clinica de ${historiaClinica.nombre_paciente}.pdf`;
+            res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+            res.setHeader('Content-Type', 'application/pdf');
+
+            doc.pipe(res);
+
+            // Definir el contenido del PDF
+            doc.fontSize(20).text('Historia Clínica', { align: 'center' });
+            doc.moveDown();
+            doc.fontSize(12).text(`Código: ${historiaClinica.id}`);
+            doc.text(`Fecha: ${new Date(historiaClinica.fecha).toLocaleDateString()}`);
+            doc.text(`Paciente: ${historiaClinica.nombre_paciente}`);
+            doc.text(`Número de Afiliado: ${historiaClinica.nro_afiliado}`);
+            doc.text(`Sexo: ${historiaClinica.sexo}`);
+            doc.text(`Fecha de Nacimiento: ${new Date(historiaClinica.fecha_de_nacimiento).toLocaleDateString()}`);
+            doc.text(`Edad: ${historiaClinica.edad}`);
+            doc.text(`Motivo: ${historiaClinica.motivo}`);
+            doc.text(`Antecedentes Personales: ${historiaClinica.antecedentes_personales}`);
+            doc.text(`Medicación Actual: ${historiaClinica.medicacion_actual}`);
+            doc.text(`Examen Clínico: ${historiaClinica.examen_clinico}`);
+            doc.text(`Diagnóstico: ${historiaClinica.diagnostico}`);
+            doc.text(`Tratamiento: ${historiaClinica.tratamiento}`);
+            doc.text(`Domicilio: ${historiaClinica.direccion}`);
+            doc.text(`Ciudad: ${historiaClinica.nombre_ciudad}`);
+
+            // Finalizar el PDF
+            doc.end();
+        } catch (error) {
+            console.error('Error al generar el PDF:', error);
+            res.status(500).send('Error al generar el PDF');
+        }
+    }
 }
 //exporto el controller con la funcion de listar
 module.exports = HistoriaClinicaController;

@@ -13,6 +13,7 @@ router.get('/historiasclinicas/editar/:id', historiaClinicaController.editarHist
 router.post('/historiasclinicas/editar/:id', historiaClinicaController.guardarHistoriaClinica);
 router.get('/historiasclinicas/agregar/0', historiaClinicaController.AgregarHistoriaClinica);
 router.post('/historiasclinicas/agregar/0', historiaClinicaController.guardarHistoriaClinica);
+router.get('/historiasclinicas/imprimir/:id', historiaClinicaController.imprimirHistoriaClinica);
 
 //Ruta para eliminar historiaClinicas
 router.delete('/historiasclinicas/eliminar/:id', historiaClinicaController.eliminarHistoriaClinica);

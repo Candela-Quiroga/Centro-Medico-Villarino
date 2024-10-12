@@ -24,7 +24,7 @@
                         <th>Paciente</th>
                         <th>Fecha (Año/Mes/Día)</th>
                         <th>Hora (HH:MM)</th>
-                        <th>Motivo</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -65,7 +65,13 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <input class="form-control" id="motivo" value="<%=turno.motivo%>">
+                                <select class="form-select" id="id_estadoTurno" name="estado_turno">
+                                    <% estado_turnos.forEach((estado_turno) => { %>
+                                        <option value="<%= estado_turno.id %>" <%= estado_turno.id == turno.id_estadoTurno ? 'selected' : '' %> >
+                                            <%= estado_turno.estado_nombre %>
+                                        </option>
+                                    <% }) %>
+                                </select>
                             </div>
                         </td>
                         <td>
@@ -99,13 +105,13 @@
             const turnoFecha = document.querySelector("#fecha").value;
             const turnoHora = document.querySelector("#hora").value;
             const fechaCompleta = `${turnoFecha} ${turnoHora}`;
-            const turnoMotivo = document.querySelector("#motivo").value;
+            const turnoId_estadoTurno = document.querySelector("#id_estadoTurno").value;
             
             const datos = {
                 id_medico: turnoMedico,
                 id_paciente: turnoPaciente,
                 fecha_hora: fechaCompleta,
-                motivo: turnoMotivo,
+                id_estadoTurno: turnoId_estadoTurno,
                 id: <%= turno.id %>,
             };
             

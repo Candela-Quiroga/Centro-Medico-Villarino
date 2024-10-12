@@ -20,15 +20,14 @@
                         <th>Sexo</th>
                         <th>Nacimiento</th>
                         <th>Edad</th>
-                        <th>Calle</th>
-                        <th>Altura</th>
-                        <th>Ciudad</th>
-                        <th>ID Turno</th>
+                        <th>Motivo</th>
                         <th>Antecedentes Personales</th>
                         <th>Medicacion Actual</th>
                         <th>Examen Clinico</th>
                         <th>Diagnistico</th>
                         <th>Tratamiento</th>
+                        <th>Domicilio</th>
+                        <th>Ciudad</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -39,7 +38,9 @@
                         <td>
                             <select id="id_paciente">
                                 <% pacientes.forEach(paciente => { %>
-                                    <option value="<%= paciente.id %>"><%= paciente.nombre %></option>
+                                    <option value="<%= paciente.id %>" <%= paciente.id === historiaClinica.id_paciente ? 'selected' : '' %>>
+                                        <%= paciente.nombre %>
+                                    </option>
                                 <% }) %>
                             </select>
                         </td>
@@ -48,15 +49,22 @@
                         <% let date2 = new Date(historiaClinica.fecha_de_nacimiento) %>
                         <td><input type="date" id="fecha_de_nacimiento" value="<%= date2.getFullYear() %>-<%= (date2.getMonth()+1).toString().padStart(2, '0') %>-<%= date2.getDate().toString().padStart(2, '0') %>"></td>                        
                         <td><input id="edad" value="<%= historiaClinica.edad %>" ></td>
-                        <td><input id="calle" value="<%= historiaClinica.calle %>" ></td>
-                        <td><input id="altura" value="<%= historiaClinica.altura %>" ></td>
-                        <td><input id="ciudad" value="<%= historiaClinica.ciudad %>" ></td>
-                        <td><input id="id_turno" value="<%= historiaClinica.id_turno %>" ></td>
+                        <td><input id="motivo" value="<%= historiaClinica.motivo %>" ></td>
                         <td><input id="antecedentes_personales" value="<%= historiaClinica.antecedentes_personales %>" ></td>
                         <td><input id="medicacion_actual" value="<%= historiaClinica.medicacion_actual %>" ></td>
                         <td><input id="examen_clinico" value="<%= historiaClinica.examen_clinico %>" ></td>
                         <td><input id="diagnostico" value="<%= historiaClinica.diagnostico %>" ></td>
                         <td><input id="tratamiento" value="<%= historiaClinica.tratamiento %>" ></td>
+                        <td><input id="direccion" value="<%= historiaClinica.direccion %>" ></td>
+                        <td>
+                            <select id="id_ciudad">
+                                <% ciudades.forEach(ciudad => { %>
+                                    <option value="<%= ciudad.id %>" <%= ciudad.id === historiaClinica.id_ciudad ? 'selected' : '' %>>
+                                        <%= ciudad.nombre_ciudad %>
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </td>
                         
                         <td>
                             <button class="btn btn-primary guardar">Guardar</button>
@@ -79,15 +87,14 @@
             const historiaClinicaSexo = document.querySelector("#sexo").value.trim();
             const historiaClinicaFecha_de_nacimiento = document.querySelector("#fecha_de_nacimiento").value.trim();
             const historiaClinicaEdad = document.querySelector("#edad").value.trim();
-            const historiaClinicaCalle = document.querySelector("#calle").value.trim();
-            const historiaClinicaAltura = document.querySelector("#altura").value.trim();
-            const historiaClinicaCiudad = document.querySelector("#ciudad").value.trim();
-            const historiaClinicaId_turno = document.querySelector("#id_turno").value.trim();
+            const historiaClinicaMotivo = document.querySelector("#motivo").value.trim();
             const historiaClinicaAntecendentes_personales = document.querySelector("#antecedentes_personales").value.trim();
             const historiaClinicaMedicacion_actual = document.querySelector("#medicacion_actual").value.trim();
             const historiaClinicaExamen_clinico = document.querySelector("#examen_clinico").value.trim();
             const historiaClinicaDiagnostico = document.querySelector("#diagnostico").value.trim();
             const historiaClinicaTratamiento = document.querySelector("#tratamiento").value.trim();
+            const historiaClinicaDireccion = document.querySelector("#direccion").value.trim();
+            const historiaClinicaId_ciudad = document.querySelector("#id_ciudad").value.trim();
 
 
             // Si todo es válido, enviamos los datos
@@ -99,15 +106,14 @@
                 sexo:historiaClinicaSexo,
                 fecha_de_nacimiento:historiaClinicaFecha_de_nacimiento,
                 edad:historiaClinicaEdad,
-                calle:historiaClinicaCalle,
-                altura:historiaClinicaAltura,
-                ciudad:historiaClinicaCiudad,
-                id_turno:historiaClinicaId_turno,
+                motivo:historiaClinicaMotivo,
                 antecedentes_personales:historiaClinicaAntecendentes_personales,
                 medicacion_actual:historiaClinicaMedicacion_actual,
                 examen_clinico:historiaClinicaExamen_clinico,
                 diagnostico:historiaClinicaDiagnostico,
-                tratamiento:historiaClinicaTratamiento
+                tratamiento:historiaClinicaTratamiento,
+                direccion:historiaClinicaDireccion,
+                id_ciudad:historiaClinicaId_ciudad
             };
 
             const results = await fetch('/historiasclinicas/editar/<%= historiaClinica.id %>', {

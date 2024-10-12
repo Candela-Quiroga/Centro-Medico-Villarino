@@ -62,17 +62,6 @@ class PacienteController {
             res.status(500).send("Ocurrió un error al intentar editar el paciente.");
         }
     }
-    
-    //funcion para agregar pacientes
-    async guardarPaciente(req, res){
-        const datos = req.body;
-        console.log(datos);
-        pacienteModel.guardarPaciente(datos, (result)=>{
-            res.send({
-                "success": true,
-            });
-        });
-    }
 
     // Función para mostrar el formulario de agregar pacientes
     async mostrarAgregarPaciente(req, res) {

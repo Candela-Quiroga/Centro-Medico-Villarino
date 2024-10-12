@@ -12,15 +12,14 @@ class HistoriaClinicaModel{
             sexo:'',
             fecha_de_nacimiento:'',
             edad:'',
-            calle:'',
-            altura:'',
-            ciudad:'',
-            id_turno:'',
+            motivo:'',
             antecedentes_personales:'',
             medicacion_actual:'',
             examen_clinico:'',
             diagnostico:'',
-            tratamiento:''
+            tratamiento:'',
+            direccion:'',
+            id_ciudad:'',
         }
     }
 
@@ -34,19 +33,17 @@ class HistoriaClinicaModel{
                 historia_clinica.sexo AS sexo, 
                 historia_clinica.fecha_de_nacimiento AS fecha_de_nacimiento,
                 historia_clinica.edad AS edad,
-                historia_clinica.calle AS calle,
-                historia_clinica.altura AS altura,
-                historia_clinica.ciudad AS ciudad,
-                historia_clinica.id_turno AS id_turno,
+                historia_clinica.motivo AS motivo,
                 historia_clinica.antecedentes_personales AS antecedentes_personales,
                 historia_clinica.medicacion_actual AS medicacion_actual,
                 historia_clinica.examen_clinico AS examen_clinico,
                 historia_clinica.diagnostico AS diagnostico,
-                historia_clinica.tratamiento AS tratamiento
+                historia_clinica.tratamiento AS tratamiento,
+                historia_clinica.direccion AS direccion,
+                ciudades.nombre AS nombre_ciudad
             FROM historia_clinica
-            LEFT JOIN turnos ON historia_clinica.id_turno = turnos.id
             LEFT JOIN pacientes AS P1 ON historia_clinica.id_paciente = P1.id
-            LEFT JOIN pacientes AS P2 ON historia_clinica.edad = P2.edad
+            LEFT JOIN ciudades ON historia_clinica.id_ciudad = ciudades.id
         `;
         
         conx.query(sql, [], (err, results) => {
@@ -85,90 +82,86 @@ class HistoriaClinicaModel{
     async guardarHistoriaClinica(datos, callback){
         if(datos.id == 0){
             let sql = `INSERT INTO historia_clinica (
-            fecha, 
-            id_paciente, 
-            nro_afiliado, 
-            sexo, 
-            fecha_de_nacimiento, 
-            edad, 
-            calle, 
-            altura, 
-            ciudad, 
-            id_turno, 
-            antecedentes_personales, 
-            medicacion_actual, 
-            examen_clinico,
-            diagnostico,
-            tratamiento
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-            conx.query(sql, [
-                datos.fecha, 
-                datos.id_paciente, 
-                datos.nro_afiliado, 
-                datos.sexo, 
-                datos.fecha_de_nacimiento, 
-                datos.edad,
-                datos.calle,
-                datos.altura,
-                datos.ciudad,
-                datos.id_turno,
-                datos.antecedentes_personales,
-                datos.medicacion_actual,
-                datos.examen_clinico,
-                datos.diagnostico,
-                datos.tratamiento
-            ], async (err, results) => {
-                if (err) {
-                    console.error(err);
-                    callback(null);
-                } else {
-                    callback(results);
-                }
-        });
-        } else {
-            let sql = `UPDATE historia_clinica SET 
-            fecha= ?, 
-            id_paciente= ?, 
-            nro_afiliado= ?, 
-            sexo= ?, 
-            fecha_de_nacimiento= ?, 
-            edad= ?,
-            calle= ?,
-            altura= ?,
-            ciudad= ?,
-            id_turno= ?,
-            antecedentes_personales= ?,
-            medicacion_actual= ?,
-            examen_clinico= ?,
-            diagnostico= ?,
-            tratamiento= ?
-            WHERE id = ?`;
-            conx.query(sql, [
-                datos.fecha, 
-                datos.id_paciente, 
-                datos.nro_afiliado, 
-                datos.sexo, 
-                datos.fecha_de_nacimiento, 
-                datos.edad, 
-                datos.calle,
-                datos.altura,
-                datos.ciudad,
-                datos.id_turno,
-                datos.antecedentes_personales,
-                datos.medicacion_actual,
-                datos.examen_clinico,
-                datos.diagnostico,
-                datos.tratamiento,
-                datos.id
-            ], async (err, results)=>{
-                if (err) {
-                    console.error(err);
-                    callback(null);
-                } else {
-                    callback(results);
-                }
-        });
-        }
+                fecha, 
+                id_paciente, 
+                nro_afiliado, 
+                sexo, 
+                fecha_de_nacimiento, 
+                edad, 
+                motivo,
+                antecedentes_personales, 
+                medicacion_actual, 
+                examen_clinico,
+                diagnostico,
+                tratamiento,
+                direccion, 
+                id_ciudad
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                conx.query(sql, [
+                    datos.fecha, 
+                    datos.id_paciente, 
+                    datos.nro_afiliado, 
+                    datos.sexo, 
+                    datos.fecha_de_nacimiento, 
+                    datos.edad,
+                    datos.motivo,
+                    datos.antecedentes_personales,
+                    datos.medicacion_actual,
+                    datos.examen_clinico,
+                    datos.diagnostico,
+                    datos.tratamiento,
+                    datos.direccion,
+                    datos.id_ciudad
+                ], async (err, results) => {
+                    if (err) {
+                        console.error(err);
+                        callback(null);
+                    } else {
+                        callback(results);
+                    }
+            });
+            } else {
+                let sql = `UPDATE historia_clinica SET 
+                fecha= ?, 
+                id_paciente= ?, 
+                nro_afiliado= ?, 
+                sexo= ?, 
+                fecha_de_nacimiento= ?, 
+                edad= ?,
+                motivo= ?,
+                antecedentes_personales= ?,
+                medicacion_actual= ?,
+                examen_clinico= ?,
+                diagnostico= ?,
+                tratamiento= ?,
+                direccion= ?,
+                id_ciudad= ?
+                WHERE id = ?`;
+                conx.query(sql, [
+                    datos.fecha, 
+                    datos.id_paciente, 
+                    datos.nro_afiliado, 
+                    datos.sexo, 
+                    datos.fecha_de_nacimiento, 
+                    datos.edad, 
+                    datos.motivo,
+                    datos.antecedentes_personales,
+                    datos.medicacion_actual,
+                    datos.examen_clinico,
+                    datos.diagnostico,
+                    datos.tratamiento,
+                    datos.direccion,
+                    datos.id_ciudad,
+                    datos.id
+                ], async (err, results)=>{
+                    if (err) {
+                        console.error(err);
+                        callback(null);
+                    } else {
+                        callback(results);
+                    }
+            });
+            }
     }
 
     async eliminarHistoriaClinica(id, callback) {

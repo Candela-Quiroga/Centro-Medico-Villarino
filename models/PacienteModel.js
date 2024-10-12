@@ -9,8 +9,7 @@ class PacienteModel{
             nombre: '',
             email: '',
             telefono: '',
-            id_obrasocial: '',
-            id_ciudad:''
+            id_obrasocial: ''
         }
     }
 
@@ -25,18 +24,11 @@ class PacienteModel{
                 pacientes.id AS id, 
                 pacientes.nombre AS nombre, 
                 pacientes.dni AS dni,
-                pacientes.edad AS edad,
                 pacientes.email AS email, 
                 pacientes.telefono AS telefono,
                 obras_sociales.nombre AS obra_social
-                direcciones.calle AS calle,
-                direcciones.altura AS altura,
-                direcciones.piso_departamento AD piso_departamento,
-                ciudades.nombre AS ciudad_nombre
             FROM pacientes
             LEFT JOIN obras_sociales ON pacientes.id_obrasocial = obras_sociales.id
-            LEFT JOIN ciudades ON pacientes.id_ciudades = ciudades.id
-            LEFT JOIN direcciones ON pacientes.id_direcciones = direcciones.id
         `;
         
         conx.query(sql, [], (err, results) => {
@@ -49,7 +41,16 @@ class PacienteModel{
     }
 
     async obtenerPaciente(id, callback){
-        let sql = `SELECT * FROM pacientes WHERE id = ?`;
+        let sql = `
+            SELECT 
+                pacientes.id, 
+                pacientes.nombre, 
+                pacientes.dni,
+                pacientes.email, 
+                pacientes.telefono, 
+                pacientes.id_obrasocial
+            FROM pacientes
+            WHERE pacientes.id = ?`;
         conx.query(sql, [id], async (err, results) => {
             if (results.length === 0) {
                 callback(this.obtenerPacienteBase());
@@ -72,11 +73,11 @@ class PacienteModel{
         });
     }
 
-    async guardarPaciente(datos, callback){
+    async guardarPaciente(datos, callback) {
         if(datos.id == 0){
-            let sql = `INSERT INTO pacientes (nombre, dni, edad, email, telefono, id_obrasocial) VALUES (?, ?, ?, ?, ?, ?)`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial], async (err, results) => {
-
+            let sql = `INSERT INTO pacientes (nombre, dni, email, telefono, id_obrasocial)`;
+            sql += `VALUES (?,?,?,?,?)`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.email, datos.telefono, datos.id_obrasocial], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);
@@ -85,8 +86,8 @@ class PacienteModel{
                 }
         });
         } else {
-            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, edad= ?, email= ?, telefono= ?, id_obrasocial= ? WHERE id = ?`;
-            conx.query(sql, [datos.nombre, datos.dni, datos.edad, datos.email, datos.telefono, datos.id_obrasocial, datos.id], async (err, results)=>{
+            let sql = `UPDATE pacientes SET nombre= ?, dni= ?, email= ?, telefono= ?, id_obrasocial= ? WHERE id = ?`;
+            conx.query(sql, [datos.nombre, datos.dni, datos.email, datos.telefono, datos.id_obrasocial, datos.id], async (err, results)=>{
                 if (err) {
                     console.error(err);
                     callback(null);
@@ -95,7 +96,7 @@ class PacienteModel{
                 }
         });
         }
-    }
+    }     
 
     async eliminarPaciente(id, callback) {
         let sql = `DELETE FROM pacientes WHERE id = ?`;
@@ -112,6 +113,18 @@ class PacienteModel{
     //Función para traerme las obras sociales en editarPaciente.ejs
     async obtenerObrasSociales(callback) {
         let sql = `SELECT id, nombre FROM obras_sociales`;
+        conx.query(sql, [], (err, results) => {
+            if (err) {
+                console.error(err);
+                return callback([]);
+            }
+            callback(results);
+        });
+    }
+
+    //Función para traerme las ciudades en editarPaciente.ejs
+    async obtenerCiudades(callback) {
+        let sql = `SELECT id, nombre FROM ciudades`;
         conx.query(sql, [], (err, results) => {
             if (err) {
                 console.error(err);

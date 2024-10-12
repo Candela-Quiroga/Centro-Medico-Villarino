@@ -13,6 +13,9 @@ const pacienteModel = new PacienteModel();
 const MedicoModel = require('../models/medicoModel');
 const medicoModel = new MedicoModel();
 
+const EstadoTurnoModel = require('../models/estadoTurnoModel');
+const estadoTurnoModel = new EstadoTurnoModel();
+
 const diasSpanish = {
     "Monday": 'lunes',
     "Tuesday": 'martes',
@@ -64,13 +67,19 @@ class TurnoController {
                 medicoModel.listarMedicos((medicos) => {
                     resolve(medicos);
                 });
+            }),
+            new Promise((resolve, reject) => {
+                estadoTurnoModel.listarEstadoTurno((estado_turnos) => {
+                    resolve(estado_turnos);
+                });
             })
         ])
-        .then(([pacientes, medicos]) => {
+        .then(([pacientes, medicos, estado_turnos]) => {
             res.render("../views/turnos/editarTurnos", {
                 turno: turno,
                 pacientes: pacientes,
-                medicos: medicos
+                medicos: medicos,
+                estado_turnos: estado_turnos
             });
         })
         .catch(err => {
@@ -104,13 +113,19 @@ class TurnoController {
                 medicoModel.listarMedicos((medicos) => {
                     resolve(medicos);
                 });
+            }),
+            new Promise((resolve, reject) => {
+                estadoTurnoModel.listarEstadoTurno((estado_turnos) => {
+                    resolve(estado_turnos);
+                });
             })
         ])
-        .then(([pacientes, medicos]) => {
+        .then(([pacientes, medicos, estado_turnos]) => {
             res.render("../views/turnos/agregarTurnos", {
                 turno: { id: 0 }, // Turno vacío
                 pacientes: pacientes,
-                medicos: medicos
+                medicos: medicos,
+                estado_turnos: estado_turnos
             });
         })
         .catch(err => {
@@ -149,19 +164,6 @@ class TurnoController {
         res.json(turnos);
     }
 
-    generarPDF(turno) {
-        const doc = new pdfKit();
-        const nombreArchivo = `comprobante_turno_${turno.id}.pdf`;
-
-        doc.pipe(fs.createWriteStream(nombreArchivo));
-        doc.fontSize(25).text('Comprobante de Turno', { align: 'center' });
-        doc.text(`Paciente: ${turno.id_paciente}`);
-        doc.text(`Doctor: ${turno.id_medico}`);
-        doc.text(`Fecha: ${turno.Fecha}`);
-        doc.text(`Hora: ${turno.Hora}`);
-        doc.text(`Motivo: ${turno.Motivo}`);
-        doc.end();
-    }
 
     async confirmarTurno(req, res) {
         const { id_turno, id_obra_social, nombre, apellido, dni, telefono, correo } = req.body;
@@ -186,8 +188,6 @@ class TurnoController {
                     dni: dni,
                     email: correo,
                     telefono: telefono,
-                    // La edad habria que hacer que llegue por los dato,s ya que ahora no se manda
-                    edad: 0,
                     id_obrasocial: id_obra_social,
                     // En este caso le decimos, si no existe el paciente, id 0, y si existe, traeme el id que ya existe
                     id: (paciente === null) ? 0 : paciente.id

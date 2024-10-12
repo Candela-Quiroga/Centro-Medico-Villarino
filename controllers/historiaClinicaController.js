@@ -1,11 +1,9 @@
 const HistoriaClinicaModel = require('../models/historiaClinicaModel');
 const historiaClinicaModel = new HistoriaClinicaModel();
-const MedicoModel = require('../models/medicoModel');
-const medicoModel = new MedicoModel();
-const TurnoModel = require('../models/turnoModel');
-const turnoModel = new TurnoModel();
 const PacienteModel = require('../models/pacienteModel');
 const pacienteModel = new PacienteModel();
+const CiudadesModel = require('../models/ciudadesModel');
+const ciudadesModel = new CiudadesModel();
 
 
 
@@ -46,11 +44,17 @@ class HistoriaClinicaController {
                         resolve(pacientes);
                     });
                 }),
+                new Promise((resolve, reject) => {
+                    ciudadesModel.listarCiudades((ciudades) => {
+                        resolve(ciudades);
+                    });
+                }),
             ])
-            .then(([pacientes]) => {
+            .then(([pacientes, ciudades]) => {
                 res.render("../views/historia_clinica/editarHistoriaClinica", {
                     historiaClinica: historiaClinica,
-                    pacientes: pacientes
+                    pacientes: pacientes,
+                    ciudades: ciudades
                 });
             })
             .catch(err => {
@@ -80,11 +84,17 @@ class HistoriaClinicaController {
                     resolve(pacientes);
                 });
             }),
+            new Promise((resolve, reject) => {
+                ciudadesModel.listarCiudades((ciudades) => {
+                    resolve(ciudades);
+                });
+            }),
         ])
-        .then(([pacientes]) => {
+        .then(([pacientes, ciudades]) => {
             res.render("../views/historia_clinica/agregarHistoriaClinica", {
                 historiaClinica: { id: 0 },
-                pacientes: pacientes
+                pacientes: pacientes,
+                ciudades: ciudades
             });
         })
         .catch(err => {

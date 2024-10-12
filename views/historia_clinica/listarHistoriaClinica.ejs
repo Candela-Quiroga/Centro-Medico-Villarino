@@ -33,34 +33,15 @@
                     <th>Sexo</th>
                     <th>Nacimiento</th>
                     <th>Edad</th>
-                    <th colspan="3">Domicilio</th>
-                    <th>Turno</th>
+                    <th>Motivo</th>
                     <th>Antecedentes Personales</th>
                     <th>Medicacion Actual</th>
                     <th>Examen Clinico</th>
                     <th>Diagnistico</th>
                     <th>Tratamiento</th>
-                    <th>Acciones</th>
-                </tr>
-                    <!-- Subcolumnas de Domicilio -->
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>Calle</th>
-                    <th>Altura</th>
+                    <th>Domicilio</th>
                     <th>Ciudad</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,15 +56,14 @@
                         <% let date2 = new Date(historiaClinica.fecha_de_nacimiento) %>
                         <td><%= date2.getDate() %> / <%= date2.getMonth()+1 %> / <%= date2.getFullYear() %></td>
                         <td><%= historiaClinica.edad %></td>
-                        <td><%= historiaClinica.calle %></td>
-                        <td><%= historiaClinica.altura %></td>
-                        <td><%= historiaClinica.ciudad %></td>
-                        <td><%= historiaClinica.id_turno %></td>
+                        <td><%= historiaClinica.motivo %></td>
                         <td><%= historiaClinica.antecedentes_personales %></td>
                         <td><%= historiaClinica.medicacion_actual %></td>
                         <td><%= historiaClinica.examen_clinico %></td>
                         <td><%= historiaClinica.diagnostico %></td>
                         <td><%= historiaClinica.tratamiento %></td>
+                        <td><%= historiaClinica.direccion %></td>
+                        <td><%= historiaClinica.nombre_ciudad %></td>
                         <td>
                             <a class="btn btn-sm btn-editar" href="/historiasclinicas/editar/<%= historiaClinica.id %>">Editar</a>
                             <button class="btnEliminar btn btn-sm btn-eliminar" data-id="<%= historiaClinica.id %>">Eliminar</button>

@@ -17,14 +17,9 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>DNI</th>
-                        <th>Edad</th>
                         <th>Email</th>
                         <th>Telefono</th>
                         <th>Obra Social</th>
-                        <th>Calle</th>
-                        <th>Altura</th>
-                        <th>Piso/Departamento</th>
-                        <th>Ciudad</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -33,7 +28,6 @@
                         <td><input id="id" class="form-control-plaintext" value="<%= paciente.id %>" readonly></td>
                         <td><input id="nombre" class="form-control" value="<%= paciente.nombre %>"></td>
                         <td><input id="dni" class="form-control" value="<%= paciente.dni %>"></td>
-                        <td><input id="edad" class="form-control" value="<%= paciente.edad %>"></td>
                         <td><input id="email" class="form-control" value="<%= paciente.email %>"></td>
                         <td><input id="telefono" class="form-control" value="<%= paciente.telefono %>"></td>
                         <td>
@@ -46,10 +40,6 @@
                                 <% }); %>
                             </select>
                         </td>
-                        <td><input id="calle" class="form-control" value="<%= paciente.calle %>"></td>
-                        <td><input id="altura" class="form-control" value="<%= paciente.altura %>"></td>
-                        <td><input id="piso_departamento" class="form-control" value="<%= paciente.piso_departamento %>"></td>
-                        <td><input id="id_ciudades" class="form-control" value="<%= paciente.ciudad %>"></td>
                         <td>
                             <button class="btn btn-primary guardar">Guardar</button>
                             <button class="btn btn-secondary">
@@ -67,14 +57,9 @@
         botonGuardar.addEventListener("click", async () => {
             const pacienteNombre = document.querySelector("#nombre").value.trim();
             const pacienteDNI = document.querySelector("#dni").value.trim();
-            const pacienteEdad = document.querySelector("#edad").value.trim();
             const pacienteEmail = document.querySelector("#email").value.trim();
             const pacienteTelefono = document.querySelector("#telefono").value.trim();
             const pacienteId_obrasocial = document.querySelector("#id_obrasocial").value;
-            const pacienteCalle = document.querySelector("#calle").value;
-            const pacienteAltura = document.querySelector("#altura").value;
-            const pacientePiso_departamento = document.querySelector("#piso_departamento").value;
-            const pacienteId_ciudades = document.querySelector("#id_ciudades").value;
 
             let errores = [];
 
@@ -86,11 +71,6 @@
             // Validar DNI (solo números)
             if (!/^\d+$/.test(pacienteDNI)) {
                 errores.push("El DNI debe contener solo números.");
-            }
-
-            // Validar edad (debe ser un número positivo)
-            if (!/^\d+$/.test(pacienteEdad) || pacienteEdad <= 0) {
-                errores.push("La edad debe ser un número positivo.");
             }
 
             // Validar email (formato correcto, sin espacios, sin 'ñ', y con dominios válidos)
@@ -120,14 +100,9 @@
                 id: <%= paciente.id %>,
                 nombre: pacienteNombre,
                 dni: pacienteDNI,
-                edad: pacienteEdad,
                 email: pacienteEmail,
                 telefono: pacienteTelefono,
-                id_obrasocial: pacienteId_obrasocial,
-                calle: pacienteCalle,
-                altura: pacienteAltura,
-                piso_departamento: pacientePiso_departamento,
-                id_ciudades: pacienteId_ciudades,
+                id_obrasocial: pacienteId_obrasocial
             };
 
             const results = await fetch('/pacientes/editar/<%= paciente.id %>', {

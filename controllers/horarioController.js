@@ -24,8 +24,13 @@ class HorarioController {
         try {
             const medicoId = req.params.medicoId; // Obtener el ID del médico de los parámetros de la URL
 
-            res.render("horarios/agregarHorario", {
-                horario: { id: 0, medicoId: medicoId }, // Estamos creando un nuevo horario, por eso id=0
+            // Obtener los horarios actuales del médico
+            horarioModel.listarHorarios(medicoId, (horarios) => {
+                console.log("Horarios actuales:", horarios);
+                res.render("horarios/agregarHorario", {
+                    horarios: horarios, // Lista de horarios del médico
+                    horario: { id: 0, medicoId: medicoId }, // Estamos creando un nuevo horario, por eso id=0
+                });
             });
         } catch (err) {
             console.error('Error al cargar la información para agregar horario:', err);

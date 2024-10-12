@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 09, 2024 at 02:08 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 13-10-2024 a las 01:02:03
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `centromedico`
+-- Base de datos: `centromedico`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoria_permiso`
+-- Estructura de tabla para la tabla `categoria_permiso`
 --
 
 CREATE TABLE `categoria_permiso` (
@@ -33,7 +33,7 @@ CREATE TABLE `categoria_permiso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `categoria_permiso`
+-- Volcado de datos para la tabla `categoria_permiso`
 --
 
 INSERT INTO `categoria_permiso` (`id`, `nombre`) VALUES
@@ -45,30 +45,7 @@ INSERT INTO `categoria_permiso` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ciudades`
---
-
-CREATE TABLE `ciudades` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `codigo_postal` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ciudades`
---
-
-INSERT INTO `ciudades` (`id`, `nombre`, `codigo_postal`) VALUES
-(1, 'Chivilcoy', 6620),
-(2, 'Suipacha', 6612),
-(3, 'Roque Perez', 7245),
-(4, 'Moquehua', 6625),
-(5, 'Alberti', 6634);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `especialidades`
+-- Estructura de tabla para la tabla `especialidades`
 --
 
 CREATE TABLE `especialidades` (
@@ -77,7 +54,7 @@ CREATE TABLE `especialidades` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `especialidades`
+-- Volcado de datos para la tabla `especialidades`
 --
 
 INSERT INTO `especialidades` (`id`, `nombre_especialidad`) VALUES
@@ -92,76 +69,7 @@ INSERT INTO `especialidades` (`id`, `nombre_especialidad`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estado_turno`
---
-
-CREATE TABLE `estado_turno` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `estado_turno`
---
-
-INSERT INTO `estado_turno` (`id`, `nombre`) VALUES
-(1, 'libre'),
-(2, 'en proceso'),
-(3, 'reservado'),
-(4, 'completado'),
-(5, 'cancelado');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `historia_clinica`
---
-
-CREATE TABLE `historia_clinica` (
-  `id` int(11) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `id_paciente` int(11) NOT NULL,
-  `nro_afiliado` varchar(255) NOT NULL,
-  `sexo` varchar(255) NOT NULL,
-  `fecha_de_nacimiento` date NOT NULL,
-  `edad` int(11) NOT NULL,
-  `motivo` varchar(255) NOT NULL,
-  `antecedentes_personales` varchar(255) NOT NULL,
-  `medicacion_actual` varchar(255) NOT NULL,
-  `examen_clinico` varchar(255) NOT NULL,
-  `diagnostico` varchar(255) NOT NULL,
-  `tratamiento` varchar(255) NOT NULL,
-  `direccion` varchar(255) NOT NULL,
-  `id_ciudad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `historia_clinica`
---
-
-INSERT INTO `historia_clinica` (`id`, `fecha`, `id_paciente`, `nro_afiliado`, `sexo`, `fecha_de_nacimiento`, `edad`, `motivo`, `antecedentes_personales`, `medicacion_actual`, `examen_clinico`, `diagnostico`, `tratamiento`, `direccion`, `id_ciudad`) VALUES
-(1, '2024-10-07 08:16:41', 1, '321654', 'Masculino', '2003-03-15', 21, 'Fondo de Ojos', 'Asesino Serial', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', 'Inmigrantes 447', 2),
-(2, '2024-10-07 10:36:09', 2, '654654', 'Femenino', '2002-09-26', 22, 'Quiropraxia', 'Prófuga', 'Ninguna', 'Se resiste', 'En espera', 'Ninguno', 'Biedma 529', 1),
-(3, '2024-10-07 16:01:47', 3, '321321', 'Masculino', '2001-01-18', 23, 'Resonancia', 'Prófugo', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', 'Av. Villarino 1234', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `horarios`
---
-
-CREATE TABLE `horarios` (
-  `id` int(11) NOT NULL,
-  `id_medico` int(11) NOT NULL,
-  `dia_semana` enum('Lunes','Martes','Miércoles','Jueves','Viernes','Sabado','Domingo') NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `medicos`
+-- Estructura de tabla para la tabla `medicos`
 --
 
 CREATE TABLE `medicos` (
@@ -174,7 +82,7 @@ CREATE TABLE `medicos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `medicos`
+-- Volcado de datos para la tabla `medicos`
 --
 
 INSERT INTO `medicos` (`id`, `id_usuario`, `id_especialidad`, `telefono`, `foto`, `descripcion`) VALUES
@@ -189,7 +97,7 @@ INSERT INTO `medicos` (`id`, `id_usuario`, `id_especialidad`, `telefono`, `foto`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medicos_obrassociales`
+-- Estructura de tabla para la tabla `medicos_obrassociales`
 --
 
 CREATE TABLE `medicos_obrassociales` (
@@ -199,7 +107,7 @@ CREATE TABLE `medicos_obrassociales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `medicos_obrassociales`
+-- Volcado de datos para la tabla `medicos_obrassociales`
 --
 
 INSERT INTO `medicos_obrassociales` (`id`, `id_medico`, `id_obraSocial`) VALUES
@@ -322,30 +230,7 @@ INSERT INTO `medicos_obrassociales` (`id`, `id_medico`, `id_obraSocial`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medicos_practicas`
---
-
-CREATE TABLE `medicos_practicas` (
-  `id` int(11) NOT NULL,
-  `id_medico` int(11) NOT NULL,
-  `id_practicas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `medicos_practicas`
---
-
-INSERT INTO `medicos_practicas` (`id`, `id_medico`, `id_practicas`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 2, 2),
-(4, 2, 4),
-(5, 1, 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `obras_sociales`
+-- Estructura de tabla para la tabla `obras_sociales`
 --
 
 CREATE TABLE `obras_sociales` (
@@ -354,7 +239,7 @@ CREATE TABLE `obras_sociales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `obras_sociales`
+-- Volcado de datos para la tabla `obras_sociales`
 --
 
 INSERT INTO `obras_sociales` (`id`, `nombre`) VALUES
@@ -390,7 +275,7 @@ INSERT INTO `obras_sociales` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pacientes`
+-- Estructura de tabla para la tabla `pacientes`
 --
 
 CREATE TABLE `pacientes` (
@@ -403,7 +288,7 @@ CREATE TABLE `pacientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pacientes`
+-- Volcado de datos para la tabla `pacientes`
 --
 
 INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `email`, `telefono`, `id_obrasocial`) VALUES
@@ -415,43 +300,19 @@ INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `email`, `telefono`, `id_obrasoc
 -- --------------------------------------------------------
 
 --
--- Table structure for table `practicas`
---
-
-CREATE TABLE `practicas` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `practicas`
---
-
-INSERT INTO `practicas` (`id`, `nombre`) VALUES
-(1, 'Práctica ej 1'),
-(2, 'Práctica ej 2'),
-(3, 'Práctica ej 3'),
-(4, 'Práctica ej 4'),
-(5, 'Práctica ej 5');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `turnos`
+-- Estructura de tabla para la tabla `turnos`
 --
 
 CREATE TABLE `turnos` (
   `id` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
-  `id_paciente` int(11) NOT NULL,
+  `id_paciente` int(11) DEFAULT NULL,
   `fecha_hora` datetime NOT NULL,
   `id_estadoTurno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-ALTER TABLE `turnos` CHANGE `id_paciente` `id_paciente` INT(11) NULL;
-
 --
--- Dumping data for table `turnos`
+-- Volcado de datos para la tabla `turnos`
 --
 
 INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `id_estadoTurno`) VALUES
@@ -463,7 +324,7 @@ INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `id_estado
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -475,7 +336,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermiso`) VALUES
@@ -494,50 +355,23 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `id_categoriaPermis
 (13, 'Analía López', 'analíalopez@gmail.com', '1234', 3);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `categoria_permiso`
+-- Indices de la tabla `categoria_permiso`
 --
 ALTER TABLE `categoria_permiso`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ciudades`
---
-ALTER TABLE `ciudades`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `especialidades`
+-- Indices de la tabla `especialidades`
 --
 ALTER TABLE `especialidades`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `estado_turno`
---
-ALTER TABLE `estado_turno`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `historia_clinica`
---
-ALTER TABLE `historia_clinica`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_paciente` (`id_paciente`),
-  ADD KEY `id_ciudad` (`id_ciudad`);
-
---
--- Indexes for table `horarios`
---
-ALTER TABLE `horarios`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_medico` (`id_medico`);
-
---
--- Indexes for table `medicos`
+-- Indices de la tabla `medicos`
 --
 ALTER TABLE `medicos`
   ADD PRIMARY KEY (`id`),
@@ -545,7 +379,7 @@ ALTER TABLE `medicos`
   ADD KEY `id_especialidad` (`id_especialidad`);
 
 --
--- Indexes for table `medicos_obrassociales`
+-- Indices de la tabla `medicos_obrassociales`
 --
 ALTER TABLE `medicos_obrassociales`
   ADD PRIMARY KEY (`id`),
@@ -553,34 +387,20 @@ ALTER TABLE `medicos_obrassociales`
   ADD KEY `id_obraSocial` (`id_obraSocial`);
 
 --
--- Indexes for table `medicos_practicas`
---
-ALTER TABLE `medicos_practicas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_medico` (`id_medico`),
-  ADD KEY `id_practicas` (`id_practicas`);
-
---
--- Indexes for table `obras_sociales`
+-- Indices de la tabla `obras_sociales`
 --
 ALTER TABLE `obras_sociales`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pacientes`
+-- Indices de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_obrasocial` (`id_obrasocial`);
 
 --
--- Indexes for table `practicas`
---
-ALTER TABLE `practicas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `turnos`
+-- Indices de la tabla `turnos`
 --
 ALTER TABLE `turnos`
   ADD PRIMARY KEY (`id`),
@@ -589,128 +409,90 @@ ALTER TABLE `turnos`
   ADD KEY `id_estadoTurno` (`id_estadoTurno`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_categoriaPermiso` (`id_categoriaPermiso`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `categoria_permiso`
+-- AUTO_INCREMENT de la tabla `categoria_permiso`
 --
 ALTER TABLE `categoria_permiso`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `ciudades`
---
-ALTER TABLE `ciudades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `especialidades`
+-- AUTO_INCREMENT de la tabla `especialidades`
 --
 ALTER TABLE `especialidades`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `historia_clinica`
---
-ALTER TABLE `historia_clinica`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `horarios`
---
-ALTER TABLE `horarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `medicos`
+-- AUTO_INCREMENT de la tabla `medicos`
 --
 ALTER TABLE `medicos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `medicos_obrassociales`
+-- AUTO_INCREMENT de la tabla `medicos_obrassociales`
 --
 ALTER TABLE `medicos_obrassociales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
--- AUTO_INCREMENT for table `obras_sociales`
+-- AUTO_INCREMENT de la tabla `obras_sociales`
 --
 ALTER TABLE `obras_sociales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `pacientes`
+-- AUTO_INCREMENT de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `turnos`
+-- AUTO_INCREMENT de la tabla `turnos`
 --
 ALTER TABLE `turnos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `historia_clinica`
---
-ALTER TABLE `historia_clinica`
-  ADD CONSTRAINT `historia_clinica_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id`),
-  ADD CONSTRAINT `historia_clinica_ibfk_2` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudades` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `horarios`
---
-ALTER TABLE `horarios`
-  ADD CONSTRAINT `horarios_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`);
-
---
--- Constraints for table `medicos`
+-- Filtros para la tabla `medicos`
 --
 ALTER TABLE `medicos`
   ADD CONSTRAINT `medicos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `medicos_ibfk_2` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidades` (`id`);
 
 --
--- Constraints for table `medicos_obrassociales`
+-- Filtros para la tabla `medicos_obrassociales`
 --
 ALTER TABLE `medicos_obrassociales`
   ADD CONSTRAINT `medicos_obrassociales_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`),
   ADD CONSTRAINT `medicos_obrassociales_ibfk_2` FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_sociales` (`id`);
 
 --
--- Constraints for table `medicos_practicas`
---
-ALTER TABLE `medicos_practicas`
-  ADD CONSTRAINT `medicos_practicas_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`),
-  ADD CONSTRAINT `medicos_practicas_ibfk_2` FOREIGN KEY (`id_practicas`) REFERENCES `practicas` (`id`);
-
---
--- Constraints for table `pacientes`
+-- Filtros para la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
   ADD CONSTRAINT `pacientes_ibfk_1` FOREIGN KEY (`id_obrasocial`) REFERENCES `obras_sociales` (`id`);
 
 --
--- Constraints for table `turnos`
+-- Filtros para la tabla `turnos`
 --
 ALTER TABLE `turnos`
   ADD CONSTRAINT `turnos_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`),
@@ -718,7 +500,7 @@ ALTER TABLE `turnos`
   ADD CONSTRAINT `turnos_ibfk_3` FOREIGN KEY (`id_estadoTurno`) REFERENCES `estado_turno` (`id`);
 
 --
--- Constraints for table `usuarios`
+-- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_categoriaPermiso`) REFERENCES `categoria_permiso` (`id`);

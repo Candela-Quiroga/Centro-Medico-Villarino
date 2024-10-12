@@ -30,67 +30,77 @@ body {
 
 
 .container-listado-medicos{
-    max-width: 800px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 2%;
+    width: 95%;
 }
 
-.container h1{
-    margin: 2% 0 4% 0;
+body h1 {
+    margin: 1em 0;
     color: var(--AZUL_OSCURO);
     font-weight: 650;
 }
 
 
-.container .listado-medicos{
+.contenedor .listado-medicos{
     width: 90%;
+    margin: 0;
     border-radius: 20px;
     overflow: hidden;
-    margin: 0 auto;
     text-align: center;
     align-content: center;
 }
 
-.container .listado-medicos table{
-    width: 100%;
-    margin: 0;
+.contenedor .listado-medicos table{
+    width: 100% !important;
+    margin: 0 auto;
 }
 
-.container .listado-medicos table thead tr th{
+.contenedor .listado-medicos table thead tr th{
     background-color: var(--VERDE_AGUA);
     color: white;
     font-size: 20px;
     font-weight: 600;
 }
 
-.container .listado-medicos table tbody tr td{
+.contenedor .listado-medicos table tbody tr td{
     align-content: center;
     color: #626262;
 }
 
-.container .btn-editar{
+.contenedor .btn-editar{
     background-color: var(--AZUL_CLARO);
     transition: all .3s;
 }
 
-.container .btn-editar:hover{
+.contenedor .btn-editar:hover{
     background-color: var(--VERDE_AGUA);
 }
 
-.container .listado-medicos table tbody tr .contenedor-descripcion{
+.contenedor .listado-medicos table tbody tr .contenedor-descripcion{
     width: 30%;
 }
 
-.container  .listado-medicos table tbody tr .contenedor-id{
+.contenedor .listado-medicos table tbody .horarios ul li{
+    list-style: none;
+}
+
+.contenedor .listado-medicos table tbody .horarios ul{
+    padding: 0;
+    margin-top: 1em;
+}
+
+.contenedor  .listado-medicos table tbody tr .contenedor-id{
     font-weight: 600;
     color: var(--VERDE_AGUA);
     font-size: 20px;
 }
 
-.container .btn-agregar{
+.contenedor .btn-agregar{
     margin: 25px 0;
     max-width: 250px;
     background-color: var(--VERDE_AGUA);
@@ -99,29 +109,29 @@ body {
     transition: all .3s;
 }
 
-.container .btn-agregar:hover{
+.contenedor .btn-agregar:hover{
     background-color: var(--AZUL_CLARO);
 }
 
-.container .btn-agregar a{
+.contenedor .btn-agregar a{
     text-decoration: none;
     color: white;
     font-weight: 500;
     font-size: 20px;
 }
 
-.container .btn-eliminar{
+.contenedor .btn-eliminar{
     background-color: white;
     border: 1px solid var(--AZUL_CLARO);
     transition: all .3s;
 }
 
-.container .btn-eliminar:hover{
+.contenedor .btn-eliminar:hover{
     background-color: #bc062d;
     color: white;
 }
 
-.container button{
+.contenedor button{
     font-size: 16px;
     font-weight: 450;
 }
@@ -185,6 +195,20 @@ body {
     opacity: 0; /* Se desvanece */
     pointer-events: none; /* Desactiva el clic */
 }
+
+/* Estilos para el botón Ver/Editar Horarios */
+.ver-editar-horarios {
+    color: var(--AZUL_CLARO);
+    font-weight: 700;
+    text-decoration: underline; 
+    background: none; 
+}
+
+.contenedor .listado-medicos table tbody tr .contenedor-descripcion {
+    width: 20%; 
+    max-width: 200px; 
+}
+
 
 
 

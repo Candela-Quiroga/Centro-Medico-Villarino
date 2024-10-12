@@ -13,11 +13,40 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div class="container my-5 contenedor-agregar-horario">
+    <div class="container mt-5 contenedor-agregar-horario">
         <h1 class="text-center mb-4">Agregar Horario</h1>
 
+        <!-- Listado de horarios -->
+        <div class="listado-horarios sombra mb-4">
+            <table class="table table-striped table-bordered border rounded shadow-lg tabla-listado">
+                <thead>
+                    <tr>
+                        <th>Día de la Semana</th>
+                        <th>Hora de Inicio</th>
+                        <th>Hora de Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (horarios.length > 0) { %>
+                        <% horarios.forEach(function(horario) { %>
+                            <tr>
+                                <td><%= horario.dia_semana %></td>
+                                <td><%= horario.hora_inicio %></td>
+                                <td><%= horario.hora_fin %></td>
+                            </tr>
+                        <% }); %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="3" class="text-center">No hay horarios disponibles para este médico</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulario para agregar un nuevo horario -->
         <form>
-            <table class="table table-bordered">
+            <table class="table table-bordered tabla-agregar-horario">
                 <thead class="thead-dark">
                     <tr>
                         <th>Día de la Semana</th>
@@ -54,39 +83,32 @@
                         <td>
                             <button type="button" class="btn btn-guardar guardar">Guardar</button>
                             <button type="button" class="btn btn-cancelar">
-                                <a href="/medico/{{medicoId}}/horarios" class="text-decoration-none">Cancelar</a>
+                                <a href="/medico/<%= horario.medicoId %>/horarios" class="text-decoration-none">Cancelar</a>
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </form>
-
         <div class="contenedor-volver-atras">
             <i class="fa-solid fa-arrow-left"></i>
-            <a href="/medico/{{medicoId}}/horarios">Volver Atrás</a>
+            <a href="/medico/<%= horario.medicoId %>/horarios">Volver Atrás</a>
         </div>
-        
     </div>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         const botonGuardar = document.querySelector(".guardar");
-        
+
         botonGuardar.addEventListener("click", async () => {
             const diaSemana = document.querySelector("#dia_semana").value;
             const horaInicio = document.querySelector("#hora_inicio").value;
             const horaFin = document.querySelector("#hora_fin").value;
-
             // Obtener el ID del médico de la URL
             const pathParts = window.location.pathname.split('/');
             const medicoId = pathParts[2]; // Toma el ID del médico de la ruta
-
             const datos = {
                 dia_semana: diaSemana,
                 hora_inicio: horaInicio,
@@ -95,7 +117,6 @@
                 id: 0 // Esto indica que estamos creando un nuevo horario
             };
 
-            
             const results = await fetch(`/medico/${medicoId}/horarios/agregar`, {
                 method: 'POST',
                 body: JSON.stringify(datos),
@@ -103,8 +124,6 @@
                     'Content-Type': 'application/json'
                 }
             });
-
-
             const data = await results.json();
             if (data.success === true) {
                 Swal.fire({
@@ -114,7 +133,7 @@
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        location.href = `/medico/${medicoId}/horarios`; // Redirige a la lista de horarios del médico
+                        location.reload(); // Recarga la página actual
                     }
                 });
             } else {

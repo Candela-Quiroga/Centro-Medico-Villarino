@@ -1,12 +1,24 @@
 const MedicoModel = require('../models/medicoModel');
 const medicoModel = new MedicoModel();
 
+//horarios model, para mostrar horarios de cada médico
+const HorarioModel = require('../models/horarioModel');
+const horarioModel = new HorarioModel();
 
 class MedicoController {
     // Listado de todos los médicos
     async listarMedicos(req, res) {
-        medicoModel.listarMedicos((medicos) => {
-            console.log("Médicos:", medicos);
+        medicoModel.listarMedicos(async (medicos) => {
+            // Para cada médico, obtenemos sus horarios
+            for (let medico of medicos) {
+                await new Promise((resolve) => {
+                    horarioModel.listarHorarios(medico.id, (horarios) => {
+                        medico.horarios = horarios; // Asignamos los horarios al médico
+                        resolve();
+                    });
+                });
+            }
+            // Renderizamos la vista con los médicos y sus horarios
             res.render("medicos/listarMedicos", {
                 medicos: medicos
             });

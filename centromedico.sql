@@ -62,8 +62,8 @@ INSERT INTO `ciudades` (`id`, `nombre`, `codigo_postal`) VALUES
 (1, 'Chivilcoy', 6620),
 (2, 'Suipacha', 6612),
 (3, 'Roque Perez', 7245),
-(4, 'Moquehua', 6625);
-(5, 'Alberti', 6634),
+(4, 'Moquehua', 6625),
+(5, 'Alberti', 6634);
 
 -- --------------------------------------------------------
 

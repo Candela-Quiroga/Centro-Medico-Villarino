@@ -60,9 +60,10 @@ CREATE TABLE `ciudades` (
 
 INSERT INTO `ciudades` (`id`, `nombre`, `codigo_postal`) VALUES
 (1, 'Chivilcoy', 6620),
-(2, 'Alberti', 6634),
+(2, 'Suipacha', 6612),
 (3, 'Roque Perez', 7245),
 (4, 'Moquehua', 6625);
+(5, 'Alberti', 6634),
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,7 @@ INSERT INTO `estado_turno` (`id`, `nombre`) VALUES
 
 CREATE TABLE `historia_clinica` (
   `id` int(11) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` datetime NOT NULL,
   `id_paciente` int(11) NOT NULL,
   `nro_afiliado` varchar(255) NOT NULL,
   `sexo` varchar(255) NOT NULL,
@@ -139,9 +140,9 @@ CREATE TABLE `historia_clinica` (
 --
 
 INSERT INTO `historia_clinica` (`id`, `fecha`, `id_paciente`, `nro_afiliado`, `sexo`, `fecha_de_nacimiento`, `edad`, `motivo`, `antecedentes_personales`, `medicacion_actual`, `examen_clinico`, `diagnostico`, `tratamiento`, `direccion`, `id_ciudad`) VALUES
-(0, '2024-10-07', 1, '321654', 'Masculino', '2003-03-15', 21, '', 'Asesino Serial', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', '', 2),
-(2, '2024-10-07', 2, '654654654', 'Femenino', '2002-09-26', 22, '', 'Prófuga', 'Ninguna', 'Se resiste', 'En espera', 'Ninguno', '', 1),
-(3, '2024-10-07', 3, '321321', 'Masculino', '2001-01-18', 23, '', 'Prófugo', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', '', 3);
+(1, '2024-10-07 08:16:41', 1, '321654', 'Masculino', '2003-03-15', 21, 'Fondo de Ojos', 'Asesino Serial', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', 'Inmigrantes 447', 2),
+(2, '2024-10-07 10:36:09', 2, '654654', 'Femenino', '2002-09-26', 22, 'Quiropraxia', 'Prófuga', 'Ninguna', 'Se resiste', 'En espera', 'Ninguno', 'Biedma 529', 1),
+(3, '2024-10-07 16:01:47', 3, '321321', 'Masculino', '2001-01-18', 23, 'Resonancia', 'Prófugo', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', 'Av. Villarino 1234', 1);
 
 -- --------------------------------------------------------
 
@@ -408,7 +409,8 @@ CREATE TABLE `pacientes` (
 INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `email`, `telefono`, `id_obrasocial`) VALUES
 (1, 'Junior Alexander', 94222538, 'junioracuna@gmail.com', '2324652338', 28),
 (2, 'Camila Mazzaro', 44555666, 'camimazzaro@gmail.com', '23246687656', 8),
-(3, 'agus', 11, 'agus@gmail.com', '2324652338', 2);
+(3, 'Cande Quiroga', 44951258, 'candeq@gmail.com', '2324652338', 2),
+(4, 'Giuliana Raschua', 45444123, 'giuraschia@gmail.com', '2346652338', 7);
 
 -- --------------------------------------------------------
 

@@ -34,7 +34,7 @@
                 <tbody>
                     <tr>
                         <% let date = new Date(historiaClinica.fecha) %>
-                        <td><input  type="date" id="fecha" value="<%= date.getFullYear() %>-<%= (date.getMonth()+1).toString().padStart(2, '0') %>-<%= date.getDate().toString().padStart(2, '0') %>" readonly></td>                        
+                        <td><input  type="datetime" id="fecha" value="<%= date.getFullYear() %>-<%= (date.getMonth()+1).toString().padStart(2, '0') %>-<%= date.getDate().toString().padStart(2, '0') %>   <%= date.getHours() %>:<%= date.getMinutes() %>" readonly></td>                        
                         <td>
                             <select id="id_paciente">
                                 <% pacientes.forEach(paciente => { %>

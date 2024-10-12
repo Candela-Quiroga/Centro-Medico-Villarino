@@ -49,7 +49,7 @@
                     <tr>
                         <td><%= historiaClinica.id %></td>
                         <% let date = new Date(historiaClinica.fecha) %>
-                        <td><%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %></td>
+                        <td><%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %>  <%= date.getHours() %>:<%= date.getMinutes() %></td>
                         <td><%= historiaClinica.nombre_paciente %></td>
                         <th><%= historiaClinica.nro_afiliado %></th>
                         <th><%= historiaClinica.sexo %></th>

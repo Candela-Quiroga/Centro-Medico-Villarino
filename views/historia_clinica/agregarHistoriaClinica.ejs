@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="date" id="fecha" readonly></td>                        
+                        <td><input type="datetime" id="fecha" readonly></td>                        
                         <td>
                             <select id="id_paciente">
                                 <% pacientes.forEach(paciente => { %>
@@ -43,9 +43,8 @@
                         </td>
                         <td><input id="nro_afiliado" placeholder="" ></td>
                         <td><input id="sexo" placeholder="" ></td>
-                        <% let date = new Date(historiaClinica.fecha_de_nacimiento) %>
-                        <td><input type="date" id="fecha_de_nacimiento" value="<%= date.getFullYear() %>-<%= (date.getMonth()+1).toString().padStart(2, '0') %>-<%= date.getDate().toString().padStart(2, '0') %>"></td>                        
-                        <td><input id="edad" placeholder=""></td>
+                        <th><input type="date" id="fecha_de_nacimiento" name="fecha_nacimiento" required></th>                       
+                        <td><input type="number" id="edad" name="edad" readonly></td>
                         <td><input id="motivo" placeholder=""></td>
                         <td><input id="antecedentes_personales" placeholder=""></td>
                         <td><input id="medicacion_actual" placeholder=""></td>
@@ -82,7 +81,39 @@
             const year = today.getFullYear();
             const month = (today.getMonth() + 1).toString().padStart(2, '0');
             const day = today.getDate().toString().padStart(2, '0');
-            fechaInput.value = `${year}-${month}-${day}`;
+            const hour = today.getHours();
+            const minute = today.getMinutes();
+            fechaInput.value = `${year}-${month}-${day}  ${hour}:${minute}`;
+        });
+
+        // Función para calcular la edad a partir de la fecha de nacimiento
+        function calcularEdad(fechaNacimiento) {
+            const hoy = new Date();
+            const nacimiento = new Date(fechaNacimiento);
+            let edad = hoy.getFullYear() - nacimiento.getFullYear();
+            const mes = hoy.getMonth() - nacimiento.getMonth();
+
+            // Ajustar si el mes actual es antes del mes de nacimiento o es el mismo pero el día aún no ha pasado
+            if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+            edad--;
+            }
+            return edad;
+        }
+
+        // Obtener el input de la fecha de nacimiento y de la edad
+        const inputFechaNacimiento = document.getElementById('fecha_de_nacimiento');
+        const inputEdad = document.getElementById('edad');
+
+        // Escuchar cambios en la fecha de nacimiento
+        inputFechaNacimiento.addEventListener('input', function() {
+            const fechaNacimiento = this.value;
+            if (fechaNacimiento) {
+            // Calcular la edad y actualizar el campo de edad
+            const edad = calcularEdad(fechaNacimiento);
+            inputEdad.value = edad;
+            } else {
+            inputEdad.value = ''; // Limpiar el campo si no hay fecha seleccionada
+            }
         });
 
         const botonGuardar = document.querySelector(".guardar");

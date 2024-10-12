@@ -408,9 +408,9 @@ CREATE TABLE `pacientes` (
 
 INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `email`, `telefono`, `id_obrasocial`) VALUES
 (1, 'Junior Alexander', 94222538, 'junioracuna@gmail.com', '2324652338', 28),
-(2, 'Camila Mazzaro', 44555666, 'camimazzaro@gmail.com', '23246687656', 8),
-(3, 'Cande Quiroga', 44951258, 'candeq@gmail.com', '2324652338', 2),
-(4, 'Giuliana Raschua', 45444123, 'giuraschia@gmail.com', '2346652338', 7);
+(2, 'Camila Mazzaro', 44555666, 'camimazzaro@gmail.com', '2346668765', 8),
+(3, 'Cande Quiroga', 44951258, 'candeq@gmail.com', '2346652338', 2),
+(4, 'Giuliana Raschia', 45444123, 'giuraschia@gmail.com', '2346652338', 7);
 
 -- --------------------------------------------------------
 

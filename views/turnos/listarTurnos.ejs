@@ -19,9 +19,8 @@
     <div class="container contenedor-listado-turnos mt-5">
         <h1 class="text-center mb-4">Listado de Turnos</h1>
 
-        <form action="/turnos" method="GET" class="d-flex mb-4 buscar-turno">
-            <input type="text" name="buscar" placeholder="DNI, Médico o Paciente" class="form-control me-2">
-            <input type="submit" value="Buscar" class="btn btn-buscar">
+        <form id="buscador">
+            <input type="text" id="buscador" placeholder="Buscar pacientes..." />
         </form>
     
         <div class="mb-3">
@@ -47,7 +46,7 @@
                         <td><%= turno.medico_nombre %></td>
                         <td><%= turno.paciente_nombre %></td>
                         <% let date = new Date(turno.fecha_hora) %>
-                        <td><%= date.getDate() %> / <%= date.getMonth()+1 %> / <%= date.getFullYear() %></td>
+                        <td><%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %></td>
                         <td><%= date.getHours() %>:<%= date.getMinutes() %></td>
                         <td><%= turno.estado_nombre %></td>
                         <td>
@@ -73,6 +72,22 @@
                     location.reload(); // Recargar la página después de eliminar
                 }
             });
+        });
+
+        document.addEventListener("keyup", (e) => {
+            if (e.target.matches("#buscador")) {
+                if (e.key === "Escape") e.target.value = "";
+
+                const searchTerm = e.target.value.toLowerCase();
+
+                // Filtrar las filas de la tabla
+                document.querySelectorAll("tbody tr").forEach((fila) => {
+                    const filaText = fila.textContent.toLowerCase();
+                    filaText.includes(searchTerm)
+                        ? fila.classList.remove("filtro")
+                        : fila.classList.add("filtro");
+                });
+            }
         });
     </script>
     

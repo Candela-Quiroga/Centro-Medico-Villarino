@@ -12,17 +12,6 @@ class PacienteController {
     //funcion para listar los pacientes
     async listarPacientes (req, res) {
 
-        const { buscar } = req.query; // Obtiene el valor del query y lo almacena en buscar
-        let filtro = ''; // Almacena las palabra que usamos para filtrar
-        
-        if (buscar) {
-            filtro = `
-                WHERE pacientes.nombre LIKE '%${buscar}%' 
-                OR pacientes.email LIKE '%${buscar}%' 
-                OR pacientes.dni LIKE '%${buscar}%'
-            `;
-        }
-
         pacienteModel.listarPacientes((pacientes) => {
             if (!pacientes || pacientes.length === 0) {
                 console.log("No se encontraron pacientes.");
@@ -111,7 +100,8 @@ class PacienteController {
             res.redirect('/pacientes'); // Redirige a la lista de pacientes tras eliminar
             }
         });
-    }    
+    } 
 }
+
 //exporto el controller con la funcion de listar
 module.exports = PacienteController;

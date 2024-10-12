@@ -1,5 +1,10 @@
 /* VARIABLES */
 
+.filtro{
+    display: none;
+}
+
+
 :root { /*es para no tener que escribir los códigos de color en cada propiedad*/
     --AZUL_OSCURO: #0a3768;
     --AZUL_CLARO: #165bba;

@@ -19,6 +19,10 @@
     <div class="container contenedor-listado-pacientes mt-5 contenedor">
         <h1 class="text-center mb-4">Listado de HH.CC.</h1>
 
+        <form id="buscador">
+            <input type="text" id="buscador" placeholder="Buscar pacientes..." />
+        </form>
+
         <div class="mb-3">
             <a class="btn btn-agregar" href="/historiasclinicas/agregar/0">Agregar Historia Clinica</a>
         </div>
@@ -89,7 +93,22 @@
                 }
             });
         });
+
+        document.addEventListener("keyup", (e) => {
+            if (e.target.matches("#buscador")) {
+                if (e.key === "Escape") e.target.value = ""; //Borra todo lo que se ingresó en el buscador
+
+                const searchTerm = e.target.value.toLowerCase();
+
+                // Filtrar las filas de la tabla
+                document.querySelectorAll("tbody tr").forEach((fila) => {
+                    const filaText = fila.textContent.toLowerCase();
+                    filaText.includes(searchTerm)
+                        ? fila.classList.remove("filtro")
+                        : fila.classList.add("filtro");  //oculta o muestra las filas segun lo que se esté buscando
+                });
+            }
+        });
     </script>
-    
 </body>
 </html>

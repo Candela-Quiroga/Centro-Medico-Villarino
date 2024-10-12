@@ -19,6 +19,10 @@
     <div class="container contenedor-listado-pacientes mt-5 contenedor">
         <h1 class="text-center mb-4">Listado de Pacientes</h1>
 
+        <form id="buscador">
+            <input type="text" id="buscador" placeholder="Buscar pacientes..." />
+        </form>
+
         <div class="mb-3">
             <a class="btn btn-agregar" href="/pacientes/agregar/0">Agregar Paciente</a>
         </div>
@@ -29,7 +33,6 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>DNI</th>
-                    <th>Edad</th>
                     <th>Email</th>
                     <th>Telefono</th>
                     <th>Obra Social</th>
@@ -42,7 +45,6 @@
                         <td><%= pacientes.id %></td>
                         <td><%= pacientes.nombre %></td>
                         <th><%= pacientes.dni %></th>
-                        <th><%= pacientes.edad %></th>
                         <td><%= pacientes.email %></td>
                         <td><%= pacientes.telefono %></td>
                         <td><%= pacientes.obra_social %></td>
@@ -72,7 +74,22 @@
                 }
             });
         });
+
+        document.addEventListener("keyup", (e) => {
+            if (e.target.matches("#buscador")) {
+                if (e.key === "Escape") e.target.value = "";
+
+                const searchTerm = e.target.value.toLowerCase();
+
+                // Filtrar las filas de la tabla
+                document.querySelectorAll("tbody tr").forEach((fila) => {
+                    const filaText = fila.textContent.toLowerCase();
+                    filaText.includes(searchTerm)
+                        ? fila.classList.remove("filtro")
+                        : fila.classList.add("filtro");
+                });
+            }
+        });
     </script>
-    
 </body>
 </html>

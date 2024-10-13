@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2024 a las 01:02:03
+-- Tiempo de generación: 13-10-2024 a las 18:30:08
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,6 +45,29 @@ INSERT INTO `categoria_permiso` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `ciudades`
+--
+
+CREATE TABLE `ciudades` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `codigo_postal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ciudades`
+--
+
+INSERT INTO `ciudades` (`id`, `nombre`, `codigo_postal`) VALUES
+(1, 'Chivilcoy', 6620),
+(2, 'Suipacha', 6612),
+(3, 'Roque Perez', 7245),
+(4, 'Moquehua', 6625),
+(5, 'Alberti', 6634);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `especialidades`
 --
 
@@ -65,6 +88,91 @@ INSERT INTO `especialidades` (`id`, `nombre_especialidad`) VALUES
 (5, 'Cirugía General'),
 (6, 'Clínica Médica'),
 (7, 'Nutrición');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_turno`
+--
+
+CREATE TABLE `estado_turno` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_turno`
+--
+
+INSERT INTO `estado_turno` (`id`, `nombre`) VALUES
+(1, 'libre'),
+(2, 'en proceso'),
+(3, 'reservado'),
+(4, 'completado'),
+(5, 'cancelado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historia_clinica`
+--
+
+CREATE TABLE `historia_clinica` (
+  `id` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `nro_afiliado` varchar(255) NOT NULL,
+  `sexo` varchar(255) NOT NULL,
+  `fecha_de_nacimiento` date NOT NULL,
+  `edad` int(11) NOT NULL,
+  `motivo` varchar(255) NOT NULL,
+  `antecedentes_personales` varchar(255) NOT NULL,
+  `medicacion_actual` varchar(255) NOT NULL,
+  `examen_clinico` varchar(255) NOT NULL,
+  `diagnostico` varchar(255) NOT NULL,
+  `tratamiento` varchar(255) NOT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `id_ciudad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `historia_clinica`
+--
+
+INSERT INTO `historia_clinica` (`id`, `fecha`, `id_paciente`, `nro_afiliado`, `sexo`, `fecha_de_nacimiento`, `edad`, `motivo`, `antecedentes_personales`, `medicacion_actual`, `examen_clinico`, `diagnostico`, `tratamiento`, `direccion`, `id_ciudad`) VALUES
+(1, '2024-10-07 08:16:41', 1, '321654', 'Masculino', '2003-03-15', 21, 'Fondo de Ojos', 'Asesino Serial', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', 'Inmigrantes 447', 2),
+(2, '2024-10-07 10:36:09', 2, '654654', 'Femenino', '2002-09-26', 22, 'Quiropraxia', 'Prófuga', 'Ninguna', 'Se resiste', 'En espera', 'Ninguno', 'Biedma 529', 1),
+(3, '2024-10-07 16:01:47', 3, '321321', 'Masculino', '2001-01-18', 23, 'Resonancia', 'Prófugo', 'ibuprofeno 600', 'Ninguno', 'Re loco', 'En espera.', 'Av. Villarino 1234', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `horarios`
+--
+
+CREATE TABLE `horarios` (
+  `id` int(11) NOT NULL,
+  `id_medico` int(11) NOT NULL,
+  `dia_semana` enum('Lunes','Martes','Miércoles','Jueves','Viernes','Sabado','Domingo') NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `hora_fin` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `horarios`
+--
+
+INSERT INTO `horarios` (`id`, `id_medico`, `dia_semana`, `hora_inicio`, `hora_fin`) VALUES
+(1, 1, 'Lunes', '10:00:00', '12:00:00'),
+(2, 1, 'Lunes', '16:00:00', '19:00:00'),
+(3, 1, 'Martes', '10:00:00', '12:00:00'),
+(4, 1, 'Martes', '17:00:00', '19:00:00'),
+(5, 1, 'Miércoles', '10:00:00', '12:00:00'),
+(6, 1, 'Miércoles', '17:00:00', '19:00:00'),
+(7, 1, 'Jueves', '10:00:00', '12:00:00'),
+(8, 1, 'Jueves', '17:00:00', '19:00:00'),
+(9, 1, 'Viernes', '10:00:00', '12:00:00'),
+(10, 1, 'Viernes', '17:00:00', '19:00:00');
 
 -- --------------------------------------------------------
 
@@ -230,6 +338,29 @@ INSERT INTO `medicos_obrassociales` (`id`, `id_medico`, `id_obraSocial`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `medicos_practicas`
+--
+
+CREATE TABLE `medicos_practicas` (
+  `id` int(11) NOT NULL,
+  `id_medico` int(11) NOT NULL,
+  `id_practicas` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `medicos_practicas`
+--
+
+INSERT INTO `medicos_practicas` (`id`, `id_medico`, `id_practicas`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 2),
+(4, 2, 4),
+(5, 1, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `obras_sociales`
 --
 
@@ -300,6 +431,28 @@ INSERT INTO `pacientes` (`id`, `nombre`, `dni`, `email`, `telefono`, `id_obrasoc
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `practicas`
+--
+
+CREATE TABLE `practicas` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `practicas`
+--
+
+INSERT INTO `practicas` (`id`, `nombre`) VALUES
+(1, 'Práctica ej 1'),
+(2, 'Práctica ej 2'),
+(3, 'Práctica ej 3'),
+(4, 'Práctica ej 4'),
+(5, 'Práctica ej 5');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `turnos`
 --
 
@@ -316,10 +469,15 @@ CREATE TABLE `turnos` (
 --
 
 INSERT INTO `turnos` (`id`, `id_medico`, `id_paciente`, `fecha_hora`, `id_estadoTurno`) VALUES
-(1, 1, 1, '2024-10-11 15:30:00', 4),
-(2, 5, 2, '2024-10-12 11:00:00', 2),
-(3, 3, 1, '2024-10-13 08:45:00', 3),
-(4, 7, 3, '2024-10-10 09:15:00', 4);
+(5, 1, NULL, '2024-10-05 15:34:04', 1),
+(6, 2, NULL, '2024-10-05 15:34:04', 1),
+(7, 3, NULL, '2024-10-05 15:34:04', 1),
+(8, 4, NULL, '2024-10-05 15:34:04', 1),
+(9, 5, NULL, '2024-10-05 15:34:04', 1),
+(10, 6, NULL, '2024-10-05 15:34:04', 1),
+(11, 7, NULL, '2024-10-05 15:34:04', 1),
+(12, 4, 2, '2024-10-12 00:00:00', 1),
+(13, 1, 1, '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -365,10 +523,37 @@ ALTER TABLE `categoria_permiso`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `ciudades`
+--
+ALTER TABLE `ciudades`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `especialidades`
 --
 ALTER TABLE `especialidades`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `estado_turno`
+--
+ALTER TABLE `estado_turno`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `historia_clinica`
+--
+ALTER TABLE `historia_clinica`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_paciente` (`id_paciente`),
+  ADD KEY `id_ciudad` (`id_ciudad`);
+
+--
+-- Indices de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_medico` (`id_medico`);
 
 --
 -- Indices de la tabla `medicos`
@@ -387,6 +572,14 @@ ALTER TABLE `medicos_obrassociales`
   ADD KEY `id_obraSocial` (`id_obraSocial`);
 
 --
+-- Indices de la tabla `medicos_practicas`
+--
+ALTER TABLE `medicos_practicas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_medico` (`id_medico`),
+  ADD KEY `id_practicas` (`id_practicas`);
+
+--
 -- Indices de la tabla `obras_sociales`
 --
 ALTER TABLE `obras_sociales`
@@ -398,6 +591,12 @@ ALTER TABLE `obras_sociales`
 ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_obrasocial` (`id_obrasocial`);
+
+--
+-- Indices de la tabla `practicas`
+--
+ALTER TABLE `practicas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `turnos`
@@ -426,10 +625,28 @@ ALTER TABLE `categoria_permiso`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `ciudades`
+--
+ALTER TABLE `ciudades`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `especialidades`
 --
 ALTER TABLE `especialidades`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `historia_clinica`
+--
+ALTER TABLE `historia_clinica`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `medicos`
@@ -459,7 +676,7 @@ ALTER TABLE `pacientes`
 -- AUTO_INCREMENT de la tabla `turnos`
 --
 ALTER TABLE `turnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -470,6 +687,19 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `historia_clinica`
+--
+ALTER TABLE `historia_clinica`
+  ADD CONSTRAINT `historia_clinica_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id`),
+  ADD CONSTRAINT `historia_clinica_ibfk_2` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudades` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  ADD CONSTRAINT `horarios_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`);
 
 --
 -- Filtros para la tabla `medicos`
@@ -484,6 +714,13 @@ ALTER TABLE `medicos`
 ALTER TABLE `medicos_obrassociales`
   ADD CONSTRAINT `medicos_obrassociales_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`),
   ADD CONSTRAINT `medicos_obrassociales_ibfk_2` FOREIGN KEY (`id_obraSocial`) REFERENCES `obras_sociales` (`id`);
+
+--
+-- Filtros para la tabla `medicos_practicas`
+--
+ALTER TABLE `medicos_practicas`
+  ADD CONSTRAINT `medicos_practicas_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medicos` (`id`),
+  ADD CONSTRAINT `medicos_practicas_ibfk_2` FOREIGN KEY (`id_practicas`) REFERENCES `practicas` (`id`);
 
 --
 -- Filtros para la tabla `pacientes`

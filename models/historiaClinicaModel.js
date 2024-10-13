@@ -23,7 +23,7 @@ class HistoriaClinicaModel{
         }
     }
 
-    async listarHistoriaClinica(callback){
+    async listarHistoriaClinica(filtro, limit, offset, callback) {
         let sql = `
             SELECT 
                 historia_clinica.id AS id, 
@@ -44,14 +44,35 @@ class HistoriaClinicaModel{
             FROM historia_clinica
             LEFT JOIN pacientes AS P1 ON historia_clinica.id_paciente = P1.id
             LEFT JOIN ciudades ON historia_clinica.id_ciudad = ciudades.id
+            ${filtro}
+            LIMIT ? OFFSET ?
         `;
-        
-        conx.query(sql, [], (err, results) => {
+    
+        console.log(`Ejecutando consulta: con límite ${limit} y offset ${offset}`);
+    
+        conx.query(sql, [limit, offset], (err, results) => {
             if (err) {
-                console.error(err);
+                console.error("Error en la consulta de historias clínicas:", err);
                 return callback([]);
             }
             callback(results);
+        });
+    }
+    
+    async obtenerTotalHistorias(filtro, callback) {
+        let sql = `
+            SELECT COUNT(*) AS total 
+            FROM historia_clinica 
+            LEFT JOIN pacientes AS P1 ON historia_clinica.id_paciente = P1.id
+            ${filtro}
+        `;
+        conx.query(sql, (err, result) => {
+            if (err) {
+                console.error("Error al contar historias clínicas:", err);
+                return callback(0);
+            }
+            const total = result[0].total;
+            callback(total);
         });
     }
 

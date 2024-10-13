@@ -12,27 +12,52 @@ const PDFDocument = require('pdfkit');
 class HistoriaClinicaController {
 
     //funcion para listar los historiaClinicas
-    async listarHistoriaClinica (req, res) {
+    async listarHistoriaClinica(req, res) {
+        const { buscar, page = 1, limit = 2 } = req.query; 
+        const currentPage = parseInt(page, 10) || 1;
+        const offset = (currentPage - 1) * limit;
 
-        const { buscar } = req.query; // Obtiene el valor del query y lo almacena en buscar
-        let filtro = ''; // Almacena las palabra que usamos para filtrar
-        
+    
+        let filtro = '';
         if (buscar) {
             filtro = `
                 WHERE historia_clinica.id LIKE '%${buscar}%' 
-                OR historia_clinica.nro_afiliado LIKE '%${buscar}%' 
+                OR historia_clinica.nro_afiliado LIKE '%${buscar}%'
             `;
         }
-
-        historiaClinicaModel.listarHistoriaClinica((historiaClinica) => {
-            if (!historiaClinica || historiaClinica.length === 0) {
-                console.log("No se encontraron historias clinicas.");
-            } else {
-                console.log(historiaClinica);
-            }
-            res.render("../views/historia_clinica/listarHistoriaClinica", {historiaClinica: historiaClinica}); //Antes no me funcionaba por no pasar la variable historiaClinicas como parametro en el render
-        });
-    };
+    
+        try {
+            // Obtener el total de registros sin paginar
+            const total = await new Promise((resolve, reject) => {
+                historiaClinicaModel.obtenerTotalHistorias(filtro, (count) => {
+                    resolve(count);
+                });
+            });
+    
+            // Obtener las historias clínicas paginadas
+            historiaClinicaModel.listarHistoriaClinica(filtro, limit, offset, (historiaClinica) => {
+                if (!historiaClinica || historiaClinica.length === 0) {
+                    console.log("No se encontraron historias clinicas.");
+                } else {
+                    console.log(historiaClinica);
+                }
+    
+                // Calcular el total de páginas
+                const totalPages = Math.ceil(total / limit);
+    
+                // Renderizar la vista con los datos paginados
+                res.render("../views/historia_clinica/listarHistoriaClinica", {
+                    historiaClinica,
+                    currentPage: page,
+                    totalPages,
+                    buscar,
+                });
+            });
+        } catch (error) {
+            console.error("Error al listar historias clínicas:", error);
+            res.status(500).send("Error al listar historias clínicas");
+        }
+    }
 
     //funcion para editar los historiaClinicas
     async editarHistoriaClinica(req, res) {

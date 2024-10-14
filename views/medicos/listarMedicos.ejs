@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Médicos</title>
     <link rel="stylesheet" href="/public/css/medicos.css">
+
+    <!--estilos para la barra lateral-->
+    <link rel="stylesheet" href="/public/css/panel-secretarias.css">
     <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +18,10 @@
     <!--Íconos Font Awesome -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 </head>
+
 <body>
+    
+    <%- include('../commons/menu-secretarias') %>
     <div class="contenedor mt-5 container-listado-medicos">
         <h1>Listado de Médicos</h1>
         <div class="listado-medicos sombra">

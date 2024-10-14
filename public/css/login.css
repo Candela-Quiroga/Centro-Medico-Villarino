@@ -1,10 +1,113 @@
-body{
-    background-color: #c2c2c2;
-    color: black;
+/* VARIABLES */
+
+:root { /*es para no tener que escribir los códigos de color en cada propiedad*/
+    --AZUL_OSCURO: #0a3768;
+    --AZUL_CLARO: #165bba;
+    --VERDE_AGUA: #38b5a9;
+    --DEGRADADO: linear-gradient(90deg, var(--VERDE_AGUA), var(--AZUL_CLARO));
+    --DEGRADADOREVES: linear-gradient(90deg, var(--AZUL_CLARO), var(--VERDE_AGUA));
 }
-.container {
-    width: 80%;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
+
+
+/*ESTILOS PREESTABLECIDOS EN CLASES. Para usarlos, agregar el nombre de la clase al elemento HTML que quieras*/
+
+.sombra{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+
+/* ---------------------------- LOGIN -------------------------------------------*/
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    min-height: 100vh; /*para que el body siempre ocupe toda la vista de la pantalla, como mínimo*/
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2338b5a9" fill-opacity="0.1" d="M0,0L120,26.7C240,53,480,107,720,112C960,117,1200,75,1320,53.3L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 2%;
+    backdrop-filter: blur(20px);
+}
+
+.contenedor-login .ingresar{
+    width: 420px;
+    background: transparent;
+    color: #ffff;
+    border-radius: 10px;
+    padding: 30px 40px;
+    border: 2px solid rgba(255, 255, 255, .2);
+}
+
+.ingresar h1 {
+    margin: 1em 0;
+    color: var(--AZUL_OSCURO);
+    font-weight: 650;
+}
+
+.ingresar .contenedor-input{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.contenedor-input input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #ffff;
+    padding: 20px 45px 20px 20px;
+}
+
+.contenedor-input input::placeholder{
+    color: #ffff;
+}
+
+body label{
+    font-weight: 600;
+    color: var(--VERDE_AGUA);
+    font-size: 20px;
+    width: 100%; 
+}
+
+/*.ingresar input[type="password"],
+.ingresar input[type="text"]{
+    width: 65%;
+    padding: 15px;
+    border: 1px solid var(--AZUL_CLARO);
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}*/
+
+.ingresar .enviar{
+    width: 100%;
+    margin: 25px 0;
+    max-width: 250px;
+    background-color: var(--VERDE_AGUA);
+    padding: 12px 18px;
+    border-radius: 25px 0 25px 0;
+    transition: all .3s;
+}
+
+.ingresar .enviar:hover{
+    background-color: var(--AZUL_CLARO);
+    color: white;
 }

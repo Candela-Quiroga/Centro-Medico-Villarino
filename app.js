@@ -16,8 +16,8 @@ const rutasHorarios = require('./routes/horariosRoute');
 
 //middleware
 app.use(session({
-    "secret": 'hola', //se va a configurar una cookie en el navegador para q no se metan en el programa
-    "resave": false,
+    "secret": 'secret', //se va a configurar una cookie en el navegador para q no se metan en el programa
+    "resave": true,
     "saveUninitialized": true,
     "cookie": {
         secure:false

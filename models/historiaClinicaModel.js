@@ -95,6 +95,31 @@ class HistoriaClinicaModel{
         });
     }
 
+    async obtenerHistoriaClinicaIndividual(id, callback) {
+        const sql = `
+            SELECT 
+                historia_clinica.*, 
+                pacientes.nombre AS nombre_paciente, 
+                ciudades.nombre AS nombre_ciudad
+            FROM historia_clinica
+            LEFT JOIN pacientes ON historia_clinica.id_paciente = pacientes.id
+            LEFT JOIN ciudades ON historia_clinica.id_ciudad = ciudades.id
+            WHERE historia_clinica.id_paciente = ?`; // Cambié historia_clinica.id a id_paciente si estás buscando por paciente
+    
+        conx.query(sql, [id], (err, results) => {
+            if (err) {
+                console.error("Error en la consulta SQL:", err);
+                callback(null);  // Retorna null o maneja el error de alguna forma
+                return;
+            }
+            if (results.length === 0) {
+                callback(this.obtenerHistoriaClinicaBase());
+            } else {
+                callback(results[0]);  // Devuelve el resultado correcto
+            }
+        });
+    }    
+
     async obtenerHistoriaClinicaPorDNI(dni, callback){
         let sql = `SELECT * FROM historia_clinica WHERE pacientes.dni = ?`;
         conx.query(sql, [dni], async (err, results) => {

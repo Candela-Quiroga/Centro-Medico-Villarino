@@ -59,6 +59,29 @@ class HistoriaClinicaController {
         }
     }
 
+    async listarHistoriaClinicaIndividual(req, res) {
+        try {
+            const id = parseInt(req.params.id, 10);  // Asegúrate de que el ID es un número entero
+            
+            // Obtener la historia clínica individual
+            historiaClinicaModel.obtenerHistoriaClinicaIndividual(id, (historiaClinica) => {
+                if (!historiaClinica || historiaClinica.length === 0) {
+                    console.log("No se encontraron historias clínicas.");
+                } else {
+                    console.log(historiaClinica);
+                }
+    
+                // Renderizar la vista con los datos obtenidos
+                res.render("../views/historia_clinica/listarHistoriaClinicaIndividual", {
+                    historiaClinica
+                });
+            });
+        } catch (error) {
+            console.error("Error al listar historia clínica:", error);
+            res.status(500).send("Error al listar historia clínica");
+        }
+    }    
+
     //funcion para editar los historiaClinicas
     async editarHistoriaClinica(req, res) {
             const id = req.params.id;

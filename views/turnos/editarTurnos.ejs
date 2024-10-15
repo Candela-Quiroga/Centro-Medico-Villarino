@@ -116,27 +116,6 @@
                 return;
             }
 
-            // Validar que la fecha de nacimiento no sea posterior a la fecha actual
-            const hoy = new Date();
-            const fechaTurno = new Date(turnoFecha);
-            if (fechaTurno < hoy) {
-                alert("La fecha del turno no puede ser anterior a la fecha actual.");
-                return;
-            }
-
-            // Extraer las horas y minutos de ambos
-            const horaActual = hoy.getHours();
-            const minutosActuales = hoy.getMinutes();
-
-            const horaTurno = turnoFecha.getHours();
-            const minutosTurno = turnoFecha.getMinutes();
-
-            // Comparar las horas y minutos
-            //if (horaTurno < horaActual || (horaTurno === horaActual && minutosTurno < minutosActuales)) {
-            //    alert("La hora del turno no puede ser anterior a la hora actual.");
-            //    return;
-            //}
-
             const datos = {
                 id: <%= turno.id %>,
                 id_medico: turnoMedico,

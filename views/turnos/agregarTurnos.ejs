@@ -113,13 +113,6 @@
                 return;
             }
 
-            // Validar que la fecha de nacimiento no sea posterior a la fecha actual
-            const hoy = new Date();
-            const fechaTurno = new Date(turnoFecha);
-            if (fechaTurno < hoy) {
-                alert("La fecha del turno no puede ser anterior a la fecha actual.");
-                return;
-            }
 
             const datos = {
                 id_medico: turnoMedico,

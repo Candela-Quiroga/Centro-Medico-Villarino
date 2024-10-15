@@ -43,7 +43,7 @@
                     <h2 class="medico-nombre"><%= medico.nombre_medico %></h2>
                     <p class="medico-especialidad">Especialidad: <%= medico.nombre_especialidad %></p>
                     <p class="medico-descripcion">Descripción: <%= medico.descripcion %></p>
-                    <button class="medico-contacto">Pedir turno</button>
+                    <button class="medico-contacto" onclick="window.location.href='/pedirTurno';">Pedir turno</button>
                 </div>
             <% }); %>
         <% } else { %>
@@ -59,7 +59,7 @@
         <img src="/public/img/centromedico.jpg">
         <div class="contenido">
             <h1>Pedir turno online</h1>
-            <button class="boton-pedirTurno">Haciendo click acá</button>
+            <button class="boton-pedirTurno" onclick="window.location.href='/pedirTurno';" >Haciendo click acá</button>
         </div>
     </div>
     <div class="container-datosCentro">

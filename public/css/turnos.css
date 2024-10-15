@@ -31,6 +31,17 @@ body {
     background-position: bottom;
 }
 
+.contenedor-flex{
+    display: flex;
+    gap: 1.5em;
+    height: 100% !important;
+}
+
+.contenedor-listado, .contenedor-agregar, .contenedor-editar{
+    flex: 1;
+    margin-right: 1%;
+}
+
 
 /* Estilo para el título */
 .container h1 {

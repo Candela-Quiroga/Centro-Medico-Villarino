@@ -28,28 +28,37 @@ body {
     background-position: bottom;
 }
 
+.contenedor-flex{
+    display: flex;
+    gap: 1.5em;
+}
 
-.container-listado-medicos{
+.contenedor-listado-agregar{
+    flex: 1;
+    margin-right: 4em;
+}
+
+.contenedor-listado-agregar .container-listado-medicos{
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 2%;
-    width: 95%;
+    margin: 0 2%;
+    width: 100%;
 }
 
 body h1 {
-    margin: 1em 0;
+    margin: 0 0 .7em 0;
     color: var(--AZUL_OSCURO);
     font-weight: 650;
+    font-size: 33px;
 }
 
 
 .contenedor .listado-medicos{
-    width: 90%;
+    width: 100%;
     margin: 0;
-    border-radius: 20px;
     overflow: hidden;
     text-align: center;
     align-content: center;
@@ -63,7 +72,7 @@ body h1 {
 .contenedor .listado-medicos table thead tr th{
     background-color: var(--VERDE_AGUA);
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -83,6 +92,10 @@ body h1 {
 
 .contenedor .listado-medicos table tbody tr .contenedor-descripcion{
     width: 30%;
+}
+
+.contenedor .listado-medicos table tbody tr .contenedor-nombre{
+    width: 12%;
 }
 
 .contenedor .listado-medicos table tbody .horarios ul li{
@@ -215,10 +228,14 @@ body h1 {
 
 /* -------------------------- EDITAR MÉDICOS ----------------------------------*/
 
+.contenedor-editar{
+    width: 90%;
+}
+
 .editar-medico-contenedor {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .form-contenedor {
@@ -305,12 +322,17 @@ body h1 {
 
 /*---------------------------------- INSERTAR MÉDICOS ------------------------- */
 
+.contenedor-insertar{
+    width: 90%;
+    margin-top: 40px;
+}
+
 .contenedor-formulario-insertar{
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    max-width: 700px;
+    width: 100%;
 }
 
 .contenedor-formulario-insertar .formulario-insertar{

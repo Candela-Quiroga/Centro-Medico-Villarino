@@ -1,56 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Paciente</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Enlace a Bootstrap -->
-    <link rel="stylesheet" href="/public/css/pacientes.css"> 
-</head>
+
+<!--HEAD-->
+<%- include('../commons/head-pacientes') %>
+
 <body>
-    <div class="container-fluid mt-5 contenedor">
-        <h1 class="text-center">Editar Paciente</h1>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>DNI</th>
-                        <th>Email</th>
-                        <th>Telefono</th>
-                        <th>Obra Social</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input id="id" class="form-control-plaintext" value="<%= paciente.id %>" readonly></td>
-                        <td><input id="nombre" class="form-control" value="<%= paciente.nombre %>"></td>
-                        <td><input id="dni" class="form-control" value="<%= paciente.dni %>"></td>
-                        <td><input id="email" class="form-control" value="<%= paciente.email %>"></td>
-                        <td><input id="telefono" class="form-control" value="<%= paciente.telefono %>"></td>
-                        <td>
-                            <select id="id_obrasocial" name="id_obrasocial" class="form-control" required>
-                                <option value="">Seleccione una obra social</option>
-                                <% obrasSociales.forEach(function(obra) { %>
-                                    <option value="<%= obra.id %>" <%= obra.id === paciente.id_obrasocial ? 'selected' : '' %>>
-                                        <%= obra.nombre %>
-                                    </option>
-                                <% }); %>
-                            </select>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary guardar">Guardar</button>
-                            <button class="btn btn-secondary">
-                                <a href="/pacientes" style="text-decoration: none; color: inherit;">Cancelar</a>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="contenedor-flex">
+        <div class="contenedor-barra-lateral">
+            <%- include('../commons/menu-secretarias') %>
+        </div>
+        <div class="contenedor-editar">
+            <div class="container-fluid mt-5 contenedor">
+                <h1 class="text-center">Editar Paciente</h1>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>DNI</th>
+                                <th>Email</th>
+                                <th>Telefono</th>
+                                <th>Obra Social</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="contenedor-id"><input id="id" class="form-control-plaintext" value="<%= paciente.id %>" readonly></td>
+                                <td><input id="nombre" class="form-control" value="<%= paciente.nombre %>"></td>
+                                <td><input id="dni" class="form-control" value="<%= paciente.dni %>"></td>
+                                <td><input id="email" class="form-control" value="<%= paciente.email %>"></td>
+                                <td><input id="telefono" class="form-control" value="<%= paciente.telefono %>"></td>
+                                <td>
+                                    <select id="id_obrasocial" name="id_obrasocial" class="form-control" required>
+                                        <option value="">Seleccione una obra social</option>
+                                        <% obrasSociales.forEach(function(obra) { %>
+                                            <option value="<%= obra.id %>" <%= obra.id === paciente.id_obrasocial ? 'selected' : '' %>>
+                                                <%= obra.nombre %>
+                                            </option>
+                                        <% }); %>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary guardar">Guardar</button>
+                                    <button class="btn btn-secondary">
+                                        <a href="/pacientes" style="text-decoration: none; color: inherit;">Cancelar</a>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="contenedor-volver-atras">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <a href="/pacientes">Volver Atrás</a>
+                </div>
+            </div>
         </div>
     </div>
+
 
     <script>
         const botonGuardar = document.querySelector(".guardar");

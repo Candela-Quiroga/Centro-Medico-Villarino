@@ -73,26 +73,45 @@
 
             let errores = [];
 
-            // Validar nombre
+            // Validar Nombre
             if (pacienteNombre === "") {
                 errores.push("El nombre no puede estar vacío.");
+            } else if (pacienteNombre.length > 40) {
+                errores.push("El nombre no puede tener más de 40 caracteres.");
+            } else if (!/^[a-zA-Z\s]+$/.test(pacienteNombre)) {
+                errores.push("El nombre solo puede contener letras y espacios.");
             }
 
-            // Validar DNI (solo números)
-            if (!/^\d+$/.test(pacienteDNI)) {
-                errores.push("El DNI debe contener solo números.");
+            // Validar DNI
+            if (pacienteDNI === "") {
+                errores.push("El DNI no puede estar vacío.");
+            } else if (pacienteDNI.length > 8) {
+                errores.push("El DNI no puede tener más de 8 dígitos.");
+            } else if (pacienteDNI.length < 7) {
+                errores.push("El DNI no puede tener menos de 7 dígitos.");
+            } else if (!/^\d+$/.test(pacienteDNI)) {
+                errores.push("El DNI solo puede contener números.");
             }
 
-            // Validar email (formato correcto, sin espacios, sin 'ñ', y con dominios válidos)
-            const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/; // Permite cualquier dominio que termine en .com
-            if (!emailRegex.test(pacienteEmail) || pacienteEmail.includes('ñ')) {
-                errores.push("El correo electrónico es inválido, contiene espacios o contiene caracteres no permitidos. Corrobore el dominio. EJ: @gmail.com, @hotmail.com, @yahoo.com, etc.");
+            // Validar Email
+            const emailRegex = /^[^\s@]+@(gmail\.com|hotmail\.com|yahoo\.com)$/;
+            if (pacienteEmail === "") {
+                errores.push("El email no puede estar vacío.");
+            } else if (pacienteEmail.length > 50) {
+                errores.push("El email no puede tener más de 50 caracteres.");
+            } else if (!emailRegex.test(pacienteEmail) || pacienteEmail.includes('ñ')) {
+                errores.push("El correo electrónico es inválido, contiene espacios o caracteres no permitidos. Corrobore el dominio. EJ: @gmail.com, @hotmail.com o @yahoo.com");
             }
 
-            // Validar teléfono (solo números, espacios o guiones)
-            if (!/^[\d\s\-]+$/.test(pacienteTelefono)) {
-                errores.push("El teléfono debe contener solo números.");
+            // Validar Teléfono
+            if (pacienteTelefono === "") {
+                errores.push("El teléfono no puede estar vacío.");
+            } else if (pacienteTelefono.length !== 10) {
+                errores.push("El teléfono debe tener exactamente 10 dígitos.");
+            } else if (!/^\d+$/.test(pacienteTelefono)) {
+                errores.push("El teléfono solo puede contener números.");
             }
+
 
             // Validar que haya seleccionado una obra social
             if (!pacienteId_obrasocial) {

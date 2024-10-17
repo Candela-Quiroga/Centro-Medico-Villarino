@@ -1,6 +1,6 @@
 //usuarioModel.js es el encargado de hacer todas las consultas a la bd de todos los usuarios. 
 
-const conx = require('../database/db'); //conexión a la bd. 
+const conx = require('../database/db'); //conexión a la bd.
 
 class UsuarioModel{ 
 
@@ -16,6 +16,23 @@ class UsuarioModel{
                 }
             });
         });
+    }
+
+    async HashPass(){
+        const sql = 'SELECT id, password FROM users';
+        conx.query(sql, [], async (err, results) => {
+            if (err) {
+                console.error("Error en la consulta", err);
+                return callback(err, null); 
+            }
+            for (let user of results) { //itera sobre cada uno de los resultados
+                const { id, password } = user;
+                if (password.length >= 60 && password.startsWith('$2b$')) { //si la contra está hasheada, lo salta
+                    console.log(`El usuario con id ${id} ya tiene una contraseña hasheada.`);
+                }
+            }
+        });
+
     }
 
     obtenerUsuarioBase() { //esta función sirve para crear un nuevo usuario y usa como molde la estructura. 

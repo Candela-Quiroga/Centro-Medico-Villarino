@@ -7,6 +7,7 @@ const loginModel = new LoginModel();
 const bcrypt = require('bcrypt');
 
 class loginController {
+
     async mostrarFormulario (req, res) { 
         console.log(req.session);
         res.render('usuarios/login');
@@ -38,6 +39,23 @@ class loginController {
             }
         });
     }
+
+    actualizarPassword(req, res) { //acá les hago el hash
+        loginModel.actualizarPasswordHash((err, mensaje) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error al actualizar las contraseñas.",
+                    error: err
+                });
+            }
+            res.json({
+                success: true,
+                message: mensaje
+            });
+        });
+    }
+
 }
 
 module.exports = loginController;

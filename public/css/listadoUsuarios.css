@@ -1,0 +1,153 @@
+/* VARIABLES */
+
+:root { /*es para no tener que escribir los códigos de color en cada propiedad*/
+    --AZUL_OSCURO: #0a3869;
+    --AZUL_CLARO: #165bba;
+    --VERDE_AGUA: #38b5a9;
+    --DEGRADADO: linear-gradient(90deg, var(--VERDE_AGUA), var(--AZUL_CLARO));
+    --DEGRADADOREVES: linear-gradient(90deg, var(--AZUL_CLARO), var(--VERDE_AGUA));
+}
+
+/* ---------------------------- Panel Usuarios -------------------------------------------*/
+
+* {
+    margin-top: 0;
+    margin-right: 12px;
+    margin-left: 12px;
+    margin-bottom: 12px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /*para que el body siempre ocupe toda la vista de la pantalla, como mínimo*/
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2338b5a9" fill-opacity="0.1" d="M0,0L120,26.7C240,53,480,107,720,112C960,117,1200,75,1320,53.3L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>') no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    flex-direction: column;
+}
+
+body h1 {
+    margin: 1em 0;
+    color: var(--AZUL_OSCURO);
+    font-weight: 650;
+    font-size: 33px;
+    text-align: center;
+    text-shadow: 0 4px 8px rgba(0, 1, 1, 0.1);
+    width: 29%;
+}
+
+.contenedor-usuarios{
+    background:  transparent/*#EEF9F8*/;
+    backdrop-filter: blur(70px);
+}
+
+.contenedor-usuarios table{
+    color: black;
+    table-layout: fixed;
+    border: 2px solid var(--AZUL_OSCURO);
+    border-collapse: collapse;
+}
+
+thead{
+    background: var(--DEGRADADOREVES);
+    color: white;
+    font-weight: 650;
+}
+
+th{
+    padding: 20px 15px;
+    text-transform: uppercase;
+    border: 2px solid var(--AZUL_OSCURO);
+}
+
+td{
+    padding: 15px;
+    border: 2px solid var(--AZUL_OSCURO);
+}
+
+tbody tr{
+    cursor: pointer;
+    width: 20px;
+}
+
+tbody tr:hover{
+    background-color: #d4f1f4;
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*BOTONES*/
+.contenedor-usuarios .btn-editar{ /*EDITAR COMÚN*/
+    margin: 25px 0;
+    max-width: 250px;
+    background-color: var(--VERDE_AGUA);
+    padding: 12px 18px;
+    border-radius: 5px;
+    transition: all .3s;
+}
+
+.contenedor-usuarios .btn-editar a{
+    text-decoration: none;
+    color: black;
+}
+
+.contenedor-usuarios .btn-borrar{ /*BORRAR COMÚN*/
+    margin: 25px 0;
+    max-width: 250px;
+    background-color: var(--VERDE_AGUA);
+    padding: 12px 18px;
+    border-radius: 5px;
+    transition: all .3s;
+}
+
+/*HEADER*/
+header{
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    padding-left: 10px;
+    margin: 0;
+}
+
+header .agrego .btn-agrega{ /*AGREGAR COMÚN*/
+    margin: 25px 0;
+    max-width: 250px;
+    background-color: var(--VERDE_AGUA);
+    padding: 12px 18px;
+    border-radius: 5px;
+    transition: all .3s;
+    border: 1px solid black;
+}
+
+header .agrego .btn-agrega a{
+    text-decoration: none;
+    color: black;
+}
+
+/*FIN HEADER*/
+
+.contenedor-usuarios .btn-editar:hover{
+    background-color: white;
+    color: black;
+}
+
+.contenedor-usuarios .btn-borrar:hover{
+    background-color: red;
+    color: white;
+}
+
+    /*HEADER*/
+
+header .agrego .btn-agrega:hover{
+    background-color: var(--AZUL_CLARO);
+    color: white;
+}
+
+    /*FIN HEADER*/
+
+/*FIN BOTONES*/

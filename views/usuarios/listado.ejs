@@ -1,14 +1,25 @@
 <!--listado.ejs-->
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Listar Usuarios</title>
+        <title>Listado de Usuarios</title>
+        <link rel="stylesheet" href="/public/css/listadoUsuarios.css">
+        <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="icon" href="/public/img/Icono redondeado CMV .png" type="image/x-icon"> <!--icono al lado del nombre del documento en la página-->
     </head>
+    <header>
+        <div class="agrego">
+            <div id="btn-agregar" class="btn-agrega"><a href="/usuario/agregar/0">Crear Usuario</a></div> <!--Aca creo el usuario de cero, aparece un boton para crearlo-->
+        </div>
+    </header>
     <body>
-        <div class="container">
-            <h1>Listar Usuarios</h1>
+        <h1>Listado de Usuarios</h1>
+        <div class="contenedor-usuarios">
             <table>
                 <thead>
                     <tr>
@@ -27,14 +38,13 @@
                             <td><%= user.email %></td>
                             <td><%= user.categoria %></td>
                             <td>
-                                <button class="btn-editar"><a href="/usuario/editar/<%= user.id%>">Editar Usuario</a></button>
-                                <button class="borrarUsuario" data-id="<%= user.id %>">Eliminar Usuario</button>
+                                <button class="btn-editar"><a href="/usuario/editar/<%= user.id%>">Editar</a></button>
+                                <button class="btn-borrar" data-id="<%= user.id %>">Eliminar</button>
                             </td>
                         </tr>
                     <% }); %>   
                 </tbody>
             </table>
-            <div id="btn-agregar" class="btn-agregar"><a href="/usuario/agregar/0">Crear Usuario</a></div> <!--Aca creo el usuario de cero, aparece un boton para crearlo-->
         </div>
 
         <script>

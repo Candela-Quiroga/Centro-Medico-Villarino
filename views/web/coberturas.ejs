@@ -33,24 +33,26 @@
         </select>
         </div>
     </div>
-    <div class="container-medicos" id="medicos">
-        <!-- Se traen los médicos y su info de la BD  -->
+    <div class="container-medicos">
         <% if (medicos && medicos.length > 0) { %>
             <% medicos.forEach(function(medico) { %>
-                <div class="tarjeta-medico">
-
-                    <img src="<%= medico.foto %>" alt="Foto de <%= medico.nombre_medico %>" class="medico-foto">
-                    <h2 class="medico-nombre"><%= medico.nombre_medico %></h2>
-                    <p class="medico-especialidad">Especialidad: <%= medico.nombre_especialidad %></p>
-                    <p class="medico-descripcion">Descripción: <%= medico.descripcion %></p>
-                    <button class="medico-contacto" onclick="window.location.href='/pedirTurno';">Pedir turno</button>
+                <div class="tarjeta-medico-container">
+                    <div class="tarjeta-medico">
+                        <img src="<%= medico.foto %>" alt="Foto de <%= medico.nombre_medico %>" class="medico-foto">
+                        <h2 class="medico-nombre"><%= medico.nombre_medico %></h2>
+                        <p class="medico-especialidad"><%= medico.nombre_especialidad %></p>
+                    </div>
+                    <!-- Para que la descripción y los horarios sean visibles solo al pasar el mouse por el nombre -->
+                    <p class="medico-descripcion"><%= medico.descripcion %></p>
+                    <p class="medico-horarios"><%= medico.horarios %></p>
+                    <button class="medico-contacto" onclick="window.location.href='/pedirTurno';">Pedir Turno</button>
                 </div>
             <% }); %>
         <% } else { %>
-            <!-- Mensaje si no hay médicos disponibles -->
             <p>No hay médicos disponibles en este momento.</p>
         <% } %>
     </div>
+    
     
     <div class="container-obrassociales">
         <img src="/public/img/Obras-sociales.png">

@@ -823,7 +823,7 @@ header .menu-pedir-turno:hover {
     width: 1000px;
     margin: 0 auto;
     margin-bottom: 60px;
-    margin-top: 80px;
+    margin-top: 100px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
     border-radius: 10px;
 }
@@ -1461,8 +1461,17 @@ label {
     padding: 20px;
 }
 
-/*tarjetas de medicos*/
-.container-medicos {
+.container-medicos,
+.container-profesionales {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+}
+
+ /*tarjetas de medicos*/
+ .container-medicos {
     margin-top: 100px;
     display: flex;
     flex-wrap: wrap;
@@ -1471,14 +1480,15 @@ label {
 }
 .container-medicos .tarjeta-medico {
     border: 1px solid #ccc; 
-    border-radius: 25px 0 25px 0;
+    border-radius: 25px 0 0 0;
+    border: 1px solid var(--AZUL_CLARO);
     margin: 10px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
     text-align: center; 
     width: 250px; 
-    background-color: var(--VERDE_AGUA); 
+    background-color: white; 
     transition: transform 0.2s; 
-    height: 500px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1499,9 +1509,8 @@ label {
 .medico-nombre {
     font-family: 'Montserrat', sans-serif; 
     font-size: 20px; 
-    color:white; 
+    color:var(--AZUL_OSCURO); 
     margin: 0; 
-    background-color: var(--AZUL_OSCURO);
     width: 100%;
     display: block;
     padding: 10px 0;
@@ -1512,8 +1521,8 @@ label {
 .medico-cobertura,
 .medico-descripcion {
     font-family: 'Montserrat', sans-serif; 
-    color: white; 
-    font-weight: 300;
+    color: var(--AZUL_OSCURO); 
+    font-weight: 500;
     font-size: 15px;
 }
 
@@ -1533,11 +1542,10 @@ label {
 
 }
     
-
 .medico-contacto:hover {
-    background-color: #1e8b7e; 
+    background-color: var(--VERDE_AGUA); 
     cursor: pointer;
-}
+} 
 
 /*container obras sociales */
 
@@ -1712,7 +1720,7 @@ label {
     justify-content: space-between;
     padding: 20px; 
     width: 100%;
-    height: 700px;
+    height: 700px; 
     box-sizing: border-box;
     margin-bottom: 50px; 
 }
@@ -1722,8 +1730,8 @@ label {
     padding-right: 20px;
     color: white;
     text-align: left;
-    margin-top: 200px;
-    margin-left: 200px;
+    margin-top: 50px; 
+    margin-left: 50px; 
 }
 
 .textos-profesionales h1 {
@@ -1748,11 +1756,10 @@ label {
 .imagen-profesionales {
     width: 50%;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end; 
+    justify-content: center; 
+    align-items: center; 
     height: 100%;
     margin: 0;
-    padding: 0;
 }
 
 .imagen-profesionales img {
@@ -1761,9 +1768,6 @@ label {
     max-height: 100%; 
     object-fit: cover; 
     margin: 0;
-    padding: 0;
-
-    
 }
 
 .especialidades-container {
@@ -1796,11 +1800,85 @@ label {
     color: var(--AZUL_OSCURO); 
 }
 
-.especialidades-container article :hover {
+.especialidades-container article:hover {
     background-color: var(--AZUL_OSCURO);
     color: white;
     cursor: pointer;
 }
+
+
+
+.tarjeta-medico {
+    position: relative;
+    background-color: #e8f4f8;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.tarjeta-medico .medico-foto {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 2px solid #d0d0d0;
+}
+
+.tarjeta-medico .medico-nombre {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.tarjeta-medico .medico-especialidad {
+    font-size: 18px;
+    color: var(--AZUL_CLARO);
+    margin-top: 5px;
+}
+
+.tarjeta-medico-container .medico-descripcion,
+.tarjeta-medico-container .medico-horarios {
+    display: none;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.tarjeta-medico .medico-nombre:hover + .medico-descripcion,
+.tarjeta-medico .medico-nombre:hover + .medico-horarios {
+    display: block;
+}
+
+.medico-contacto {
+    background: var(--DEGRADADO);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px 0 25px 0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 50%;
+    margin-top: 10px;
+}
+
+.medico-contacto:hover {
+    background-color: #0056b3;
+}
+
+.tarjeta-medico-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+} 
 
 
 /*FOOTER*/

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2024 at 04:41 AM
+-- Generation Time: Oct 22, 2024 at 12:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,8 +39,7 @@ CREATE TABLE `categoria_permiso` (
 INSERT INTO `categoria_permiso` (`id`, `nombre`) VALUES
 (1, 'Administrador'),
 (2, 'Medico'),
-(3, 'Secretaria'),
-(4, 'Paciente');
+(3, 'Secretaria');
 
 -- --------------------------------------------------------
 

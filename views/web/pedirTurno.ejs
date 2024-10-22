@@ -102,8 +102,12 @@
           <div>
             <div class="formulario-grupo">
               <label for="obra-social">Selecciona una Obra Social:</label>
-                <select id="obra-social" name="obra-social">
-                </select>
+              <select id="obra-social" name="obra-social">
+                <option value="0">Seleccione</option>
+                <% obras_sociales.forEach((obra) => { %>
+                  <option value="<%= obra.id %>"><%= obra.nombre %></option>
+                <% }) %>
+              </select>
             </div>
 
             <div class="formulario-grupo">

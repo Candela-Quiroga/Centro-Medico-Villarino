@@ -65,8 +65,12 @@ class WebController{
     async mostrarPedirTurno(req, res) {
         // Como no se sabe que datos va a elegir el usuario, obligatoriamente tenemos que crear la web
         // Sin ningun dato, e ir cargandolo de a poco a medida de que el usuario seleccione datos
-        res.render('web/pedirTurno', {
-            title: 'Pedir Turno'
+
+        pacienteModel.obtenerObrasSociales((obrasSociales) => {
+            res.render('web/pedirTurno', {
+                title: 'Pedir Turno',
+                obras_sociales: obrasSociales
+            });
         });
     }
 

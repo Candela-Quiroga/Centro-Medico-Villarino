@@ -51,7 +51,11 @@
                 alert ("Usuario o contraseña incorrecto");
                 location.href = "/login"; //recarga la página
             } else {
+                if(data.categoria=== 3){
                 window.location.href = "/panelSecretaria"; //PARA REDIRIGIR A UNA PÁGINA DESPUÉS DE QUE SE LOGRÓ INGRESAR (Esto cambia con el panel)
+                }else if(data.categoria === 1){
+                    window.location.href=" /usuarios";
+                }
             }
         });
     </script>

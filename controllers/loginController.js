@@ -27,8 +27,10 @@ class loginController {
             if(usuario && bcrypt.compareSync(password, usuario.password)) { //si la contraseña ingresada y la del usuario coinciden
                 //usuario valido
                 req.session.idUsuario = usuario.id; //guarda el id del usuario en la sesión
+                req.session.categoria= usuario.id_categoriaPermiso;
                 res.json({
                     "idUsuario": usuario.id,
+                    "categoria": usuario.id_categoriaPermiso,
                     "error": 0 //login correcto
                 });
             }else{
@@ -53,6 +55,18 @@ class loginController {
                 success: true,
                 message: mensaje
             });
+        });
+    }
+
+    async logout(req, res) {
+        req.session.destroy((err) => {
+            if(err) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error al cerrar sesión"
+                });
+            }
+            res.redirect('/login');
         });
     }
 

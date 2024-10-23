@@ -129,6 +129,16 @@ header .agrego .btn-agrega a{
     color: black;
 }
 
+header .agrego .btn-logout{ 
+    margin: 25px 0;
+    max-width: 250px;
+    background-color: white;
+    padding: 12px 18px;
+    border-radius: 5px;
+    transition: all .3s;
+    border: 1px solid black;
+}
+
 /*FIN HEADER*/
 
 .contenedor-usuarios .btn-editar:hover{

@@ -8,5 +8,6 @@ const loginController = new LoginController();
 //rutas para ingreso
 router.get('/login', loginController.mostrarFormulario); 
 router.post('/login', loginController.validarFormulario);
+router.get('/logout', loginController.logout); //para cerrar sesión
 
 module.exports = router;

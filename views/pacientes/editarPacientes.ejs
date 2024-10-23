@@ -78,7 +78,7 @@
                 errores.push("El nombre no puede estar vacío.");
             } else if (pacienteNombre.length > 40) {
                 errores.push("El nombre no puede tener más de 40 caracteres.");
-            } else if (!/^[a-zA-Z\s]+$/.test(pacienteNombre)) {
+            } else if (!/^[a-zA-Z\sñÑ]+$/.test(pacienteNombre)) {
                 errores.push("El nombre solo puede contener letras y espacios.");
             }
 
@@ -94,13 +94,12 @@
             }
 
             // Validar Email
-            const emailRegex = /^[^\s@]+@(gmail\.com|hotmail\.com|yahoo\.com)$/;
             if (pacienteEmail === "") {
                 errores.push("El email no puede estar vacío.");
             } else if (pacienteEmail.length > 50) {
                 errores.push("El email no puede tener más de 50 caracteres.");
-            } else if (!emailRegex.test(pacienteEmail) || pacienteEmail.includes('ñ')) {
-                errores.push("El correo electrónico es inválido, contiene espacios o caracteres no permitidos. Corrobore el dominio. EJ: @gmail.com, @hotmail.com o @yahoo.com");
+            } else if (pacienteEmail.includes('ñ')) {
+                errores.push("El correo electrónico es inválido, contiene espacios o caracteres no permitidos.");
             }
 
             // Validar Teléfono

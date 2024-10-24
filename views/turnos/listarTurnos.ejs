@@ -49,7 +49,7 @@
                             <tr>
                                 <td><%= turno.turno_id %></td>
                                 <td><%= turno.medico_nombre %></td>
-                                <td><%= turno.paciente_nombre %></td>
+                                <td><%= turno.paciente_nombre ? turno.paciente_nombre : 'Sin asignar'  %></td>
                                 <% let date = new Date(turno.fecha_hora) %>
                                 <td><%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %></td>
                                 <td><%= date.getHours() %>:<%= date.getMinutes() %></td>

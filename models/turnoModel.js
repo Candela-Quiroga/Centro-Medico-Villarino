@@ -27,11 +27,11 @@ class TurnoModel{
                 turnos.fecha_hora AS fecha_hora, 
                 estado_turno.nombre AS estado_nombre
             FROM turnos 
-            JOIN medicos ON turnos.id_medico = medicos.id 
-            JOIN usuarios ON medicos.id_usuario = usuarios.id 
-            JOIN especialidades ON medicos.id_especialidad = especialidades.id 
-            JOIN pacientes ON turnos.id_paciente = pacientes.id
-            JOIN obras_sociales ON pacientes.id_obraSocial = obras_sociales.id
+            LEFT JOIN medicos ON turnos.id_medico = medicos.id 
+            LEFT JOIN usuarios ON medicos.id_usuario = usuarios.id 
+            LEFT JOIN especialidades ON medicos.id_especialidad = especialidades.id 
+            LEFT JOIN pacientes ON turnos.id_paciente = pacientes.id
+            LEFT JOIN obras_sociales ON pacientes.id_obraSocial = obras_sociales.id
             JOIN estado_turno ON turnos.id_estadoTurno = estado_turno.id
             ${filtro}
             ORDER BY turnos.id DESC;

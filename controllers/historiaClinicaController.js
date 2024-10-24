@@ -51,6 +51,8 @@ class HistoriaClinicaController {
                     currentPage: page,
                     totalPages,
                     buscar,
+                    nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                    emailUsuario: req.session.emailUsuario
                 });
             });
         } catch (error) {
@@ -73,7 +75,9 @@ class HistoriaClinicaController {
     
                 // Renderizar la vista con los datos obtenidos
                 res.render("../views/historia_clinica/listarHistoriaClinicaIndividual", {
-                    historiaClinica
+                    historiaClinica,
+                    nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                    emailUsuario: req.session.emailUsuario
                 });
             });
         } catch (error) {
@@ -104,7 +108,9 @@ class HistoriaClinicaController {
                 res.render("../views/historia_clinica/editarHistoriaClinica", {
                     historiaClinica: historiaClinica,
                     pacientes: pacientes,
-                    ciudades: ciudades
+                    ciudades: ciudades,
+                    nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                    emailUsuario: req.session.emailUsuario
                 });
             })
             .catch(err => {
@@ -144,7 +150,9 @@ class HistoriaClinicaController {
             res.render("../views/historia_clinica/agregarHistoriaClinica", {
                 historiaClinica: { id: 0 },
                 pacientes: pacientes,
-                ciudades: ciudades
+                ciudades: ciudades,
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
             });
         })
         .catch(err => {

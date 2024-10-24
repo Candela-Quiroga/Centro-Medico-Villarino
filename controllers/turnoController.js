@@ -47,7 +47,11 @@ class TurnoController {
             } else {
                 console.log(turnos);
             }
-            res.render("../views/turnos/listarTurnos", {turno: turnos}); //Antes no me funcionaba por no pasar la variable turnos como parametro en el render
+            res.render("../views/turnos/listarTurnos", {
+                turno: turnos,
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
+            }); //Antes no me funcionaba por no pasar la variable turnos como parametro en el render
         });
     };
 
@@ -79,7 +83,9 @@ class TurnoController {
                 turno: turno,
                 pacientes: pacientes,
                 medicos: medicos,
-                estado_turnos: estado_turnos
+                estado_turnos: estado_turnos,
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
             });
         })
         .catch(err => {
@@ -125,7 +131,9 @@ class TurnoController {
                 turno: { id: 0 }, // Turno vacío
                 pacientes: pacientes,
                 medicos: medicos,
-                estado_turnos: estado_turnos
+                estado_turnos: estado_turnos,
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
             });
         })
         .catch(err => {

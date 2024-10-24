@@ -13,7 +13,9 @@ class HorarioController {
             console.log("Horarios:", horarios);
             res.render("horarios/listarHorarios", {
                 horarios: horarios,
-                medicoId: medicoId
+                medicoId: medicoId,
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
             });
         });
     }
@@ -30,6 +32,8 @@ class HorarioController {
                 res.render("horarios/agregarHorario", {
                     horarios: horarios, // Lista de horarios del médico
                     horario: { id: 0, medicoId: medicoId }, // Estamos creando un nuevo horario, por eso id=0
+                    nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                    emailUsuario: req.session.emailUsuario
                 });
             });
         } catch (err) {
@@ -52,7 +56,11 @@ class HorarioController {
                     }
                 });
             });
-            res.render("horarios/editarHorario", { horario: { ...horarioExistente, id_medico: medicoId } });
+            res.render("horarios/editarHorario", { 
+                horario: { ...horarioExistente, id_medico: medicoId },
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
+            });
         } catch (err) {
             res.status(500).send("Error al cargar la información");
         }

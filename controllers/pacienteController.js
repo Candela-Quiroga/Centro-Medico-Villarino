@@ -18,7 +18,11 @@ class PacienteController {
             } else {
                 console.log(pacientes);
             }
-            res.render("../views/pacientes/listarPacientes", {pacientes: pacientes}); //Antes no me funcionaba por no pasar la variable pacientes como parametro en el render
+            res.render("../views/pacientes/listarPacientes", {
+                pacientes: pacientes,
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
+            }); //Antes no me funcionaba por no pasar la variable pacientes como parametro en el render
         });
     };
 
@@ -44,7 +48,11 @@ class PacienteController {
             });
     
             // Renderizar la vista de edición con los datos del paciente y las obras sociales
-            res.render("../views/pacientes/editarPacientes", { paciente, obrasSociales });
+            res.render("../views/pacientes/editarPacientes", {
+                paciente, obrasSociales,
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
+            });
     
         } catch (error) {
             console.error("Error al editar paciente:", error);
@@ -64,7 +72,11 @@ class PacienteController {
             });
 
             // Renderizar la vista de agregar paciente
-            res.render("../views/pacientes/agregarPacientes", { paciente: pacienteModel.obtenerPacienteBase(), obrasSociales });
+            res.render("../views/pacientes/agregarPacientes", {
+                paciente: pacienteModel.obtenerPacienteBase(), obrasSociales,
+                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
+                emailUsuario: req.session.emailUsuario
+            });
         } catch (error) {
             console.error("Error al mostrar el formulario de agregar paciente:", error);
             res.status(500).send("Error al cargar el formulario de agregar paciente.");

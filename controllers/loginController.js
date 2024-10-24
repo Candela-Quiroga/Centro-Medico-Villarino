@@ -28,6 +28,12 @@ class loginController {
                 //usuario valido
                 req.session.idUsuario = usuario.id; //guarda el id del usuario en la sesión
                 req.session.categoria= usuario.id_categoriaPermiso;
+                req.session.nombreUsuario = usuario.nombre; // guarda el nombre del usuario en la sesión
+                req.session.emailUsuario = usuario.email; // guarda el email del usuario en la sesión
+
+                console.log('Email guardado en sesión:', req.session.emailUsuario);  // Confirmación
+
+
                 res.json({
                     "idUsuario": usuario.id,
                     "categoria": usuario.id_categoriaPermiso,

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel General</title>
+    <link rel="stylesheet" href="/public/css/panel-admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="contenedor-flex">
+        <div class="contenedor-barra-lateral">
+            <!-- Mostrar el menú correspondiente basado en el idCategoriaUsuario -->
+            <% if (categoria  === 1) { %>
+                <%- include('../commons/menu-admin') %> <!-- Menú para administradores -->
+            <% } else if (categoria  === 3) { %>
+                <%- include('../commons/menu-secretarias') %> <!-- Menú para secretarias -->
+            <% } else if (categoria === 2) { %>
+                <%- include('../commons/menu-medicos') %> <!-- Menú para médicos -->
+            <% } else { %>
+                <p>No tienes permisos para ver este contenido.</p>
+            <% } %>
+        </div>
+        <div class="contenedor-panel-general">
+            <h1>Bienvenida  <%= nombreUsuario %>  al <br> Centro Médico Villarino</h1>
+            <div class="botones-panel">
+                <a href="pacientes/agregar/0">Agregar Paciente</a>
+                <a href="turnos/agregar/0">Agendar Turno</a>
+                <a href="" class="generar-turnos">Generar Turnos</a>
+            </div>
+            <div class="contenedores-previews-medicos">
+                <div class="listado-medicos-general">
+                    <h4>Médicos</h4>
+                    <table class="table table-striped table-bordered border rounded shadow-lg">
+                        <thead>
+                            <tr>
+                                <th class="col">ID</th>
+                                <th class="col">Nombre</th>
+                                <th class="col">Especialidad</th>
+                                <th class="col">Teléfono</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-medicos">
+                            <% medicos.forEach(function(medico) { %>
+                                <tr>
+                                    <td class="contenedor-id"><%= medico.id %></td>
+                                    <td class="contenedor-nombre"><%= medico.nombre_medico %></td>
+                                    <td><%= medico.nombre_especialidad %></td>
+                                    <td><%= medico.telefono %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="buscador-coberturas">
+                    <h4>Buscar Obra Social</h4>
+                    <p>Seleccione una cobertura médica para visualizar listado de médicos asociados a la misma.</p>
+                    <select id="cobertura" name="cobertura" class="form-select" required>
+                        <option value="" selected>Buscar cobertura...</option>
+                        <% if (obrasSociales && obrasSociales.length > 0) { %>
+                            <% obrasSociales.forEach(function(obra) { %>
+                                <option value="<%= obra.id %>"><%= obra.nombre %></option>
+                            <% }); %>
+                        <% } else { %>
+                            <option disabled>No hay obras sociales disponibles en este momento</option>
+                        <% } %>
+                    </select>
+                    <div class="listado-medicos-coberturas" id="listado-medicos-obras-sociales">
+                        <!-- Listado de médicos se actualizará aquí -->
+                    </div>
+                </div>
+            </div>
+            <div class="listado-turnos-general">
+                <h4>Turnos</h4>
+                <form id="buscador" class="d-flex mb-4 buscar-turno">
+                    <input type="text" id="buscador-turnos" placeholder="Buscar pacientes o médicos..." class="form-control me-2"/>
+                </form>
+                <table class="table table-striped table-bordered border rounded shadow-lg">
+                    <thead>
+                        <tr>
+                            <th class="col">ID</th>
+                            <th class="col">Médico</th>
+                            <th class="col">Paciente</th>
+                            <th class="col">Fecha</th>
+                            <th class="col">Hora</th>
+                            <th class="col">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-turnos">
+                        <% turnos.forEach(function(turno) { %>
+                            <tr>
+                                <td><%= turno.turno_id %></td>
+                                <td><%= turno.medico_nombre %></td>
+                                <td><%= turno.paciente_nombre %></td>
+                                <% let date = new Date(turno.fecha_hora) %>
+                                <td><%= date.getDate() %>/<%= date.getMonth() + 1 %>/<%= date.getFullYear() %></td>
+                                <td><%= date.getHours() %>:<%= String(date.getMinutes()).padStart(2, '0') %></td>
+                                <td><%= turno.estado_nombre %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <% if (turnos.length === 0) { %>
+                    <p>No hay turnos disponibles en este momento.</p>
+                <% } %>
+            </div>
+            
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#cobertura').select2({
+                placeholder: "Escribe aquí",
+                allowClear: true,
+                width: '100%',
+                minimumInputLength: 0,
+                matcher: function(params, data) {
+                    if ($.trim(params.term) === '') {
+                        return data;
+                    }
+                    if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) === 0) {
+                        return data;
+                    }
+                    return null;
+                }
+            });
+
+            $('#cobertura').on('change', function() {
+                const obraSocialId = $(this).val();
+                fetch(`/medicos/por-obra-social/${obraSocialId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const medicosContainer = document.getElementById('tabla-medicos');
+                        medicosContainer.innerHTML = ''; // Limpiar el contenedor de médicos
+                        if (data.length > 0) {
+                            data.forEach(medico => {
+                                medicosContainer.innerHTML += `
+                                    <tr>
+                                        <td class="contenedor-id">${medico.id}</td>
+                                        <td class="contenedor-nombre">${medico.nombre_medico}</td>
+                                        <td>${medico.nombre_especialidad}</td>
+                                        <td>${medico.telefono}</td>
+                                    </tr>
+                                `;
+                            });
+                        } else {
+                            medicosContainer.innerHTML = '<tr><td colspan="4">No hay médicos disponibles para esta obra social.</td></tr>';
+                        }
+                    })
+                    .catch(error => {
+                        const medicosContainer = document.getElementById('tabla-medicos');
+                        medicosContainer.innerHTML = '<tr><td colspan="4">Error al cargar los médicos.</td></tr>';
+                    });
+            });
+
+        });
+
+
+        $(document).ready(function() { //Escucha el evento input en el campo de búsqueda y ejecuta la función cada vez que se ingresa texto.
+            $('#buscador-turnos').on('input', function() {
+                let valorBusqueda = $(this).val().toLowerCase();
+        
+                $('#tabla-turnos tr').filter(function() {
+                    $(this).toggle(
+                        $(this).find('td:nth-child(2)').text().toLowerCase().indexOf(valorBusqueda) > -1 || // Buscar por médico
+                        $(this).find('td:nth-child(3)').text().toLowerCase().indexOf(valorBusqueda) > -1    // Buscar por paciente
+                    );
+                });
+            });
+        });
+        
+
+        
+    </script>
+</body>
+</html>

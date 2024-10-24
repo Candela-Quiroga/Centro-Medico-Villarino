@@ -1,37 +1,68 @@
 <!--editarUsuario.ejs-->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Editar Usuario</title>
-    </head>
+    
+    <!--HEAD-->
+    <%- include('../commons/head-usuarios') %>
+
     <body>
-        <h1>Editar usuarios</h1>
-        <div class="container">
-            <div>
+        <div class="contenedor-flex">
+            <div class="contenedor-barra-lateral">
+                <!-- Mostrar el menú correspondiente basado en el idCategoriaUsuario -->
+                <% if (categoria  === 1) { %>
+                    <%- include('../commons/menu-admin') %> <!-- Menú para administradores -->
+                <% } else if (categoria  === 3) { %>
+                    <%- include('../commons/menu-secretarias') %> <!-- Menú para secretarias -->
+                <% } else if (categoria === 2) { %>
+                    <%- include('../commons/menu-medicos') %> <!-- Menú para médicos -->
+                <% } else { %>
+                    <p>No tienes permisos para ver este contenido.</p>
+                <% } %>
+            </div>
+
+            <div class="contenedor-editar">
+                <div class="container contenedor-formulario-editar">
+                    <h1>Editar usuarios</h1>
+                    <div class="formulario-editar">
+                        
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input id="usuario_nombre" value="<%= usuario.nombre %>" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input id="usuario_email" value="<%= usuario.email %>" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input id="usuario_password" type="password" value="<%= usuario.id === 0 ? '':'*******' %>" class="form-control">
+                        </div>
+                        
+
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="usuario_categoria" class="form-select"> 
+                                    <% categorias.forEach(function(category) { %>
+                                    <option value="<%= category.id %>" <%= (category.id === usuario.categoria) ? 'selected' : '' %> >
+                                        <%= category.nombre %>
+                                    </option>
+                                <% }) %>
+                            </select>            
+                        </div>
+                        
+                        <div class="botones">
+                            <button type="button" class="btn btn-guardar" id="guardar">Guardar Usuario</button>
+                            <a href="/usuarios" class="btn btn-cancelar">Cancelar</a>
+                        </div>
+                        
+                    </div>
+                </div>
                 
-                <label>Nombre</label>
-                <input id="usuario_nombre" value="<%= usuario.nombre %>">
-
-                <label>Email</label>
-                <input id="usuario_email" value="<%= usuario.email %>">
-
-                <label>Password</label>
-                <input id="usuario_password" type="password" value="<%= usuario.id === 0 ? '':'*******' %>">
-
-                <label>Categoria</label>
-                <select id="usuario_categoria"> 
-                    <% categorias.forEach(function(category) { %>
-                        <option value="<%= category.id %>" <%= (category.id === usuario.categoria) ? 'selected' : '' %> >
-                            <%= category.nombre %>
-                        </option>
-                    <% }) %>
-                </select>            
-                <button type="button" class="btn-guardar" id="guardar">Guardar Usuario</button>
-                <a href="/usuarios">Cancelar</a>
             </div>
         </div>
+        
         <script>
             const botonGuardar = document.querySelector("#guardar");
 

@@ -1,66 +1,106 @@
-<!--listado.ejs-->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Listado de Usuarios</title>
-        <link rel="stylesheet" href="/public/css/listadoUsuarios.css">
-        <!-- Tipografía "Montserrat" de Google Fonts que vamos a usar en todo el sitio -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <link rel="icon" href="/public/img/Icono redondeado CMV .png" type="image/x-icon"> <!--icono al lado del nombre del documento en la página-->
-    </head>
-    <header>
-        <div class="agrego">
-            <div id="btn-agregar" class="btn-agrega"><a href="/usuario/agregar/0">Crear Usuario</a></div> <!--Aca creo el usuario de cero, aparece un boton para crearlo-->
-            <div id="btn-logout" class="btn-logout"><a href="/logout">Cerrar sesión</a></div>
-        </div>
-    </header>
-    <body>
-        <h1>Listado de Usuarios</h1>
-        <div class="contenedor-usuarios">
-            <table>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Categoria</th>
-                        <th>Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% usuarios.forEach(function(user) { %>
-                        <tr>
-                            <td><%= user.id %></td>
-                            <td><%= user.nombre %></td>
-                            <td><%= user.email %></td>
-                            <td><%= user.categoria %></td>
-                            <td>
-                                <button class="btn-editar"><a href="/usuario/editar/<%= user.id%>">Editar</a></button>
-                                <button class="btn-borrar" data-id="<%= user.id %>">Eliminar</button>
-                            </td>
-                        </tr>
-                    <% }); %>   
-                </tbody>
-            </table>
+
+<!--HEAD-->
+<%- include('../commons/head-usuarios') %>
+
+<body>
+    <div class="d-flex">
+        <div class="contenedor-barra-lateral">
+            <!-- Mostrar el menú correspondiente basado en el idCategoriaUsuario -->
+            <% if (categoria === 1) { %>
+                <%- include('../commons/menu-admin') %> <!-- Menú para administradores -->
+            <% } else if (categoria === 3) { %>
+                <%- include('../commons/menu-secretarias') %> <!-- Menú para secretarias -->
+            <% } else if (categoria === 2) { %>
+                <%- include('../commons/menu-medicos') %> <!-- Menú para médicos -->
+            <% } else { %>
+                <p>No tienes permisos para ver este contenido.</p>
+            <% } %>
         </div>
 
-        <script>
-            document.querySelectorAll('.borrarUsuario').forEach(button => {
-            button.addEventListener('click', async() => {
+        <div class="contenedor-listado flex-fill">
+            <div class="contenedor mt-5 container-listado-usuarios container">
+                <h1 class="text-center my-4">Listado de Usuarios</h1>
+
+                <!-- Botones de filtro -->
+                <div class="text-center mb-4">
+                    <button class="btn filtro-btn" data-categoria="todos">Todos</button>
+                    <button class="btn filtro-btn" data-categoria="Administradores">Administradores</button>
+                    <button class="btn filtro-btn" data-categoria="Médicos">Médicos</button>
+                    <button class="btn filtro-btn" data-categoria="Secretarias">Secretarias</button>
+                </div>
+
+                <div class="contenedor-usuarios">
+                    <table class="table table-striped table-bordered border rounded shadow-lg">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Categoría</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-usuarios">
+                            <% usuarios.forEach(function(user) { %>
+                                <tr class="usuario-fila" data-categoria="<%= user.categoria %>">
+                                    <td><%= user.id %></td>
+                                    <td><%= user.nombre %></td>
+                                    <td><%= user.email %></td>
+                                    <td><%= user.categoria %></td>
+                                    <td>
+                                        <a class="btn btn-editar" href="/usuario/editar/<%= user.id %>">Editar</a>
+                                        <button class="btn btn-eliminar borrarUsuario" data-id="<%= user.id %>">Eliminar</button>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="btn-agregar" class="btn btn-agregar">
+                    <a href="/usuario/agregar/0">Crear Nuevo Usuario</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Funcionalidad para eliminar usuarios
+        document.querySelectorAll('.borrarUsuario').forEach(button => {
+            button.addEventListener('click', async () => {
                 const userId = button.getAttribute('data-id');
                 if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
                     const response = await fetch(`/usuario/eliminar/${userId}`, {
                         method: 'DELETE'
-                    });     
-                    location.reload(); 
+                    });
+                    location.reload();
                 }
             });
         });
-        </script>
 
-    </body>
+        // Funcionalidad de filtrado de usuarios
+        document.querySelectorAll('.filtro-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const categoriaSeleccionada = button.getAttribute('data-categoria');
+                const filasUsuarios = document.querySelectorAll('.usuario-fila');
+
+                filasUsuarios.forEach(fila => {
+                    const categoriaFila = fila.getAttribute('data-categoria');
+                    if (categoriaSeleccionada === "todos" || categoriaFila === categoriaSeleccionada) {
+                        fila.style.display = ""; // Mostrar fila
+                    } else {
+                        fila.style.display = "none"; // Ocultar fila
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
 </html>

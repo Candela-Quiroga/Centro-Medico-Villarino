@@ -7,7 +7,16 @@
 <body>
     <div class="contenedor-flex">
         <div class="contenedor-barra-lateral">
-            <%- include('../commons/menu-secretarias') %>
+            <!-- Mostrar el menú correspondiente basado en el idCategoriaUsuario -->
+            <% if (categoria  === 1) { %>
+                <%- include('../commons/menu-admin') %> <!-- Menú para administradores -->
+            <% } else if (categoria  === 3) { %>
+                <%- include('../commons/menu-secretarias') %> <!-- Menú para secretarias -->
+            <% } else if (categoria === 2) { %>
+                <%- include('../commons/menu-medicos') %> <!-- Menú para médicos -->
+            <% } else { %>
+                <p>No tienes permisos para ver este contenido.</p>
+            <% } %>
         </div>
     
         <div class="contenedor-listado-agregar">

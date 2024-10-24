@@ -21,8 +21,6 @@ class MedicoController {
             // Renderizamos la vista con los médicos y sus horarios
             res.render("medicos/listarMedicos", {
                 medicos: medicos,
-                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
-                emailUsuario: req.session.emailUsuario
             });
         });
     }
@@ -39,8 +37,6 @@ class MedicoController {
                 medico: {id: 0}, //estamos creando un nuevo médico, por eso id=0
                 especialidades: especialidades,
                 usuarios: usuarios,
-                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
-                emailUsuario: req.session.emailUsuario
             });
         } catch (err) {
             console.error('Error al cargar la información:', err);
@@ -72,8 +68,6 @@ class MedicoController {
             medico: medico,
             especialidades: especialidades,
             usuarios: usuarios,
-            nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
-            emailUsuario: req.session.emailUsuario
         });
     } catch (err) {
         console.error('Error al cargar la información:', err);

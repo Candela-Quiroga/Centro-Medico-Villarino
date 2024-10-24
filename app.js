@@ -4,6 +4,10 @@ const session = require('express-session'); //importa el middleware para manejo 
 const app = express(); //variable donde guardamos
 const port = 3000; //puerto donde corre la app
 
+//importo middleware para guardar los datos de inicio de sesión
+const sessionData = require('./middleware/sessionData');
+
+
 const rutasUsuarios = require('./routes/manejoUsuariosRoute'); //Para acceder a ABML de usuarios 
 const rutasLogin = require('./routes/loginRoute'); //para acceder a login
 const rutasTurnos = require('./routes/turnosRoute'); //importo las rutas para los turnos
@@ -24,6 +28,9 @@ app.use(session({
         secure:false
     }
 }));
+
+// Middleware para manejar los datos de sesión
+app.use(sessionData);
 
 app.use(express.urlencoded({
     extended: true, //es obligatorio para q funcione

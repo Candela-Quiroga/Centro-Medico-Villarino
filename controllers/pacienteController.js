@@ -20,8 +20,6 @@ class PacienteController {
             }
             res.render("../views/pacientes/listarPacientes", {
                 pacientes: pacientes,
-                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
-                emailUsuario: req.session.emailUsuario
             }); //Antes no me funcionaba por no pasar la variable pacientes como parametro en el render
         });
     };
@@ -49,9 +47,7 @@ class PacienteController {
     
             // Renderizar la vista de edición con los datos del paciente y las obras sociales
             res.render("../views/pacientes/editarPacientes", {
-                paciente, obrasSociales,
-                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
-                emailUsuario: req.session.emailUsuario
+                paciente, obrasSociales
             });
     
         } catch (error) {
@@ -73,9 +69,7 @@ class PacienteController {
 
             // Renderizar la vista de agregar paciente
             res.render("../views/pacientes/agregarPacientes", {
-                paciente: pacienteModel.obtenerPacienteBase(), obrasSociales,
-                nombreUsuario: req.session.nombreUsuario, //VER COMO HACER QUE ESTO SEA MENOS REPETITIVO. HACER UN MIDDLEWARE.
-                emailUsuario: req.session.emailUsuario
+                paciente: pacienteModel.obtenerPacienteBase(), obrasSociales
             });
         } catch (error) {
             console.error("Error al mostrar el formulario de agregar paciente:", error);

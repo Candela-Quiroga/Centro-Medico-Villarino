@@ -53,8 +53,6 @@ class PanelSecretariaController {
                         medicos: medicos,
                         obrasSociales: obrasSociales,
                         turnos: turnos, // Pasar los turnos a la vista
-                        nombreUsuario: req.session.nombreUsuario, // Pasa el nombre del usuario a la vista
-                        emailUsuario: req.session.emailUsuario
                     });
                 })
                 .catch(error => {

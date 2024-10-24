@@ -1,14 +1,10 @@
-/* VARIABLES */
-
-:root { /*es para no tener que escribir los códigos de color en cada propiedad*/
+:root {
     --AZUL_OSCURO: #0a3869;
     --AZUL_CLARO: #165bba;
     --VERDE_AGUA: #38b5a9;
     --DEGRADADO: linear-gradient(90deg, var(--VERDE_AGUA), var(--AZUL_CLARO));
     --DEGRADADOREVES: linear-gradient(90deg, var(--AZUL_CLARO), var(--VERDE_AGUA));
 }
-
-/* ---------------------------- LOGIN -------------------------------------------*/
 
 * {
     margin: 0;
@@ -21,80 +17,137 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; /*para que el body siempre ocupe toda la vista de la pantalla, como mínimo*/
+    min-height: 100vh;
     background: url('/public/img/fondo-login.jpg') no-repeat;
     background-size: cover;
     background-position: bottom;
 }
 
-.contenedor-login{
+.contenedor-login {
     width: 420px;
+    position: relative; /* Posicionamiento relativo para que el logo se superponga */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(70px);
+    backdrop-filter: blur(30px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    color: #fff; 
+    color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
+    margin-top: 50px; 
 }
 
+.contenedor-login .contenedor-logo {
+    width: 70px; 
+    height: 70px;
+    position: absolute;
+    top: -7%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    border-radius: 50%; 
+    z-index: 10;
+    background: var(--DEGRADADO); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-login .contenedor-logo .logo {
+    width: 68px;
+    height: 68px;
+    background-image: url('/public/img/Logo\ Blanco.png');
+    background-size: contain; 
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%; 
+}
+
+
 .contenedor-login h1 {
-    margin: 1em 0;
+    margin: .8em 0 1.5em 0;
     color: var(--AZUL_OSCURO);
-    font-weight: 500;
+    font-weight: 550;
     text-align: center;
     text-shadow: 0 4px 8px rgba(0, 1, 1, 0.1);
 }
 
-.contenedor-login .contenedor-input{
+.contenedor-input {
     position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 20px 0;
-    color: gray;
+    width: 95%;
+    margin: 20px 0 1em 0;
 }
 
-.contenedor-input input{
+.contenedor-input input {
     width: 100%;
-    height: 100%;
+    padding: 15px 15px 15px 45px;
     background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid rgb(10, 55, 104);
-    border-radius: 40px;
-    font-size: 13px;
-    color: #ffff;
-    padding: 20px 45px 20px 20px;
+    border: 2px solid var(--AZUL_OSCURO);
+    border-radius: 10px;
+    color: var(--AZUL_OSCURO);
+    font-size: 14px;
 }
 
-.contenedor-input input::placeholder{
-    color: #ffff;
+.contenedor-input .icono {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--AZUL_OSCURO);
+    font-size: 18px;
 }
 
-body label{
-    font-weight: 500;
+.contenedor-input input::placeholder {
+    color: var(--AZUL_OSCURO);
+}
+
+label {
+    font-weight: 600;
     color: var(--AZUL_OSCURO);
     font-size: 16px;
-    width: 100%; 
+    width: 100%;
 }
 
-.contenedor-login .enviar{
-    width: 100%;
+.enviar {
+    width: 50%;
     margin: 25px 0;
     max-width: 250px;
-    background-color: var(--VERDE_AGUA);
+    font-size: 15px;
+    color: #fff;
+    font-weight: 500;
+    background: var(--DEGRADADO);
     padding: 12px 18px;
     border-radius: 25px 0 25px 0;
-    transition: all .3s;
+    border: none;
+    transition: all 0.3s;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.contenedor-login .enviar:hover{
-    background-color: var(--AZUL_CLARO);
+.enviar:hover {
+    background: var(--AZUL_CLARO);
     color: white;
+}
+
+
+/* Estilo del checkbox para recordar sesión */
+.contenedor-guardar-sesion {
+    display: flex;
+    align-items: center;
+    margin-top: 2em;
+    color: var(--AZUL_OSCURO);
+}
+
+.contenedor-guardar-sesion input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.contenedor-guardar-sesion label {
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
 }

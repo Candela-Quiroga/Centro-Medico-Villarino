@@ -33,7 +33,6 @@ class loginController {
 
                 console.log('Email guardado en sesión:', req.session.emailUsuario);  // Confirmación
 
-
                 res.json({
                     "idUsuario": usuario.id,
                     "categoria": usuario.id_categoriaPermiso,

@@ -17,6 +17,7 @@ const rutasWeb = require('./routes/webRoute'); //importo rutas para home, nosotr
 const rutasHistoriaClinica = require('./routes/historiaClinicaRoute');
 const rutasHorarios = require('./routes/horariosRoute');
 const rutasPanelSecretaria = require('./routes/panelSecretariasRoute');
+const rutasPanelAdmin = require('./routes/panelAdminRoute');
 
 
 //middleware
@@ -54,6 +55,8 @@ app.use('/', rutasWeb);
 app.use('/', rutasHistoriaClinica);
 app.use('/', rutasHorarios);
 app.use('/', rutasPanelSecretaria);
+app.use('/', rutasPanelAdmin);
+
 
 //muestra el puerto que escucha el server
 app.listen(port, () => { 

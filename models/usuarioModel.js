@@ -64,7 +64,11 @@ class UsuarioModel{
                 usuarios.id, 
                 usuarios.nombre, 
                 usuarios.email, 
-                categoria_permiso.nombre AS categoria
+                CASE 
+                    WHEN categoria_permiso.id = 1 THEN 'Administradores' 
+                    WHEN categoria_permiso.id = 2 THEN 'Médicos' 
+                    WHEN categoria_permiso.id = 3 THEN 'Secretarias' 
+                END AS categoria
             FROM usuarios
             JOIN categoria_permiso ON usuarios.id_categoriaPermiso = categoria_permiso.id
         `;
@@ -75,6 +79,7 @@ class UsuarioModel{
             callback(null, results);
         });
     }
+    
 
     crear(datos, callback) {
         const sql = "INSERT INTO usuarios (nombre, email, password, id_categoriaPermiso) VALUES (?, ?, ?, ?)";

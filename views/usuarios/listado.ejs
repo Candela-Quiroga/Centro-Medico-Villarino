@@ -25,10 +25,11 @@
 
                 <!-- Botones de filtro -->
                 <div class="text-center mb-4">
-                    <button class="btn filtro-btn" data-categoria="todos">Todos</button>
+                    <button class="btn filtro-btn seleccionado" data-categoria="todos">Todos</button>
                     <button class="btn filtro-btn" data-categoria="Administradores">Administradores</button>
                     <button class="btn filtro-btn" data-categoria="Médicos">Médicos</button>
                     <button class="btn filtro-btn" data-categoria="Secretarias">Secretarias</button>
+
                 </div>
 
                 <div class="contenedor-usuarios">
@@ -48,7 +49,9 @@
                                     <td><%= user.id %></td>
                                     <td><%= user.nombre %></td>
                                     <td><%= user.email %></td>
-                                    <td><%= user.categoria %></td>
+                                    <td>
+                                        <%= user.categoria %>
+                                    </td>
                                     <td>
                                         <a class="btn btn-editar" href="/usuario/editar/<%= user.id %>">Editar</a>
                                         <button class="btn btn-eliminar borrarUsuario" data-id="<%= user.id %>">Eliminar</button>
@@ -56,6 +59,7 @@
                                 </tr>
                             <% }); %>
                         </tbody>
+                        
                     </table>
                 </div>
 
@@ -85,11 +89,13 @@
         });
 
         // Funcionalidad de filtrado de usuarios
+        // Funcionalidad de filtrado de usuarios
         document.querySelectorAll('.filtro-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const categoriaSeleccionada = button.getAttribute('data-categoria');
                 const filasUsuarios = document.querySelectorAll('.usuario-fila');
-
+                
+                // Filtrar las filas según la categoría seleccionada
                 filasUsuarios.forEach(fila => {
                     const categoriaFila = fila.getAttribute('data-categoria');
                     if (categoriaSeleccionada === "todos" || categoriaFila === categoriaSeleccionada) {
@@ -98,8 +104,18 @@
                         fila.style.display = "none"; // Ocultar fila
                     }
                 });
+                
+                // Remover la clase 'seleccionado' de todos los botones
+                document.querySelectorAll('.filtro-btn').forEach(btn => {
+                    btn.classList.remove('seleccionado');
+                });
+                
+                // Agregar la clase 'seleccionado' al botón clicado
+                button.classList.add('seleccionado');
             });
         });
+
+        
     </script>
 </body>
 

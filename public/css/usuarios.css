@@ -66,6 +66,13 @@ body {
     transition: all .3s ease ;
 }
 
+
+.filtro-btn.seleccionado {
+    background-color: var(--AZUL_CLARO); /* Fondo azul cuando esté seleccionado */
+    color: white; /* Texto blanco cuando esté seleccionado */
+}
+
+
 .container .filtro-btn:hover{
     background-color: var(--AZUL_CLARO);
     color: white;
